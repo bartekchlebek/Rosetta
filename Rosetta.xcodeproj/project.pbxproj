@@ -91,13 +91,13 @@
 		0DE919CC1A5A014C00FE94DE /* Rosetta */ = {
 			isa = PBXGroup;
 			children = (
-				0DE919E61A5A056100FE94DE /* Bridgeable.swift */,
+				0DE919EC1A5A056100FE94DE /* Rosetta.swift */,
+				0DE919EA1A5A056100FE94DE /* Operators.swift */,
 				0DE919E71A5A056100FE94DE /* Bridging.swift */,
+				0DE919E61A5A056100FE94DE /* Bridgeable.swift */,
 				0DE919E81A5A056100FE94DE /* BridgingBuiltin.swift */,
 				0DE919E91A5A056100FE94DE /* Logs.swift */,
-				0DE919EA1A5A056100FE94DE /* Operators.swift */,
 				0DE919EB1A5A056100FE94DE /* Protocols.swift */,
-				0DE919EC1A5A056100FE94DE /* Rosetta.swift */,
 				0DE919CF1A5A014C00FE94DE /* Rosetta.h */,
 				0DE919CD1A5A014C00FE94DE /* Supporting Files */,
 			);
