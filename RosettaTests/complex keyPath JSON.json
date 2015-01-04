@@ -1,0 +1,69 @@
+{
+  "result"  :  {
+    "object"  :  {
+      "i3-key"  :  {
+        "i3"  :  "http://www.wp.pl"
+      },
+      "b1-key"  :  1,
+      "f1-key"  :  "http://www.wp.pl",
+      "c2-key"  :  true,
+      "g2-key"  :  {
+        "a1-key"  :  "a1-value"
+      },
+      "d3-key"  :  [
+                    "d3-1",
+                    "d3-2",
+                    "d3-3"
+                    ],
+      "h3-key"  :  [
+                    "http://www.wp.pl"
+                    ],
+      "a1-key"  :  "a1-value",
+      "e1-key"  :  {
+        "e1"  :  "e1-value"
+      },
+      "i1-key"  :  {
+        "i1"  :  "http://www.wp.pl"
+      },
+      "b2-key"  :  2,
+      "f2-key"  :  "http://www.wp.pl",
+      "c3-key"  :  true,
+      "g3-key"  :  {
+        "a1-key"  :  "a1-value"
+      },
+      "d1-key"  :  [
+                    "d1-1",
+                    "d1-2",
+                    "d1-3"
+                    ],
+      "h1-key"  :  [
+                    "http://www.wp.pl"
+                    ],
+      "a2-key"  :  "a2-value",
+      "e2-key"  :  {
+        "e2"  :  "e2-value"
+      },
+      "i2-key"  :  {
+        "i2"  :  "http://www.wp.pl"
+      },
+      "b3-key"  :  3,
+      "f3-key"  :  "http://www.wp.pl",
+      "c1-key"  :  true,
+      "g1-key"  :  {
+        "a1-key"  :  "a1-value"
+      },
+      "d2-key"  :  [
+                    "d2-1",
+                    "d2-2",
+                    "d2-3"
+                    ],
+      "h2-key"  :  [
+                    "http://www.wp.pl"
+                    ],
+      "a3-key"  :  "a3-value",
+      "e3-key"  :  {
+        "e3"  :  "e3-value"
+      }
+    }
+  }
+}

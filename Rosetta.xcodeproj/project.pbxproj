@@ -10,6 +10,16 @@
 		0DE919D01A5A014C00FE94DE /* Rosetta.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DE919CF1A5A014C00FE94DE /* Rosetta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0DE919D61A5A014D00FE94DE /* Rosetta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE919CA1A5A014C00FE94DE /* Rosetta.framework */; };
 		0DE919DD1A5A014D00FE94DE /* RosettaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */; };
+		0DE919ED1A5A056100FE94DE /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E61A5A056100FE94DE /* Bridgeable.swift */; };
+		0DE919EE1A5A056100FE94DE /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E71A5A056100FE94DE /* Bridging.swift */; };
+		0DE919EF1A5A056100FE94DE /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E81A5A056100FE94DE /* BridgingBuiltin.swift */; };
+		0DE919F01A5A056100FE94DE /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E91A5A056100FE94DE /* Logs.swift */; };
+		0DE919F11A5A056100FE94DE /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EA1A5A056100FE94DE /* Operators.swift */; };
+		0DE919F21A5A056100FE94DE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EB1A5A056100FE94DE /* Protocols.swift */; };
+		0DE919F31A5A056100FE94DE /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EC1A5A056100FE94DE /* Rosetta.swift */; };
+		0DE919F71A5A05C600FE94DE /* complex JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F41A5A05C600FE94DE /* complex JSON.json */; };
+		0DE919F81A5A05C600FE94DE /* complex keyPath JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */; };
+		0DE919F91A5A05C600FE94DE /* RosettaTestsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +39,16 @@
 		0DE919D51A5A014D00FE94DE /* RosettaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RosettaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE919DB1A5A014D00FE94DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosettaTests.swift; sourceTree = "<group>"; };
+		0DE919E61A5A056100FE94DE /* Bridgeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bridgeable.swift; sourceTree = "<group>"; };
+		0DE919E71A5A056100FE94DE /* Bridging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
+		0DE919E81A5A056100FE94DE /* BridgingBuiltin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BridgingBuiltin.swift; sourceTree = "<group>"; };
+		0DE919E91A5A056100FE94DE /* Logs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
+		0DE919EA1A5A056100FE94DE /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		0DE919EB1A5A056100FE94DE /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		0DE919EC1A5A056100FE94DE /* Rosetta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rosetta.swift; sourceTree = "<group>"; };
+		0DE919F41A5A05C600FE94DE /* complex JSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "complex JSON.json"; sourceTree = "<group>"; };
+		0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "complex keyPath JSON.json"; sourceTree = "<group>"; };
+		0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RosettaTestsClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +91,13 @@
 		0DE919CC1A5A014C00FE94DE /* Rosetta */ = {
 			isa = PBXGroup;
 			children = (
+				0DE919E61A5A056100FE94DE /* Bridgeable.swift */,
+				0DE919E71A5A056100FE94DE /* Bridging.swift */,
+				0DE919E81A5A056100FE94DE /* BridgingBuiltin.swift */,
+				0DE919E91A5A056100FE94DE /* Logs.swift */,
+				0DE919EA1A5A056100FE94DE /* Operators.swift */,
+				0DE919EB1A5A056100FE94DE /* Protocols.swift */,
+				0DE919EC1A5A056100FE94DE /* Rosetta.swift */,
 				0DE919CF1A5A014C00FE94DE /* Rosetta.h */,
 				0DE919CD1A5A014C00FE94DE /* Supporting Files */,
 			);
@@ -89,6 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */,
+				0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */,
+				0DE919F41A5A05C600FE94DE /* complex JSON.json */,
+				0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */,
 				0DE919DA1A5A014D00FE94DE /* Supporting Files */,
 			);
 			path = RosettaTests;
@@ -199,6 +229,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DE919F71A5A05C600FE94DE /* complex JSON.json in Resources */,
+				0DE919F81A5A05C600FE94DE /* complex keyPath JSON.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +241,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DE919ED1A5A056100FE94DE /* Bridgeable.swift in Sources */,
+				0DE919F11A5A056100FE94DE /* Operators.swift in Sources */,
+				0DE919EE1A5A056100FE94DE /* Bridging.swift in Sources */,
+				0DE919F31A5A056100FE94DE /* Rosetta.swift in Sources */,
+				0DE919F21A5A056100FE94DE /* Protocols.swift in Sources */,
+				0DE919F01A5A056100FE94DE /* Logs.swift in Sources */,
+				0DE919EF1A5A056100FE94DE /* BridgingBuiltin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DE919DD1A5A014D00FE94DE /* RosettaTests.swift in Sources */,
+				0DE919F91A5A05C600FE94DE /* RosettaTestsClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +359,7 @@
 		0DE919E11A5A014D00FE94DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -328,12 +369,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		0DE919E21A5A014D00FE94DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

@@ -2,29 +2,21 @@ import Foundation
 import XCTest
 import Rosetta
 
-func jsonFrom(data: NSData) -> NSDictionary {
-  return NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
-}
-
-func dataFrom(json: [String: AnyObject]) -> NSData {
-  return NSJSONSerialization.dataWithJSONObject(json, options: nil, error: nil)!
-}
-
-func ==(lhs: SubObject, rhs: SubObject) -> Bool {
+func ==(lhs: SubObjectClass, rhs: SubObjectClass) -> Bool {
   return lhs.a1 == rhs.a1
 }
 
-struct SubObject: JSONConvertible, Equatable {
+class SubObjectClass: JSONConvertibleClass, Equatable {
   var a1: String = "x"
-  init () {
+  required init () {
     
   }
-  static func map(json: Rosetta, inout object: SubObject) {
+  class func map(json: Rosetta, object: SubObjectClass) {
     object.a1 <- json["a1-key"]
   }
 }
 
-struct Object: JSONConvertible {
+class ObjectClass: JSONConvertibleClass {
   var a1: String  = "x"
   var a2: String! = "x"
   var a3: String? = "x"
@@ -49,9 +41,9 @@ struct Object: JSONConvertible {
   var f2: NSURL! = NSURL(string: "http://www.google.pl")!
   var f3: NSURL? = NSURL(string: "http://www.google.pl")!
   
-  var g1: SubObject  = SubObject()
-  var g2: SubObject! = SubObject()
-  var g3: SubObject? = SubObject()
+  var g1: SubObjectClass  = SubObjectClass()
+  var g2: SubObjectClass! = SubObjectClass()
+  var g3: SubObjectClass? = SubObjectClass()
   
   var h1: [NSURL]  = [NSURL(string: "http://www.google.pl")!]
   var h2: [NSURL]! = [NSURL(string: "http://www.google.pl")!]
@@ -61,11 +53,11 @@ struct Object: JSONConvertible {
   var i2: [String: NSURL]! = ["x": NSURL(string: "http://www.google.pl")!]
   var i3: [String: NSURL]? = ["x": NSURL(string: "http://www.google.pl")!]
   
-  init() {
+  required init() {
     
   }
   
-  static func map(json: Rosetta, inout object: Object) {
+  class func map(json: Rosetta, object: ObjectClass) {
     object.a1 <- json["a1-key"]
     object.a2 <- json["a2-key"]
     object.a3 <~ json["a3-key"]
@@ -104,13 +96,7 @@ struct Object: JSONConvertible {
   }
 }
 
-func complexJSON() -> NSData {
-  let bundle = NSBundle(forClass: RosettaTests.classForCoder())
-  let url = bundle.URLForResource("complex JSON", withExtension: "json")
-  return NSData(contentsOfURL: url!)!
-}
-
-class RosettaTests: XCTestCase {
+class RosettaClassTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
@@ -123,62 +109,62 @@ class RosettaTests: XCTestCase {
   }
   
   func testSimpleDecoder() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
       var name: String
       
-      init() {
+      required init() {
         name = "John"
       }
       
-      private static func map(json: Rosetta, inout object: Object) {
+      private class func map(json: Rosetta, object: ObjectClass) {
         object.name <- json["name"]
       }
     }
     
-    let object: Object? = Rosetta().decode(dataFrom(["name": "Bob"]))
+    let object: ObjectClass? = Rosetta().decode(dataFrom(["name": "Bob"]))
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testSimpleDecoderWithUnwrappedOptional() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
       var name: String!
       
-      init() {
+      required init() {
         
       }
       
-      private static func map(json: Rosetta, inout object: Object) {
+      private class func map(json: Rosetta, object: ObjectClass) {
         object.name <- json["name"]
       }
     }
     
-    let object: Object? = Rosetta().decode(dataFrom(["name": "Bob"]))
+    let object: ObjectClass? = Rosetta().decode(dataFrom(["name": "Bob"]))
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testSimpleDecoderWithOptional() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
       var name: String?
       
-      init() {
+      required init() {
         
       }
       
-      private static func map(json: Rosetta, inout object: Object) {
+      private class func map(json: Rosetta, object: ObjectClass) {
         object.name <~ json["name"]
       }
     }
     
-    let object: Object? = Rosetta().decode(dataFrom(Dictionary<String, AnyObject>()))
+    let object: ObjectClass? = Rosetta().decode(dataFrom(Dictionary<String, AnyObject>()))
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertTrue(object!.name == nil, "object.name should remain unmodified")
   }
   
   func testComplexDecoder() {
     let dictionary = complexJSON()
-    let object: Object? = Rosetta().decode(dictionary)
+    let object: ObjectClass? = Rosetta().decode(dictionary)
     
     XCTAssertTrue(object != nil, "object should exist")
     
@@ -206,15 +192,15 @@ class RosettaTests: XCTestCase {
     XCTAssertEqual(object!.f2, NSURL(string: "http://www.wp.pl")!)
     XCTAssertEqual(object!.f3!, NSURL(string: "http://www.wp.pl")!)
     
-    var subObject = SubObject(); subObject.a1 = "a1-value"
-    XCTAssertEqual(object!.g1, subObject)
-    XCTAssertEqual(object!.g2, subObject)
-    XCTAssertEqual(object!.g3!, subObject)
+    var subObjectClass = SubObjectClass(); subObjectClass.a1 = "a1-value"
+    XCTAssertEqual(object!.g1, subObjectClass)
+    XCTAssertEqual(object!.g2, subObjectClass)
+    XCTAssertEqual(object!.g3!, subObjectClass)
   }
   
   func testComplexEncoder() {
     let data = complexJSON()
-    let decoded: Object? = Rosetta().decode(data)
+    let decoded: ObjectClass? = Rosetta().decode(data)
     XCTAssertTrue(decoded != nil, "decoded object should exist")
     let encoded: NSData? = Rosetta().encode(decoded!)
     XCTAssertTrue(encoded != nil, "encoded object should exist")
@@ -225,48 +211,48 @@ class RosettaTests: XCTestCase {
   }
   
   func testFailingDecoder() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
       var name: String
       
-      init() {
+      required init() {
         name = "John"
       }
       
-      private static func map(json: Rosetta, inout object: Object) {
+      private class func map(json: Rosetta, object: ObjectClass) {
         object.name <- json["name"]
       }
     }
     
-    let object: Object? = Rosetta().decode(dataFrom(["name": 11]))
+    let object: ObjectClass? = Rosetta().decode(dataFrom(["name": 11]))
     XCTAssertTrue(object == nil, "object should not exist")
   }
   
   func testFailingDecoderWithError() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
       var name: String
       
-      init() {
+      required init() {
         name = "John"
       }
       
-      private static func map(json: Rosetta, inout object: Object) {
+      private class func map(json: Rosetta, object: ObjectClass) {
         object.name <- json["name"]
       }
     }
     
-    let object: Object? = Rosetta().decode(dataFrom(["name": 11]))
+    let object: ObjectClass? = Rosetta().decode(dataFrom(["name": 11]))
     XCTAssertTrue(object == nil, "object should not exist")
   }
   
   func testValidatedEncoder() {
-    struct Structure: JSONConvertible {
+    class Structure: JSONConvertibleClass {
       var a1: String = "x"
       
-      init() {
+      required init() {
         
       }
       
-      private static func map(json: Rosetta, inout object: Structure) {
+      private class func map(json: Rosetta, object: Structure) {
         object.a1 <- json["a1"] § {$0 == "a1"}
       }
     }
@@ -277,14 +263,14 @@ class RosettaTests: XCTestCase {
   }
   
   func testValidatedEncoder1() {
-    struct Structure: JSONConvertible {
+    class Structure: JSONConvertibleClass {
       var a1: String? = "x"
       
-      init() {
+      required init() {
         
       }
       
-      private static func map(json: Rosetta, inout object: Structure) {
+      private class func map(json: Rosetta, object: Structure) {
         object.a1 <~ json["a1"] § {$0 == "a1"}
       }
     }
@@ -296,65 +282,69 @@ class RosettaTests: XCTestCase {
   }
   
   func testKeyPathsDecoder() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
       var name: String
       
-      init() {
+      required init() {
         name = "John"
       }
       
-      private static func map(json: Rosetta, inout object: Object) {
+      private class func map(json: Rosetta, object: ObjectClass) {
         object.name <- json["result"]["name"]
       }
     }
     
-    let object: Object? = Rosetta().decode(dataFrom(["result": ["name": "Bob"]]))
+    let object: ObjectClass? = Rosetta().decode(dataFrom(["result": ["name": "Bob"]]))
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testKeyPathsEncoder() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
       var name: String
       
-      init() {
+      required init() {
         name = "John"
       }
       
-      private static func map(json: Rosetta, inout object: Object) {
+      private class func map(json: Rosetta, object: ObjectClass) {
         object.name <- json["result"]["name"]
       }
     }
     
-    let object: Object? = Rosetta().decode(dataFrom(["result": ["name": "Bob"]]))
+    let object: ObjectClass? = Rosetta().decode(dataFrom(["result": ["name": "Bob"]]))
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testRequiredOptionalType() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
+      var a1: String?
+      
+      required init() {
+        
+      }
+      
+      private class func map(json: Rosetta, object: ObjectClass) {
+        object.a1 <- json["a1"]
+      }
+    }
+    
+    let object: ObjectClass? = Rosetta().decode(dataFrom(["a2": "a2"]))
+    XCTAssertTrue(object == nil, "object should not exist")
+  }
+  
+  func testCustomMap() {
+    class ObjectClass {
       var a1: String?
       
       init() {
         
       }
-      
-      private static func map(json: Rosetta, inout object: Object) {
-        object.a1 <- json["a1"]
-      }
-    }
-    
-    let object: Object? = Rosetta().decode(dataFrom(["a2": "a2"]))
-    XCTAssertTrue(object == nil, "object should not exist")
-  }
-  
-  func testCustomMap() {
-    struct Object {
-      var a1: String?
     }
     let jsonData = dataFrom(["a1": "a1-value"])
-    var object = Object(a1: nil)
-    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (json, inout object: Object) -> () in
+    var object = ObjectClass()
+    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (json, object: ObjectClass) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(result == true, "result should be 'true'")
@@ -363,12 +353,17 @@ class RosettaTests: XCTestCase {
   }
   
   func testCustomMapFailing() {
-    struct Object {
+    class ObjectClass {
       var a1: String?
+      
+      init() {
+        
+      }
     }
     let jsonData = dataFrom(["a2": "garbage"])
-    var object = Object(a1: "a1-value")
-    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (json, inout object: Object) -> () in
+    var object = ObjectClass()
+    object.a1 = "a1-value"
+    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (json, object: ObjectClass) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(result == false, "result should be 'false'")
@@ -377,15 +372,15 @@ class RosettaTests: XCTestCase {
   }
   
   func testCreatableWithCustomMap() {
-    struct Object: Creatable {
+    class ObjectClass: Creatable {
       var a1: String?
       
-      init() {
+      required init() {
         
       }
     }
     let jsonData = dataFrom(["a1": "a1-value"])
-    let object = Rosetta().decode(jsonData, usingMap: { (json, inout object: Object) -> () in
+    let object = Rosetta().decode(jsonData, usingMap: { (json, object: ObjectClass) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(object != nil, "object should exist")
@@ -394,30 +389,30 @@ class RosettaTests: XCTestCase {
   }
   
   func testCreatableWithCustomMapFailing() {
-    struct Object: Creatable {
+    class ObjectClass: Creatable {
       var a1: String?
       
-      init() {
+      required init() {
         
       }
     }
     let jsonData = dataFrom(["a2": "garbage"])
-    let object = Rosetta().decode(jsonData, usingMap: { (json, inout object: Object) -> () in
+    let object = Rosetta().decode(jsonData, usingMap: { (json, object: ObjectClass) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(object == nil, "object should not exist")
   }
   
   func testCreatableWithCustomMapOptionalIgnored() {
-    struct Object: Creatable {
+    class ObjectClass: Creatable {
       var a1: String?
       
-      init() {
+      required init() {
         
       }
     }
     let jsonData = dataFrom(["a2": "garbage"])
-    let object = Rosetta().decode(jsonData, usingMap: { (json, inout object: Object) -> () in
+    let object = Rosetta().decode(jsonData, usingMap: { (json, object: ObjectClass) -> () in
       object.a1 <~ json["a1"]
     })
     XCTAssertTrue(object != nil, "object should exist")
@@ -426,7 +421,7 @@ class RosettaTests: XCTestCase {
   
   //MARK: Key Path tests
   
-  struct KeyPathObject: JSONConvertible {
+  class KeyPathObject: JSONConvertibleClass {
     var a1: String  = "x"
     var a2: String! = "x"
     var a3: String? = "x"
@@ -451,9 +446,9 @@ class RosettaTests: XCTestCase {
     var f2: NSURL! = NSURL(string: "http://www.google.pl")!
     var f3: NSURL? = NSURL(string: "http://www.google.pl")!
     
-    var g1: SubObject  = SubObject()
-    var g2: SubObject! = SubObject()
-    var g3: SubObject? = SubObject()
+    var g1: SubObjectClass  = SubObjectClass()
+    var g2: SubObjectClass! = SubObjectClass()
+    var g3: SubObjectClass? = SubObjectClass()
     
     var h1: [NSURL]  = [NSURL(string: "http://www.google.pl")!]
     var h2: [NSURL]! = [NSURL(string: "http://www.google.pl")!]
@@ -463,11 +458,11 @@ class RosettaTests: XCTestCase {
     var i2: [String: NSURL]! = ["x": NSURL(string: "http://www.google.pl")!]
     var i3: [String: NSURL]? = ["x": NSURL(string: "http://www.google.pl")!]
     
-    init() {
+    required init() {
       
     }
     
-    static func map(json: Rosetta, inout object: KeyPathObject) {
+    class func map(json: Rosetta, object: KeyPathObject) {
       object.a1 <- json["result"]["object"]["a1-key"]
       object.a2 <- json["result"]["object"]["a2-key"]
       object.a3 <- json["result"]["object"]["a3-key"]
@@ -507,7 +502,7 @@ class RosettaTests: XCTestCase {
   }
   
   func complexKeyPathJSON() -> NSData {
-    let bundle = NSBundle(forClass: RosettaTests.classForCoder())
+    let bundle = NSBundle(forClass: RosettaClassTests.classForCoder())
     let url = bundle.URLForResource("complex keyPath JSON", withExtension: "json")
     return NSData(contentsOfURL: url!)!
   }
@@ -542,10 +537,10 @@ class RosettaTests: XCTestCase {
     XCTAssertEqual(object!.f2, NSURL(string: "http://www.wp.pl")!)
     XCTAssertEqual(object!.f3!, NSURL(string: "http://www.wp.pl")!)
     
-    var subObject = SubObject(); subObject.a1 = "a1-value"
-    XCTAssertEqual(object!.g1, subObject)
-    XCTAssertEqual(object!.g2, subObject)
-    XCTAssertEqual(object!.g3!, subObject)
+    var subObjectClass = SubObjectClass(); subObjectClass.a1 = "a1-value"
+    XCTAssertEqual(object!.g1, subObjectClass)
+    XCTAssertEqual(object!.g2, subObjectClass)
+    XCTAssertEqual(object!.g3!, subObjectClass)
   }
   
   func testComplexKeyPathEncoder() {
@@ -571,21 +566,21 @@ class RosettaTests: XCTestCase {
   
   func testFailingComplexKeyPathDecoder2() {
     let dictionary = complexKeyPathJSON()
-    let object: Object? = Rosetta().decode(dictionary)
+    let object: ObjectClass? = Rosetta().decode(dictionary)
     
     XCTAssertTrue(object == nil, "object should not exist")
   }
   
   func testDecodingWithCustomMap() {
-    struct Object {
+    class ObjectClass {
       var a1: String?
       init () {
         
       }
     }
     
-    var object = Object()
-    Rosetta().decode(dataFrom(["a1": "a1"]), to: &object, usingMap: { (json, inout object: Object) -> () in
+    var object = ObjectClass()
+    Rosetta().decode(dataFrom(["a1": "a1"]), to: &object, usingMap: { (json, object: ObjectClass) -> () in
       object.a1 <- json["a1"]
     })
     
@@ -596,7 +591,7 @@ class RosettaTests: XCTestCase {
   //MARK: auto-bridged types
   
   func testAutoBridgedTypes() {
-    struct Object: JSONConvertible {
+    class ObjectClass: JSONConvertibleClass {
       var a0: Int?
       var a1: Int8?
       var a2: Int16?
@@ -627,11 +622,11 @@ class RosettaTests: XCTestCase {
       
       var i0: AnyObject?
       
-      init() {
+      required init() {
         
       }
       
-      private static func map(json: Rosetta, inout object: Object) {
+      private class func map(json: Rosetta, object: ObjectClass) {
         object.a0 <- json["a0"]
         object.a1 <- json["a1"]
         object.a2 <- json["a2"]
@@ -668,16 +663,16 @@ class RosettaTests: XCTestCase {
   //MARK: validators
   
   func testValidation() {
-    struct Structure: JSONConvertible {
+    class Structure: JSONConvertibleClass {
       var a1: String  = "x"
       var a2: String!
       var a3: String?
       
-      init() {
+      required init() {
         
       }
       
-      private static func map(json: Rosetta, inout object: Structure) {
+      private class func map(json: Rosetta, object: Structure) {
         object.a1 <- json["a1"] § {$0 == "a1"}
         object.a2 <- json["a2"] § {$0 == "a2"}
         object.a3 <~ json["a3"] § {$0 == "a3"}
@@ -771,16 +766,16 @@ class RosettaTests: XCTestCase {
   }
   
   func testValidationWithCustomBridge() {
-    struct Structure: JSONConvertible {
+    class Structure: JSONConvertibleClass {
       var a1: NSURL  = NSURL(string: "http://www.wp.pl")!
       var a2: NSURL!
       var a3: NSURL?
       
-      init() {
+      required init() {
         
       }
       
-      private static func map(json: Rosetta, inout object: Structure) {
+      private class func map(json: Rosetta, object: Structure) {
         object.a1 <- json["a1"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
         object.a2 <- json["a2"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
         object.a3 <~ json["a3"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
@@ -873,11 +868,11 @@ class RosettaTests: XCTestCase {
     XCTAssertTrue(s1 == nil, "structure object should not exist")
   }
   
-  func testArrayOfJSONConvertible() {
-    struct User: JSONConvertible {
+  func testArrayOfJSONConvertibleClass() {
+    class User: JSONConvertibleClass {
       var name: String?
       
-      init() {
+      required init() {
         
       }
       
@@ -885,17 +880,17 @@ class RosettaTests: XCTestCase {
         self.name = name
       }
       
-      static func map(json: Rosetta, inout object: User) {
+      class func map(json: Rosetta, object: User) {
         object.name <- json["name"]
       }
     }
     
-    struct Group: JSONConvertible {
+    class Group: JSONConvertibleClass {
       var users1: [User] = []
       var users2: [User]!
       var users3: [User]?
       
-      init() {
+      required init() {
         
       }
       
@@ -905,7 +900,7 @@ class RosettaTests: XCTestCase {
         self.users3 = users3
       }
       
-      static func map(json: Rosetta, inout object: Group) {
+      class func map(json: Rosetta, object: Group) {
         object.users1 <- json["users1"]
         object.users2 <- json["users2"]
         object.users3 <- json["users3"]
@@ -950,10 +945,10 @@ class RosettaTests: XCTestCase {
   }
   
   func testDictionaryOfJSONConvertible() {
-    struct User: JSONConvertible {
+    class User: JSONConvertibleClass {
       var name: String?
       
-      init() {
+      required init() {
         
       }
       
@@ -961,17 +956,17 @@ class RosettaTests: XCTestCase {
         self.name = name
       }
       
-      static func map(json: Rosetta, inout object: User) {
+      class func map(json: Rosetta, object: User) {
         object.name <- json["name"]
       }
     }
     
-    struct Group: JSONConvertible {
+    class Group: JSONConvertibleClass {
       var users1: [String: User] = [:]
       var users2: [String: User]!
       var users3: [String: User]?
       
-      init() {
+      required init() {
         
       }
       
@@ -981,7 +976,7 @@ class RosettaTests: XCTestCase {
         self.users3 = users3
       }
       
-      static func map(json: Rosetta, inout object: Group) {
+      class func map(json: Rosetta, object: Group) {
         object.users1 <- json["users1"]
         object.users2 <- json["users2"]
         object.users3 <- json["users3"]
