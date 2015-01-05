@@ -8,6 +8,8 @@ Just like the Rosetta Stone made translation of Egyptian hieroglyphs possible, t
 
 ### Manual
 
+Clone this repo. Add the Rosetta project file to your workspace. Then in your target's **Build Phases** in **Target Dependencies** add `Rosetta-iOS` or `Rosetta-OSX` framework. Then just add `import Rosetta` in you code and you should be good to go.
+
 ## Features
 
 * Parsing `JSON` to `Swift types` (Both **classes** and **structures** are supported)
