@@ -22,7 +22,7 @@ Just like the Rosetta Stone made translation of Egyptian hieroglyphs possible, t
 
 ## Usage (in a nutshell)
 
-This is just a brief overview of how `Rosetta` works, but it should give you the idea. Please refer to [wiki](https://github.com/bartekchlebek/Rosetta/wiki) for thorough documentation.
+This is just a brief overview of how `Rosetta` works, but it should give you the idea. Please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md) for thorough documentation.
 
 ### JSON Decoding
 
@@ -65,7 +65,7 @@ extension User: JSONConvertible {
   }
 }
 ```
-For details on how `decoding` works, please refer to [wiki](https://github.com/bartekchlebek/Rosetta/wiki#json-decoding)
+For details on how `decoding` works, please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding)
 
 ### JSON Encoding
 
@@ -77,7 +77,7 @@ or `String`
 ```swift
 let json: String? = Rosetta().encode(userObject)
 ```
-Further `encoding` details are described in [wiki](https://github.com/bartekchlebek/Rosetta/wiki#json-encoding)
+Further `encoding` details are described in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding#json-encoding)
 
 ### Required fields
 
@@ -119,7 +119,7 @@ object.url <~ json["URL"] ~ NSURLBridge()
 ```
 `NSURLBridge()` is in fact alreaty built-in to `Rosetta`, but you'll likely make other bridges of your own.
 
-Bridging is a pretty big but essential part of `Rosetta`. It's explained in-depth in [wiki](https://github.com/bartekchlebek/Rosetta/wiki#bridging-)
+Bridging is a pretty big but essential part of `Rosetta`. It's explained in-depth in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding#bridging-)
 
 ### Value validation
 
@@ -130,7 +130,7 @@ object.age <~ json["age"] § {$0 > 0}
 ```
 So in this example, `age` has to be greater than `0`.
 
-More about validation in [wiki](https://github.com/bartekchlebek/Rosetta/wiki#validation-)
+More about validation in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding#validation-)
 
 ### Debug logs
 `Rosetta` can print debug logs:
@@ -151,7 +151,7 @@ or
 ```swift
 rosetta.logLevel = .Verbose
 ```
-You can also change the **log output** (if `println()` does not suit you) and **customize** the log format. All that is described in-depth in [wiki](https://github.com/bartekchlebek/Rosetta/wiki#logs)
+You can also change the **log output** (if `println()` does not suit you) and **customize** the log format. All that is described in-depth in [guide]https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding#logs)
 
 ## License
 Rosetta is available under the MIT license. See the [LICENSE](https://github.com/bartekchlebek/Rosetta/blob/master/LICENSE) file for more info.
