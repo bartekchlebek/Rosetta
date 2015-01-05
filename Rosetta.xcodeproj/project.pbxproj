@@ -56,7 +56,7 @@
 		0DE919CA1A5A014C00FE94DE /* Rosetta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rosetta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE919CE1A5A014C00FE94DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DE919CF1A5A014C00FE94DE /* Rosetta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rosetta.h; sourceTree = "<group>"; };
-		0DE919D51A5A014D00FE94DE /* RosettaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RosettaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DE919D51A5A014D00FE94DE /* RosettaTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RosettaTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE919DB1A5A014D00FE94DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosettaTests.swift; sourceTree = "<group>"; };
 		0DE919E61A5A056100FE94DE /* Bridgeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bridgeable.swift; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				0DE919CA1A5A014C00FE94DE /* Rosetta.framework */,
-				0DE919D51A5A014D00FE94DE /* RosettaTests.xctest */,
+				0DE919D51A5A014D00FE94DE /* RosettaTests-iOS.xctest */,
 				0DE91A061A5A09C300FE94DE /* Rosetta.framework */,
 				0DE91A101A5A09C400FE94DE /* RosettaTests-OSX.xctest */,
 			);
@@ -226,7 +226,7 @@
 			);
 			name = "RosettaTests-iOS";
 			productName = RosettaTests;
-			productReference = 0DE919D51A5A014D00FE94DE /* RosettaTests.xctest */;
+			productReference = 0DE919D51A5A014D00FE94DE /* RosettaTests-iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		0DE91A051A5A09C300FE94DE /* Rosetta-OSX */ = {
@@ -671,6 +671,7 @@
 				0DE91A1B1A5A09C400FE94DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0DE91A1C1A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-OSX" */ = {
 			isa = XCConfigurationList;
@@ -679,6 +680,7 @@
 				0DE91A1E1A5A09C400FE94DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0DE919C91A5A014C00FE94DE"
-               BuildableName = "Rosetta-iOS.framework"
+               BuildableName = "Rosetta.framework"
                BlueprintName = "Rosetta-iOS"
                ReferencedContainer = "container:Rosetta.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DE919C91A5A014C00FE94DE"
-            BuildableName = "Rosetta-iOS.framework"
+            BuildableName = "Rosetta.framework"
             BlueprintName = "Rosetta-iOS"
             ReferencedContainer = "container:Rosetta.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DE919C91A5A014C00FE94DE"
-            BuildableName = "Rosetta-iOS.framework"
+            BuildableName = "Rosetta.framework"
             BlueprintName = "Rosetta-iOS"
             ReferencedContainer = "container:Rosetta.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DE919C91A5A014C00FE94DE"
-            BuildableName = "Rosetta-iOS.framework"
+            BuildableName = "Rosetta.framework"
             BlueprintName = "Rosetta-iOS"
             ReferencedContainer = "container:Rosetta.xcodeproj">
          </BuildableReference>
