@@ -151,7 +151,7 @@ or
 ```swift
 rosetta.logLevel = .Verbose
 ```
-You can also change the **log output** (if `println()` does not suit you) and **customize** the log format. All that is described in-depth in [guide]https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#logs)
+You can also change the **log output** (if `println()` does not suit you) and **customize** the log format. All that is described in-depth in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#logs)
 
 ## License
 Rosetta is available under the MIT license. See the [LICENSE](https://github.com/bartekchlebek/Rosetta/blob/master/LICENSE) file for more info.
