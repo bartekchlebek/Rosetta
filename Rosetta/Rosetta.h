@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Bartek Chlebek. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Rosetta.
 FOUNDATION_EXPORT double RosettaVersionNumber;
