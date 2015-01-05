@@ -119,7 +119,7 @@ and then map:
 ```swift
 object.url <~ json["URL"] ~ NSURLBridge()
 ```
-`NSURLBridge()` is in fact alreaty built-in to `Rosetta`, but you'll likely make other bridges of your own.
+`NSURLBridge()` is in fact already built-in to `Rosetta`, but you'll likely make other bridges of your own.
 
 Bridging is a pretty big but essential part of `Rosetta`. It's explained in-depth in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#bridging-)
 
