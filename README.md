@@ -65,7 +65,7 @@ extension User: JSONConvertible {
   }
 }
 ```
-For details on how `decoding` works, please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding)
+For details on how `decoding` works, please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decodin)
 
 ### JSON Encoding
 
@@ -77,7 +77,7 @@ or `String`
 ```swift
 let json: String? = Rosetta().encode(userObject)
 ```
-Further `encoding` details are described in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding#json-encoding)
+Further `encoding` details are described in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-encoding)
 
 ### Required fields
 
@@ -119,7 +119,7 @@ object.url <~ json["URL"] ~ NSURLBridge()
 ```
 `NSURLBridge()` is in fact alreaty built-in to `Rosetta`, but you'll likely make other bridges of your own.
 
-Bridging is a pretty big but essential part of `Rosetta`. It's explained in-depth in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding#bridging-)
+Bridging is a pretty big but essential part of `Rosetta`. It's explained in-depth in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#bridging-)
 
 ### Value validation
 
@@ -130,7 +130,7 @@ object.age <~ json["age"] § {$0 > 0}
 ```
 So in this example, `age` has to be greater than `0`.
 
-More about validation in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding#validation-)
+More about validation in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#validation-)
 
 ### Debug logs
 `Rosetta` can print debug logs:
@@ -151,7 +151,7 @@ or
 ```swift
 rosetta.logLevel = .Verbose
 ```
-You can also change the **log output** (if `println()` does not suit you) and **customize** the log format. All that is described in-depth in [guide]https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decoding#logs)
+You can also change the **log output** (if `println()` does not suit you) and **customize** the log format. All that is described in-depth in [guide]https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#logs)
 
 ## License
 Rosetta is available under the MIT license. See the [LICENSE](https://github.com/bartekchlebek/Rosetta/blob/master/LICENSE) file for more info.
