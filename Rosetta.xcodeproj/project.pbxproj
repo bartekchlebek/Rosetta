@@ -20,6 +20,19 @@
 		0DE919F71A5A05C600FE94DE /* complex JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F41A5A05C600FE94DE /* complex JSON.json */; };
 		0DE919F81A5A05C600FE94DE /* complex keyPath JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */; };
 		0DE919F91A5A05C600FE94DE /* RosettaTestsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */; };
+		0DE91A111A5A09C400FE94DE /* Rosetta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE91A061A5A09C300FE94DE /* Rosetta.framework */; };
+		0DE91A221A5A0A5300FE94DE /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EC1A5A056100FE94DE /* Rosetta.swift */; };
+		0DE91A231A5A0A5300FE94DE /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EA1A5A056100FE94DE /* Operators.swift */; };
+		0DE91A241A5A0A5300FE94DE /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E71A5A056100FE94DE /* Bridging.swift */; };
+		0DE91A251A5A0A5300FE94DE /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E61A5A056100FE94DE /* Bridgeable.swift */; };
+		0DE91A261A5A0A5300FE94DE /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E81A5A056100FE94DE /* BridgingBuiltin.swift */; };
+		0DE91A271A5A0A5300FE94DE /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E91A5A056100FE94DE /* Logs.swift */; };
+		0DE91A281A5A0A5300FE94DE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EB1A5A056100FE94DE /* Protocols.swift */; };
+		0DE91A291A5A0A5F00FE94DE /* Rosetta.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DE919CF1A5A014C00FE94DE /* Rosetta.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0DE91A2A1A5A0A6B00FE94DE /* RosettaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */; };
+		0DE91A2B1A5A0A6C00FE94DE /* RosettaTestsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */; };
+		0DE91A2C1A5A0A7200FE94DE /* complex JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F41A5A05C600FE94DE /* complex JSON.json */; };
+		0DE91A2D1A5A0A7400FE94DE /* complex keyPath JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +42,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0DE919C91A5A014C00FE94DE;
 			remoteInfo = Rosetta;
+		};
+		0DE91A121A5A09C400FE94DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0DE919C11A5A014C00FE94DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0DE91A051A5A09C300FE94DE;
+			remoteInfo = "Rosetta-OSX";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -49,6 +69,8 @@
 		0DE919F41A5A05C600FE94DE /* complex JSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "complex JSON.json"; sourceTree = "<group>"; };
 		0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "complex keyPath JSON.json"; sourceTree = "<group>"; };
 		0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RosettaTestsClass.swift; sourceTree = "<group>"; };
+		0DE91A061A5A09C300FE94DE /* Rosetta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rosetta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0DE91A101A5A09C400FE94DE /* RosettaTests-OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RosettaTests-OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +86,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DE919D61A5A014D00FE94DE /* Rosetta.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DE91A021A5A09C300FE94DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DE91A0D1A5A09C400FE94DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DE91A111A5A09C400FE94DE /* Rosetta.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +121,8 @@
 			children = (
 				0DE919CA1A5A014C00FE94DE /* Rosetta.framework */,
 				0DE919D51A5A014D00FE94DE /* RosettaTests.xctest */,
+				0DE91A061A5A09C300FE94DE /* Rosetta.framework */,
+				0DE91A101A5A09C400FE94DE /* RosettaTests-OSX.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,12 +182,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0DE91A031A5A09C300FE94DE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DE91A291A5A0A5F00FE94DE /* Rosetta.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0DE919C91A5A014C00FE94DE /* Rosetta */ = {
+		0DE919C91A5A014C00FE94DE /* Rosetta-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0DE919E01A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "Rosetta" */;
+			buildConfigurationList = 0DE919E01A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "Rosetta-iOS" */;
 			buildPhases = (
 				0DE919C51A5A014C00FE94DE /* Sources */,
 				0DE919C61A5A014C00FE94DE /* Frameworks */,
@@ -159,14 +206,14 @@
 			);
 			dependencies = (
 			);
-			name = Rosetta;
+			name = "Rosetta-iOS";
 			productName = Rosetta;
 			productReference = 0DE919CA1A5A014C00FE94DE /* Rosetta.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		0DE919D41A5A014D00FE94DE /* RosettaTests */ = {
+		0DE919D41A5A014D00FE94DE /* RosettaTests-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0DE919E31A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests" */;
+			buildConfigurationList = 0DE919E31A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-iOS" */;
 			buildPhases = (
 				0DE919D11A5A014D00FE94DE /* Sources */,
 				0DE919D21A5A014D00FE94DE /* Frameworks */,
@@ -177,9 +224,45 @@
 			dependencies = (
 				0DE919D81A5A014D00FE94DE /* PBXTargetDependency */,
 			);
-			name = RosettaTests;
+			name = "RosettaTests-iOS";
 			productName = RosettaTests;
 			productReference = 0DE919D51A5A014D00FE94DE /* RosettaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0DE91A051A5A09C300FE94DE /* Rosetta-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DE91A191A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "Rosetta-OSX" */;
+			buildPhases = (
+				0DE91A011A5A09C300FE94DE /* Sources */,
+				0DE91A021A5A09C300FE94DE /* Frameworks */,
+				0DE91A031A5A09C300FE94DE /* Headers */,
+				0DE91A041A5A09C300FE94DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Rosetta-OSX";
+			productName = "Rosetta-OSX";
+			productReference = 0DE91A061A5A09C300FE94DE /* Rosetta.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		0DE91A0F1A5A09C400FE94DE /* RosettaTests-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0DE91A1C1A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-OSX" */;
+			buildPhases = (
+				0DE91A0C1A5A09C400FE94DE /* Sources */,
+				0DE91A0D1A5A09C400FE94DE /* Frameworks */,
+				0DE91A0E1A5A09C400FE94DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0DE91A131A5A09C400FE94DE /* PBXTargetDependency */,
+			);
+			name = "RosettaTests-OSX";
+			productName = "Rosetta-OSXTests";
+			productReference = 0DE91A101A5A09C400FE94DE /* RosettaTests-OSX.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -197,6 +280,12 @@
 					0DE919D41A5A014D00FE94DE = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
+					0DE91A051A5A09C300FE94DE = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					0DE91A0F1A5A09C400FE94DE = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 				};
 			};
 			buildConfigurationList = 0DE919C41A5A014C00FE94DE /* Build configuration list for PBXProject "Rosetta" */;
@@ -211,8 +300,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0DE919C91A5A014C00FE94DE /* Rosetta */,
-				0DE919D41A5A014D00FE94DE /* RosettaTests */,
+				0DE919C91A5A014C00FE94DE /* Rosetta-iOS */,
+				0DE919D41A5A014D00FE94DE /* RosettaTests-iOS */,
+				0DE91A051A5A09C300FE94DE /* Rosetta-OSX */,
+				0DE91A0F1A5A09C400FE94DE /* RosettaTests-OSX */,
 			);
 		};
 /* End PBXProject section */
@@ -231,6 +322,22 @@
 			files = (
 				0DE919F71A5A05C600FE94DE /* complex JSON.json in Resources */,
 				0DE919F81A5A05C600FE94DE /* complex keyPath JSON.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DE91A041A5A09C300FE94DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DE91A0E1A5A09C400FE94DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DE91A2C1A5A0A7200FE94DE /* complex JSON.json in Resources */,
+				0DE91A2D1A5A0A7400FE94DE /* complex keyPath JSON.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,13 +367,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0DE91A011A5A09C300FE94DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DE91A221A5A0A5300FE94DE /* Rosetta.swift in Sources */,
+				0DE91A231A5A0A5300FE94DE /* Operators.swift in Sources */,
+				0DE91A241A5A0A5300FE94DE /* Bridging.swift in Sources */,
+				0DE91A251A5A0A5300FE94DE /* Bridgeable.swift in Sources */,
+				0DE91A261A5A0A5300FE94DE /* BridgingBuiltin.swift in Sources */,
+				0DE91A271A5A0A5300FE94DE /* Logs.swift in Sources */,
+				0DE91A281A5A0A5300FE94DE /* Protocols.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0DE91A0C1A5A09C400FE94DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DE91A2A1A5A0A6B00FE94DE /* RosettaTests.swift in Sources */,
+				0DE91A2B1A5A0A6C00FE94DE /* RosettaTestsClass.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		0DE919D81A5A014D00FE94DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0DE919C91A5A014C00FE94DE /* Rosetta */;
+			target = 0DE919C91A5A014C00FE94DE /* Rosetta-iOS */;
 			targetProxy = 0DE919D71A5A014D00FE94DE /* PBXContainerItemProxy */;
+		};
+		0DE91A131A5A09C400FE94DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0DE91A051A5A09C300FE94DE /* Rosetta-OSX */;
+			targetProxy = 0DE91A121A5A09C400FE94DE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -367,7 +502,7 @@
 				INFOPLIST_FILE = Rosetta/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Rosetta;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -384,7 +519,7 @@
 				INFOPLIST_FILE = Rosetta/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Rosetta;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -419,6 +554,86 @@
 			};
 			name = Release;
 		};
+		0DE91A1A1A5A09C400FE94DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Rosetta/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = Rosetta;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		0DE91A1B1A5A09C400FE94DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Rosetta/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = Rosetta;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		0DE91A1D1A5A09C400FE94DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RosettaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		0DE91A1E1A5A09C400FE94DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RosettaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -431,19 +646,37 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0DE919E01A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "Rosetta" */ = {
+		0DE919E01A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "Rosetta-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0DE919E11A5A014D00FE94DE /* Debug */,
 				0DE919E21A5A014D00FE94DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		0DE919E31A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests" */ = {
+		0DE919E31A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0DE919E41A5A014D00FE94DE /* Debug */,
 				0DE919E51A5A014D00FE94DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0DE91A191A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "Rosetta-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DE91A1A1A5A09C400FE94DE /* Debug */,
+				0DE91A1B1A5A09C400FE94DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0DE91A1C1A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DE91A1D1A5A09C400FE94DE /* Debug */,
+				0DE91A1E1A5A09C400FE94DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
