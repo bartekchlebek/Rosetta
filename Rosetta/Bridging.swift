@@ -22,11 +22,12 @@ public func BridgeString<T>(
 }
 
 public func BridgeBoolean<T>(
-  #decoder: Bridge<T, NSNumber>.Decoder,
-  #encoder: Bridge<T, NSNumber>.Encoder
+  #decoder: Bridge<T, Bool>.Decoder,
+  #encoder: Bridge<T, Bool>.Encoder
   ) -> Bridge<T, NSNumber> {
     
-    return Bridge<T, NSNumber>(decoder: decoder, encoder: encoder)
+//    BridgeNumber(decoder: <#NSNumber -> (T?)##NSNumber -> (T?)#>, encoder: <#T -> (NSNumber?)##T -> (NSNumber?)#>)
+//    return Bridge<T, NSNumber>(decoder: decoder, encoder: encoder)
 }
 
 public func BridgeNumber<T>(

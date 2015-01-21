@@ -1024,4 +1024,20 @@ class RosettaTests: XCTestCase {
       "encoded dictionary does not match the original dictionary"
     )
   }
+  
+  func testBoolean() {
+    struct Object: JSONConvertible {
+      var a1: Bool?
+      
+      init() {
+        
+      }
+      
+      static func map(json: Rosetta, inout object: Object) {
+        object.a1 <- json["a1-key"]
+      }
+    }
+    let object: Object? = Rosetta().decode("{\"a1-key\":12}")
+    XCTAssertTrue(object == nil, "object should not exist")
+  }
 }

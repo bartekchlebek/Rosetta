@@ -4,8 +4,8 @@ import Foundation
 
 public func BoolBridge() -> Bridge<Bool, NSNumber> {
   return BridgeNumber(
-    decoder: {$0 as? Bool},
-    encoder: {$0}
+    decoder: { numberInRange($0, min: Int64(0), max: Int64(1)).map{$0 == 0 ? false : true} },
+    encoder: { $0 }
   )
 }
 
