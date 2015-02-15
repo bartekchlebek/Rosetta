@@ -205,7 +205,7 @@ class RosettaClassTests: XCTestCase {
     let encoded: NSData? = Rosetta().encode(decoded!)
     XCTAssertTrue(encoded != nil, "encoded object should exist")
     XCTAssertTrue(
-      jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!)),
+      jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
       "encoded dictionary does not match the original dictionary"
     )
   }
@@ -550,7 +550,7 @@ class RosettaClassTests: XCTestCase {
     let encoded: NSData? = Rosetta().encode(decoded!)
     XCTAssertTrue(encoded != nil, "encoded should not be nil")
     XCTAssertTrue(
-      jsonFrom(jsonData).isEqualToDictionary(jsonFrom(encoded!)),
+      jsonFrom(jsonData).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
       "encoded dictionary does not match the original dictionary"
     )
   }
@@ -939,7 +939,7 @@ class RosettaClassTests: XCTestCase {
     let encoded: NSData? = Rosetta().encode(group!)
     XCTAssertTrue(encoded != nil, "encoded data should exist")
     XCTAssertTrue(
-      jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!)),
+      jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
       "encoded dictionary does not match the original dictionary"
     )
   }
@@ -1015,7 +1015,7 @@ class RosettaClassTests: XCTestCase {
     let encoded: NSData? = Rosetta().encode(group!)
     XCTAssertTrue(encoded != nil, "encoded data should exist")
     XCTAssertTrue(
-      jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!)),
+      jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
       "encoded dictionary does not match the original dictionary"
     )
   }
