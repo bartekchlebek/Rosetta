@@ -4,7 +4,7 @@ import Foundation
 
 public func BoolBridge() -> Bridge<Bool, NSNumber> {
   return BridgeNumber(
-    decoder: {$0 as? Bool},
+    decoder: {$0 as Bool},
     encoder: {$0}
   )
 }
@@ -25,21 +25,21 @@ public func UIntBridge() -> Bridge<UInt, NSNumber> {
 
 public func FloatBridge() -> Bridge<Float, NSNumber> {
   return BridgeNumber(
-    decoder: {$0 as? Float},
+    decoder: {$0 as Float},
     encoder: {$0}
   )
 }
 
 public func DoubleBridge() -> Bridge<Double, NSNumber> {
   return BridgeNumber(
-    decoder: {$0 as? Double},
+    decoder: {$0 as Double},
     encoder: {$0}
   )
 }
 
 public func StringBridge() -> Bridge<String, NSString> {
   return BridgeString(
-    decoder: {$0},
+    decoder: {$0 as String},
     encoder: {$0}
   )
 }
@@ -105,7 +105,7 @@ public func NSStringBridge() -> Bridge<NSString, NSString> {
 }
 
 public func NSMutableStringBridge() -> Bridge<NSMutableString, NSString> {
-  return BridgeString(decoder: {NSMutableString(string: $0)}, encoder: {$0})
+  return BridgeString(decoder: {NSMutableString(string: $0 as String)}, encoder: {$0})
 }
 
 public func NSNumberBridge() -> Bridge<NSNumber, NSNumber> {
@@ -162,7 +162,7 @@ public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> Bridge<T, N
 
 public func NSURLBridge() -> Bridge<NSURL, NSString> {
   return BridgeString(
-    decoder: {NSURL(string: $0)},
+    decoder: {NSURL(string: $0 as String)},
     encoder: {$0.absoluteString}
   )
 }

@@ -56,18 +56,20 @@ public func UnsafeBridgeArray<T>(
 public func BridgeObject<T, U>(valueBridge: Bridge<T, U>) -> Bridge<[String: T], NSDictionary> {
   return UnsafeBridgeObject(
     decoder: {dictionary in
-      var buffer = [String: T]()
-      let dictionary = dictionary as [String: U]
-      for (key, jsonValue) in dictionary {
-        let decodedValue = valueBridge.decoder(jsonValue)
-        if let decodedValue = decodedValue {
-          buffer[key] = decodedValue
+      if let dictionary = dictionary as? [String: U] {
+        var buffer = [String: T]()
+        for (key, jsonValue) in dictionary {
+          let decodedValue = valueBridge.decoder(jsonValue)
+          if let decodedValue = decodedValue {
+            buffer[key] = decodedValue
+          }
+          else {
+            return nil
+          }
         }
-        else {
-          return nil
-        }
+        return buffer
       }
-      return buffer
+      return nil
     },
     encoder: {dictionary in
       var buffer = [String: AnyObject]()
@@ -87,18 +89,20 @@ public func BridgeObject<T, U>(valueBridge: Bridge<T, U>) -> Bridge<[String: T],
 public func BridgeArray<T, U>(itemBridge: Bridge<T, U>) -> Bridge<[T], NSArray> {
   return UnsafeBridgeArray(
     decoder: {array in
-      var buffer = [T]()
-      let array = array as [U]
-      for jsonValue in array {
-        let decodedValue = itemBridge.decoder(jsonValue)
-        if let decodedValue = decodedValue {
-          buffer.append(decodedValue)
+      if let array = array as? [U] {
+        var buffer = [T]()
+        for jsonValue in array {
+          let decodedValue = itemBridge.decoder(jsonValue)
+          if let decodedValue = decodedValue {
+            buffer.append(decodedValue)
+          }
+          else {
+            return nil
+          }
         }
-        else {
-          return nil
-        }
+        return buffer
       }
-      return buffer
+      return nil
     },
     encoder: {array in
       var buffer = [AnyObject]()

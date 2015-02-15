@@ -7,7 +7,7 @@ public enum JSON {
   var stringValue: Swift.String? {
     switch self {
     case let .Data(data):
-      return NSString(data: data, encoding: NSUTF8StringEncoding)
+      return NSString(data: data, encoding: NSUTF8StringEncoding) as? Swift.String
     case let .String(string):
       return string
     }
@@ -822,6 +822,6 @@ extension NSData {
   }
   
   func toString() -> String? {
-    return NSString(data: self, encoding: NSUTF8StringEncoding)
+    return NSString(data: self, encoding: NSUTF8StringEncoding) as? String
   }
 }
