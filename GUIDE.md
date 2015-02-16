@@ -39,7 +39,7 @@
 <!-- end toc 4 -->
 
 # JSON Decoding
-Rosetta's basic functionality is JSON Decoding, that is converting an `NSData` or `String` representation of a `JSON` into a Swift `struct` or `class` object. All methods described below accept `JSON` as either `NSData` or `String` transparently, so method calls look the same no matter the `JSON` type.
+Rosetta's basic functionality is `JSON` decoding, that is converting an `NSData` or `String` representation of a `JSON` into a Swift `struct` or `class` object. All methods described below accept `JSON` as either `NSData` or `String` transparently, so method calls look the same no matter the `JSON` type.
 ## The Verbose Option
 Let's look at a simple example. Say we have a `JSON` representation of a user:
 ```json
@@ -57,13 +57,12 @@ struct User {
 ```
 The most verbose way to do that is:
 ```swift
-// assuming jsonDataOrString either NSData or String of the example JSON
+// assuming jsonDataOrString is either NSData or String of the example JSON
 var user = User(name: nil, age: nil)
-let success = Rosetta().decode(jsonDataOrString, to: &user, usingMap: {(json, inout object: User) -> () in
+let success = Rosetta().decode(jsonDataOrString, to: &user, usingMap: {(inout object: User, json) -> () in
   object.name <~ json["name"]
   object.age  <~ json["age"]
 })
-
 ```
 Now that's a mouthful, but bear with me, more concise ways are just up ahead. Let's walk through this example step by step:
 
@@ -75,20 +74,19 @@ Now that's a mouthful, but bear with me, more concise ways are just up ahead. Le
 * if parsing succeeds, `success` is set to `true` and `user` is updated with values from `JSON`
 * if parsing fails, `success` is set to `false` and `user` is left **untouched**
 
-This is the most verbose way. However, it does not require `User` to implement any protocols and/or allows using a custom `Map` if you need it.
+This is the most verbose way but it does not require `User` to implement any protocols and/or allows using a custom `Map` if you need to.
 
 ## Mappable protocol
 You can make decoding more concise by implementing `Mappable` protocol in `User`:
 ```swift
 protocol Mappable {
-  class func map(json: Rosetta, inout object: Self)
+  static func map(inout object: Self, json: Rosetta)
 }
 ```
 `User`'s implementation may look like this:
 ```swift
 extension User: Mappable {
-// structs use static functions rather than class methods
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name <~ json["name"]
     object.age  <~ json["age"]
   }
@@ -115,9 +113,9 @@ extension User: Creatable {
   }
 }
 ```
-However, this allows us to use `decode` without the need of creating `user` instance beforehand and passing it by reference. Now you may call:
+However, this allows us to use `decode` without the need of creating a `user` instance beforehand and passing it by reference. Now you may call:
 ```swift
-let user = Rosetta().decode(jsonDataOrString, usingMap: {(json, inout object: User) -> () in
+let user = Rosetta().decode(jsonDataOrString, usingMap: {(inout object: User, json) -> () in
   object.name <~ json["name"]
   object.age  <~ json["age"]
 })
@@ -138,7 +136,7 @@ extension User: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name <~ json["name"]
     object.age  <~ json["age"]
   }
@@ -152,7 +150,7 @@ Where `map` is infered from `Mappable` protocol
 and `User` instance is created via `Creatable` protocol
 
 # JSON Encoding
-Rosetta allows you to create `JSON` representation of Swift `structs` and `classes`. All methods described below can return `JSON` value as either `NSData` or `String`.
+Rosetta allows you to create a `JSON` representation of Swift `structs` and `classes`. All methods described below can return `JSON` value as either `NSData` or `String`.
 
 ## The Verbose Option
 Similarly to `decoding`, `encoding` also has its most basic method, which allows encoding `structs` and `classes` without the need for them to implement any protocols.  
@@ -173,7 +171,7 @@ which we want to encode into a `JSON`
 We can achieve this with a call:
 ```swift
 let user = User(name: "Bill", age: 22)
-let jsonData: NSData? = Rosetta().encode(user, usingMap: { (json, inout object: User) -> () in
+let jsonData: NSData? = Rosetta().encode(user, usingMap: { (inout object: User, json) -> () in
   object.name <~ json["name"]
   object.age  <~ json["age"]
 })
@@ -189,13 +187,13 @@ If `JSON` representation cannot be created, `.None` is returned.
 You can make encoding more concise by implementing `Mappable` protocol. It's the same one as described in the `Decoding` section:
 ```swift
 protocol Mappable {
-  class func map(json: Rosetta, inout object: Self)
+  static func map(inout object: Self, json: Rosetta)
 }
 ```
 Implementation may look like this:
 ```swift
 extension User: Mappable {
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name <~ json["name"]
     object.age  <~ json["age"]
   }
@@ -221,11 +219,11 @@ object.ivar <-/<~ json["key"] ~ bridging § validation
 
 A real-life example (as an implementation of the `Mappable` protocol) may look something like this
 ```swift
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.name    <- json["name"]
   object.age     <~ json["age"] § {age in age > 0}
   object.website <~ json["website"] ~ BridgeString(
-    decoder: {NSURL(string: $0)},
+    decoder: {NSURL(string: $0 as String)},
     encoder: {$0.absoluteString}
   )
 }
@@ -252,7 +250,7 @@ struct User: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name <- json["name"]
   }
 }
@@ -273,7 +271,7 @@ let user: User? = Rosetta().decode(jsonDataOrString)
 It would also fail if `JSON` had a `Number` instead of a `String` under `"name"` field.
 Or,  if there was `validation`, e.g.
 ```swift
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.name <- json["name"] § {countElements($0) > 3}
 }
 ```
@@ -320,7 +318,7 @@ struct User: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name <~ json["name"]
     object.age  <~ json["age"]
   }
@@ -366,7 +364,7 @@ struct User: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name <~ json["name"]
     object.age  <~ json["age"]
   }
@@ -443,7 +441,7 @@ The `encoder` closure works the opposite way, trying to convert a `Swift` value 
 
 An **example** of a simple bridge may look like this:
 ```swift
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.age <~ json["age"] ~ BridgeNumber(
       decoder: {jsonValue in Int(jsonValue.integerValue)},
       encoder: {swiftValue in swiftValue as NSNumber}
@@ -466,7 +464,7 @@ Bridge also indicates what type you expect under a given key in `JSON`. In the e
 ```swift
 protocol Bridgeable {
   typealias JSONType: NSObject
-  class func bridge() -> Bridge<Self, JSONType>
+  static func bridge() -> Bridge<Self, JSONType>
 }
 ```
 If a type implements this protocol, bridging can be omitted, becuase the one returned by `bridge()` function is implicitly used. An example implementation for `Int` may look like this:
@@ -479,7 +477,7 @@ extension Int: Bridgeable {
 ```
 And now, bridging can be omitted completely:
 ```swift
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.age <~ json["age"] // ~ Int.bridge() is implicitly used
 }
 ```
@@ -544,7 +542,7 @@ struct User {
 ```
 And update the `map` function
 ```swift
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.name    <~ json["name"]
   object.age     <~ json["age"]
   object.website <~ json["website"]
@@ -552,11 +550,11 @@ static func map(json: Rosetta, inout object: User) {
 ```
 This will not work, because there is no implicit bridge available for `NSURL` (and unfortunately there cannot be one, because it is a `non-final class`). So we need to make one. We can add one **inline**:
 ```swift
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.name    <~ json["name"]
   object.age     <~ json["age"]
   object.website <~ json["website"] ~ BridgeString(
-    decoder: {NSURL(string: $0)},
+    decoder: {NSURL(string: $0 as String)},
     encoder: {$0.absoluteString}
   )
 }
@@ -565,12 +563,12 @@ But my preference is to add a function which returns one for us. This makes the 
 ```swift
 func NSURLBridge() -> Bridge<NSURL, NSString> {
   return BridgeString(
-    decoder: {NSURL(string: $0)},
+    decoder: {NSURL(string: $0 as String)},
     encoder: {$0.absoluteString}
   )
 }
 
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.name    <~ json["name"]
   object.age     <~ json["age"]
   object.website <~ json["website"] ~ NSURLBridge()
@@ -605,7 +603,7 @@ struct User: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name    <~ json["name"]
     object.age     <~ json["age"]
     object.website <~ json["website"] ~ NSURLBridge()
@@ -621,7 +619,7 @@ struct Dog: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: Dog) {
+  static func map(inout object: Dog, json: Rosetta) {
     object.name  <~ json["name"]
     object.breed <~ json["breed"]
     object.owner <~ json["owner"] // Owner conforms to JSONConvertible protocol and is bridged implicitly
@@ -687,7 +685,7 @@ struct User: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.bookmarks <~ json["bookmarks"] ~ BridgeArray(NSURLBridge())
   }
 }
@@ -717,7 +715,7 @@ struct User: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.bookmarks <~ json["bookmarks"] ~ BridgeObject(NSURLBridge())
   }
 }
@@ -753,7 +751,7 @@ struct FunFacts: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: FunFacts) {
+  static func map(inout object: FunFacts, json: Rosetta) {
     object.primeNumbers <~ json["primeNumbers"] ~ BridgeArray(IntBridge())
     object.population <~ json["population"] ~ BridgeObject(Int64Bridge())
   }
@@ -761,7 +759,7 @@ struct FunFacts: JSONConvertible {
 ```
 But, since both `Int` and `Int64` conform to the `Bridgeable` protocol, we can omit the `bridges`, because they will be used implicitly. So the `map` can look like this:
 ```swift
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.primeNumbers <~ json["primeNumbers"]
   object.population <~ json["population"]
 }
@@ -804,7 +802,7 @@ struct User: JSONConvertible {
   
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name <~ json["name"]
     object.age  <~ json["age"]
   }
@@ -820,7 +818,7 @@ struct FunPeople: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: FunPeople) {
+  static func map(inout object: FunPeople, json: Rosetta) {
     object.arrayOfUsers <~ json["arrayOfUsers"] ~ BridgeArray(JSONConvertibleBridge())
     object.dictionaryOfUsers <~ json["dictionaryOfUsers"] ~ BridgeObject(JSONConvertibleBridge())
   }
@@ -828,7 +826,7 @@ struct FunPeople: JSONConvertible {
 ```
 Again, because `User` conforms to `JSONConvertible` protocol, we can omit `bridgin` and this reduce `map` to:
 ```swift
-  static func map(json: Rosetta, inout object: FunPeople) {
+  static func map(inout object: FunPeople, json: Rosetta) {
     object.arrayOfUsers <~ json["arrayOfUsers"]
     object.dictionaryOfUsers <~ json["dictionaryOfUsers"]
   }
@@ -849,7 +847,7 @@ struct SecureBookmark: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.url <~ json["url"] ~ NSURLBridge() § {$0.scheme == "https"}
   }
 }
