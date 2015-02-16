@@ -8,6 +8,8 @@ Rosetta is still in development itself and requires **Swift 1.2** shipped with X
 
 ### CocoaPods
 
+soon…
+
 ### Manual
 
 Clone this repo. Add the Rosetta project file to your workspace. Then in your target's **Build Phases** in **Target Dependencies** add `Rosetta-iOS` or `Rosetta-OSX` framework. Then just add `import Rosetta` in you code and you should be good to go.
