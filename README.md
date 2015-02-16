@@ -4,6 +4,8 @@ Just like the Rosetta Stone made translation of Egyptian hieroglyphs possible, t
 
 ## Installation
 
+Rosetta is still in development itself and requires **Swift 1.2** shipped with Xcode 6.3 beta.
+
 ### CocoaPods
 
 ### Manual
