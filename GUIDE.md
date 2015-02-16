@@ -834,6 +834,32 @@ Again, because `User` conforms to `JSONConvertible` protocol, we can omit `bridg
 
 ### Bridging and classes
 
+`Bridgeable` protocol uses `Self` in a non-parameter, non-result type position. This restricts its implementation to `value types` and `final classes`.
+
+```swift
+protocol Bridgeable {
+  typealias JSONType: NSObject
+  static func bridge() -> Bridge<Self, JSONType>
+}
+```
+
+This makes it impossible for most classes to provide bridging implicitly (that's of course not the case for `value types`), and forces us to pass an appropriate bridge each time in a `Map` like so:
+
+```swift
+object.mutableString <~ json["someString"] ~ NSMutableStringBridge()
+object.customClassIvar <~ json["someKey"] ~ CustomClassBridge()
+```
+
+Assume that in the example above `mutableString` is of `NSMutableString` type and `customClassIvar` is of some `custom non-final class` type. Both of those need to have a `bridge` explicitly added with `~`.  
+
+The `NSMutableStringBridge()` is actually shipped with `Rosetta` and for you to use, but your custom classes will need your bridging implementation.
+
+**Important to note** is that `classes` conforming to `JSONConvertibleClass` **can** be in fact implicitly bridged, but they are forced to translate between `JSON object (dictionary)`.
+
+```swift
+object.jsonConvertibleClassIvar <~ json["someKeyToAnObject"]
+```
+
 ## Validation `§`
 
 Validation is a simple closure placed after `§` operator (`⌥6`), where you can validate the `decoded` or `encoded` value. It takes in one parameter, which is the `Swift type` value and returns returns `true` if validation is passed, and `false` if not.
@@ -875,7 +901,34 @@ to map the `"value"` from the `JSON` below.
 }
 ```
 Maps with `key-paths` behave exactly the same as with simple `keys` and follow the same rules.
+
 # Classes
+
+`Classes` are used with `Rosetta` similarly to `value types`. The only difference is, they are not passed as `inout` parameters. Doing so, would restrict `Mappable` protocol implementation to `final class` only. To avoid that, there are dedicated protocols for `classes`:  
+
+`Mappable` -> `MappableClass`
+`JSONConvertible` -> `JSONConvertibleClass`
+
+They look nearly identical, the only difference being the lack of `inout` attribute for `classes` parameters. And since `classes` are passed by reference anyway there's no need for that. It would't hurt to have `inout` for `classes` too and have only one protocol, but that's not allowed for `non-final classes`.
+
+```swift
+public protocol Mappable {
+  static func map(inout object: Self, json: Rosetta)
+}
+
+public protocol MappableClass: class {
+  static func map(object: Self, json: Rosetta)
+}
+
+public protocol JSONConvertible : Creatable, Mappable {
+  
+}
+
+public protocol JSONConvertibleClass : Creatable, MappableClass {
+  
+}
+```
+
 # Logs
 
 `Rosetta` has a built-in elastic logging mechanism. It's disabled by default (set to `.None`) and can be turned on by setting `.logLevel` property on an instance of `Rosetta` like so:
@@ -1005,4 +1058,3 @@ This parameter is the name of the function in which the `decode` or `encode` cal
 
 # Thread safety
 There is one simple rule. An instance of `Rosetta` should only be used on the thread it was created on. You are most likely to create a new instance each time you `decode` or `encode` but if you'd like to reuse one, make sure not to pass it between threads.
-# Caveats and best practices
