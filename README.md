@@ -8,7 +8,10 @@ Rosetta is still in development itself and requires **Swift 1.2** shipped with X
 
 ### CocoaPods
 
-soon…
+[CocoaPods 0.36](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) or newer required.  
+```
+pod 'Rosetta'
+```
 
 ### Manual
 
