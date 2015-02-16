@@ -452,7 +452,7 @@ Here, `object.age` which is of type `Int` is bridged using `BridgeNumber`. The `
 
 Of course this can be simplified to:
 ```swift
-static func map(json: Rosetta, inout object: User) {
+static func map(inout object: User, json: Rosetta) {
   object.age <~ json["age"] ~ BridgeNumber(decoder: {$0.integerValue}, encoder: {$0})
 }
 ```
