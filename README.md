@@ -13,13 +13,12 @@ Clone this repo. Add the Rosetta project file to your workspace. Then in your ta
 ## Features
 
 * Parsing `JSON` to `Swift types` (Both **classes** and **structures** are supported)
-* Parsing back to `JSON` (if you can parse `JSON` to a given `Swift type`, you can always get a `JSON` back)
+* Parsing back to `JSON` (if you can parse `JSON` to a `Swift type`, you can always get a `JSON` back)
 * Type validation
 * Type conversion (e.g. `Strings` in `JSON` can be bridged to `NSURL`)
 * Value validation
 * **Required** and **optional** fields support
 * Concise syntax with advanced features opt-in
-* No **required** protocols
 * Debug logs
 
 ## Usage (in a nutshell)
@@ -45,12 +44,12 @@ struct User {
 The most blunt and verbose way to do that is:
 ```swift
 var user = User(name: nil, age: nil)
-let success = Rosetta().decode(jsonDataOrString, to: &user, usingMap: {(json, inout object: User) -> () in
+let success = Rosetta().decode(jsonDataOrString, to: &user, usingMap: {(inout object: User, json) -> () in
   object.name <~ json["name"]
   object.age  <~ json["age"]
 })
 ```
-But if we make `User` conform to the `JSONConvertible` protocol (`JSONConvertibleClass` for class types), we can reduce that call down to:
+But if we make `User` conform to the `JSONConvertible` protocol (`JSONConvertibleClass` for `class` types), we can reduce that call down to:
 ```swift
 let user: User? = Rosetta().decode(jsonDataOrString)
 ```
@@ -61,7 +60,7 @@ extension User: JSONConvertible {
     
   }
   
-  static func map(json: Rosetta, inout object: User) {
+  static func map(inout object: User, json: Rosetta) {
     object.name <~ json["name"]
     object.age  <~ json["age"]
   }
@@ -71,7 +70,7 @@ For details on how `decoding` works, please refer to [guide](https://github.com/
 
 ### JSON Encoding
 
-You can always get a `JSON` back as `NSData` (assuming `userObject` conforms to `JSONConvertible` / `JSONConvertibleClass` protocol)
+You can always get a `JSON` back (assuming `userObject` conforms to `JSONConvertible` / `JSONConvertibleClass` protocol) as `NSData`
 ```swift
 let json: NSData? = Rosetta().encode(userObject)
 ```
@@ -87,7 +86,7 @@ If you want a certain field to be treated as required, map it with a `<-` operat
 ```swift
 object.name <- json["name"]
 ```
-`Decoding` / `encoding` will fail if such value is missing (or does not pass conversion or validation).
+`Decoding` / `encoding` will fail if such value is missing, or does not pass conversion or validation.
 
 ### Optional fields
 
@@ -95,22 +94,25 @@ If you want to treat a certain field as optional, map it with a `<~` operator:
 ```swift
 object.name <~ json["name"]
 ```
-If this field is missing (or does not pass conversion or validation) `Decoding` / `encoding` will not fail entirely, but will skip this field and move on.
+If this field is missing, or does not pass conversion or validation, `decoding` / `encoding` will not fail entirely, but will skip this field and move on.
 
 ### Type conversion
 
-You can convert e.g. a `String` from JSON to `NSURL` using the `~` operator and a `bridge`
+You can convert e.g. a `String` from `JSON` to `NSURL` using the `~` operator and a `bridge`
 ```swift
 object.url <~ json["URL"] ~ BridgeString(
-  decoder: {NSURL(string: $0)},
+  decoder: {NSURL(string: $0 as String)},
   encoder: {$0.absoluteString}
 )
 ```
+The `decoder` closure, takes an `NSString` from a `JSON` and converts it into an `NSURL`.  
+The `encoder` closure, works the other way around, returning a `String` representation of an `NSURL`.
+
 To make it more concise you can return the `bridge` from a function:
 ```swift
 func NSURLBridge() -> Bridge<NSURL, NSString> {
   return BridgeString(
-    decoder: {NSURL(string: $0)},
+    decoder: {NSURL(string: $0 as String)},
     encoder: {$0.absoluteString}
   )
 }
@@ -130,7 +132,7 @@ You can validate the value using a `§` operator (`⌥6`) followed by a
 ```swift
 object.age <~ json["age"] § {$0 > 0}
 ```
-So in this example, `age` has to be greater than `0`.
+So in this example, `age` (that's passed to the validation closure under `$0`) has to be greater than `0`.
 
 More about validation in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#validation-)
 
