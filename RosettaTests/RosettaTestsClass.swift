@@ -11,7 +11,7 @@ class SubObjectClass: JSONConvertibleClass, Equatable {
   required init () {
     
   }
-  class func map(json: Rosetta, object: SubObjectClass) {
+  class func map(object: SubObjectClass, json: Rosetta) {
     object.a1 <- json["a1-key"]
   }
 }
@@ -57,7 +57,7 @@ class ObjectClass: JSONConvertibleClass {
     
   }
   
-  class func map(json: Rosetta, object: ObjectClass) {
+  class func map(object: ObjectClass, json: Rosetta) {
     object.a1 <- json["a1-key"]
     object.a2 <- json["a2-key"]
     object.a3 <~ json["a3-key"]
@@ -116,7 +116,7 @@ class RosettaClassTests: XCTestCase {
         name = "John"
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.name <- json["name"]
       }
     }
@@ -134,7 +134,7 @@ class RosettaClassTests: XCTestCase {
         
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.name <- json["name"]
       }
     }
@@ -152,7 +152,7 @@ class RosettaClassTests: XCTestCase {
         
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.name <~ json["name"]
       }
     }
@@ -218,7 +218,7 @@ class RosettaClassTests: XCTestCase {
         name = "John"
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.name <- json["name"]
       }
     }
@@ -235,7 +235,7 @@ class RosettaClassTests: XCTestCase {
         name = "John"
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.name <- json["name"]
       }
     }
@@ -252,7 +252,7 @@ class RosettaClassTests: XCTestCase {
         
       }
       
-      private class func map(json: Rosetta, object: Structure) {
+      private class func map(object: Structure, json: Rosetta) {
         object.a1 <- json["a1"] § {$0 == "a1"}
       }
     }
@@ -270,7 +270,7 @@ class RosettaClassTests: XCTestCase {
         
       }
       
-      private class func map(json: Rosetta, object: Structure) {
+      private class func map(object: Structure, json: Rosetta) {
         object.a1 <~ json["a1"] § {$0 == "a1"}
       }
     }
@@ -289,7 +289,7 @@ class RosettaClassTests: XCTestCase {
         name = "John"
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.name <- json["result"]["name"]
       }
     }
@@ -307,7 +307,7 @@ class RosettaClassTests: XCTestCase {
         name = "John"
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.name <- json["result"]["name"]
       }
     }
@@ -325,7 +325,7 @@ class RosettaClassTests: XCTestCase {
         
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.a1 <- json["a1"]
       }
     }
@@ -344,7 +344,7 @@ class RosettaClassTests: XCTestCase {
     }
     let jsonData = dataFrom(["a1": "a1-value"])
     var object = ObjectClass()
-    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (json, object: ObjectClass) -> () in
+    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (object, json) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(result == true, "result should be 'true'")
@@ -363,7 +363,7 @@ class RosettaClassTests: XCTestCase {
     let jsonData = dataFrom(["a2": "garbage"])
     var object = ObjectClass()
     object.a1 = "a1-value"
-    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (json, object: ObjectClass) -> () in
+    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (object, json) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(result == false, "result should be 'false'")
@@ -380,7 +380,7 @@ class RosettaClassTests: XCTestCase {
       }
     }
     let jsonData = dataFrom(["a1": "a1-value"])
-    let object = Rosetta().decode(jsonData, usingMap: { (json, object: ObjectClass) -> () in
+    let object = Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(object != nil, "object should exist")
@@ -397,7 +397,7 @@ class RosettaClassTests: XCTestCase {
       }
     }
     let jsonData = dataFrom(["a2": "garbage"])
-    let object = Rosetta().decode(jsonData, usingMap: { (json, object: ObjectClass) -> () in
+    let object = Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(object == nil, "object should not exist")
@@ -412,7 +412,7 @@ class RosettaClassTests: XCTestCase {
       }
     }
     let jsonData = dataFrom(["a2": "garbage"])
-    let object = Rosetta().decode(jsonData, usingMap: { (json, object: ObjectClass) -> () in
+    let object = Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
       object.a1 <~ json["a1"]
     })
     XCTAssertTrue(object != nil, "object should exist")
@@ -462,7 +462,7 @@ class RosettaClassTests: XCTestCase {
       
     }
     
-    class func map(json: Rosetta, object: KeyPathObject) {
+    class func map(object: KeyPathObject, json: Rosetta) {
       object.a1 <- json["result"]["object"]["a1-key"]
       object.a2 <- json["result"]["object"]["a2-key"]
       object.a3 <- json["result"]["object"]["a3-key"]
@@ -580,7 +580,7 @@ class RosettaClassTests: XCTestCase {
     }
     
     var object = ObjectClass()
-    Rosetta().decode(dataFrom(["a1": "a1"]), to: &object, usingMap: { (json, object: ObjectClass) -> () in
+    Rosetta().decode(dataFrom(["a1": "a1"]), to: &object, usingMap: { (object: ObjectClass, json) -> () in
       object.a1 <- json["a1"]
     })
     
@@ -626,7 +626,7 @@ class RosettaClassTests: XCTestCase {
         
       }
       
-      private class func map(json: Rosetta, object: ObjectClass) {
+      private class func map(object: ObjectClass, json: Rosetta) {
         object.a0 <- json["a0"]
         object.a1 <- json["a1"]
         object.a2 <- json["a2"]
@@ -672,7 +672,7 @@ class RosettaClassTests: XCTestCase {
         
       }
       
-      private class func map(json: Rosetta, object: Structure) {
+      private class func map(object: Structure, json: Rosetta) {
         object.a1 <- json["a1"] § {$0 == "a1"}
         object.a2 <- json["a2"] § {$0 == "a2"}
         object.a3 <~ json["a3"] § {$0 == "a3"}
@@ -775,7 +775,7 @@ class RosettaClassTests: XCTestCase {
         
       }
       
-      private class func map(json: Rosetta, object: Structure) {
+      private class func map(object: Structure, json: Rosetta) {
         object.a1 <- json["a1"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
         object.a2 <- json["a2"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
         object.a3 <~ json["a3"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
@@ -880,7 +880,7 @@ class RosettaClassTests: XCTestCase {
         self.name = name
       }
       
-      class func map(json: Rosetta, object: User) {
+      class func map(object: User, json: Rosetta) {
         object.name <- json["name"]
       }
     }
@@ -900,7 +900,7 @@ class RosettaClassTests: XCTestCase {
         self.users3 = users3
       }
       
-      class func map(json: Rosetta, object: Group) {
+      class func map(object: Group, json: Rosetta) {
         object.users1 <- json["users1"]
         object.users2 <- json["users2"]
         object.users3 <- json["users3"]
@@ -956,7 +956,7 @@ class RosettaClassTests: XCTestCase {
         self.name = name
       }
       
-      class func map(json: Rosetta, object: User) {
+      class func map(object: User, json: Rosetta) {
         object.name <- json["name"]
       }
     }
@@ -976,7 +976,7 @@ class RosettaClassTests: XCTestCase {
         self.users3 = users3
       }
       
-      class func map(json: Rosetta, object: Group) {
+      class func map(object: Group, json: Rosetta) {
         object.users1 <- json["users1"]
         object.users2 <- json["users2"]
         object.users3 <- json["users3"]
