@@ -593,6 +593,169 @@ class RosettaTests: XCTestCase {
     XCTAssertEqual(object.a1!, "a1")
   }
   
+  func testImplicitBridgeWithValidator() {
+    struct SubObject: JSONConvertible {
+      var value: Int!
+      init() {
+        
+      }
+      
+      init(value: Int) {
+        self.value = value
+      }
+      
+      static func map(inout object: SubObject, json: Rosetta) {
+        object.value <- json["value"]
+      }
+    }
+    
+    struct Object: JSONConvertible {
+      var a1: SubObject = SubObject()
+      var a2: SubObject!
+      var a3: SubObject?
+      var b1: SubObject?
+      
+      init() {
+        
+      }
+      
+      static func map(inout object: Object, json: Rosetta) {
+        object.a1 <- json["a1"] § {$0.value == 5}
+        object.a2 <- json["a2"] § {$0.value == 5}
+        object.a3 <- json["a3"] § {$0.value == 5}
+        object.b1 <~ json["b1"] § {$0.value == 5}
+      }
+    }
+    
+    var obj: Object?
+    obj = Rosetta().decode(
+      dataFrom(
+        ["a1": ["value": 5],
+          "a2": ["value": 5],
+          "a3": ["value": 5],
+          "b1": ["value": 5]]
+      )
+    )
+    XCTAssertTrue(obj != nil, "obj should not be nil")
+    
+    XCTAssertTrue(obj!.a1.value != nil, "obj.a1.value should not be nil")
+    XCTAssertTrue(obj!.a1.value == 5, "obj.a1.value should == 5")
+    
+    XCTAssertTrue(obj!.a2 != nil, "obj.a2 should not be nil")
+    XCTAssertTrue(obj!.a2.value != nil, "obj.a2.value should not be nil")
+    XCTAssertTrue(obj!.a2.value == 5, "obj.a2.value should == 5")
+    
+    XCTAssertTrue(obj!.a3 != nil, "obj.a3 should not be nil")
+    XCTAssertTrue(obj!.a3!.value != nil, "obj.a3.value should not be nil")
+    XCTAssertTrue(obj!.a3!.value! == 5, "obj.a3.value should == 5")
+    
+    XCTAssertTrue(obj!.b1 != nil, "obj.b1 should not be nil")
+    XCTAssertTrue(obj!.b1!.value != nil, "obj.b1.value should not be nil")
+    XCTAssertTrue(obj!.b1!.value! == 5, "obj.b1.value should == 5")
+    
+    obj = Rosetta().decode(
+      dataFrom(
+        ["a1": ["value": 4],
+          "a2": ["value": 5],
+          "a3": ["value": 5],
+          "b1": ["value": 5]]
+      )
+    )
+    XCTAssertTrue(obj == nil, "obj should not be nil")
+    
+    obj = Rosetta().decode(
+      dataFrom(
+        ["a1": ["value": 5],
+          "a2": ["value": 4],
+          "a3": ["value": 5],
+          "b1": ["value": 5]]
+      )
+    )
+    XCTAssertTrue(obj == nil, "obj should not be nil")
+    
+    obj = Rosetta().decode(
+      dataFrom(
+        ["a1": ["value": 5],
+          "a2": ["value": 5],
+          "a3": ["value": 4],
+          "b1": ["value": 5]]
+      )
+    )
+    XCTAssertTrue(obj == nil, "obj should not be nil")
+    
+    obj = Rosetta().decode(
+      dataFrom(
+        ["a1": ["value": 5],
+          "a2": ["value": 5],
+          "a3": ["value": 5],
+          "b1": ["value": 4]]
+      )
+    )
+    XCTAssertTrue(obj != nil, "obj should not be nil")
+    
+    XCTAssertTrue(obj!.a1.value != nil, "obj.a1.value should not be nil")
+    XCTAssertTrue(obj!.a1.value == 5, "obj.a1.value should == 5")
+    
+    XCTAssertTrue(obj!.a2 != nil, "obj.a2 should not be nil")
+    XCTAssertTrue(obj!.a2.value != nil, "obj.a2.value should not be nil")
+    XCTAssertTrue(obj!.a2.value == 5, "obj.a2.value should == 5")
+    
+    XCTAssertTrue(obj!.a3 != nil, "obj.a3 should not be nil")
+    XCTAssertTrue(obj!.a3!.value != nil, "obj.a3.value should not be nil")
+    XCTAssertTrue(obj!.a3!.value! == 5, "obj.a3.value should == 5")
+    
+    XCTAssertTrue(obj!.b1 == nil, "obj.b1 should not be nil")
+    
+    obj = Object()
+    obj!.a1 = SubObject(value: 5)
+    obj!.a2 = SubObject(value: 5)
+    obj!.a3 = SubObject(value: 5)
+    obj!.b1 = SubObject(value: 5)
+    var data = Rosetta().encode(obj!) as NSData?
+    XCTAssertTrue(data != nil, "data should not be nil")
+    XCTAssertTrue(jsonFrom(data!).isEqualToDictionary(
+      ["a1": ["value": 5],
+        "a2": ["value": 5],
+        "a3": ["value": 5],
+        "b1": ["value": 5]]), "wrong encoding result")
+    
+    obj = Object()
+    obj!.a1 = SubObject(value: 4)
+    obj!.a2 = SubObject(value: 5)
+    obj!.a3 = SubObject(value: 5)
+    obj!.b1 = SubObject(value: 5)
+    data = Rosetta().encode(obj!) as NSData?
+    XCTAssertTrue(data == nil, "data should be nil")
+    
+    obj = Object()
+    obj!.a1 = SubObject(value: 5)
+    obj!.a2 = SubObject(value: 4)
+    obj!.a3 = SubObject(value: 5)
+    obj!.b1 = SubObject(value: 5)
+    data = Rosetta().encode(obj!) as NSData?
+    XCTAssertTrue(data == nil, "data should be nil")
+    
+    obj = Object()
+    obj!.a1 = SubObject(value: 5)
+    obj!.a2 = SubObject(value: 5)
+    obj!.a3 = SubObject(value: 4)
+    obj!.b1 = SubObject(value: 5)
+    data = Rosetta().encode(obj!) as NSData?
+    XCTAssertTrue(data == nil, "data should be nil")
+    
+    obj = Object()
+    obj!.a1 = SubObject(value: 5)
+    obj!.a2 = SubObject(value: 5)
+    obj!.a3 = SubObject(value: 5)
+    obj!.b1 = SubObject(value: 4)
+    data = Rosetta().encode(obj!) as NSData?
+    XCTAssertTrue(data != nil, "data should not be nil")
+    XCTAssertTrue(jsonFrom(data!).isEqualToDictionary(
+      ["a1": ["value": 5],
+        "a2": ["value": 5],
+        "a3": ["value": 5]]), "wrong encoding result")
+  }
+  
   //MARK: auto-bridged types
   
   func testAutoBridgedTypes() {
