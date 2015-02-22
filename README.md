@@ -32,7 +32,7 @@ Clone this repo. Add the Rosetta project file to your workspace. Then in your ta
 
 This is just a brief overview of how `Rosetta` works, but it should give you the idea. Please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md) for thorough documentation.
 
-### JSON Decoding
+### JSON Decoding/Encoding
 
 The easiest way to use `Rosetta` is to have your type implement `JSONConvertible` protocol
 ```swift
@@ -72,19 +72,7 @@ let jsonData = Rosetta().encode(user) as NSData?
 let jsonString = Rosetta().encode(user) as String?
 ```
 
-For details on how `decoding` works, please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decodin)
-
-### JSON Encoding
-
-You can always get a `JSON` back (assuming `userObject` conforms to `JSONConvertible` / `JSONConvertibleClass` protocol) as `NSData`
-```swift
-let json: NSData? = Rosetta().encode(userObject)
-```
-or `String`
-```swift
-let json: String? = Rosetta().encode(userObject)
-```
-Further `encoding` details are described in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-encoding)
+For details on how `decoding` and `encoding` work, please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decodin)
 
 ### Required fields
 
