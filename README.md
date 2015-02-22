@@ -34,45 +34,44 @@ This is just a brief overview of how `Rosetta` works, but it should give you the
 
 ### JSON Decoding
 
-Let's look at a simple example. Say we have a `JSON` representation of a user:
-```json
-{  
-  "name": "Bill",
-  "age": 22
-}
-```
-and want to be able to parse that into a Swift `struct`:
+The easiest way to use `Rosetta` is to have your type implement `JSONConvertible` protocol
 ```swift
-struct User {
+struct User: JSONConvertible {
+  var ID: String
   var name: String?
   var age: Int?
-}
-```
-The most blunt and verbose way to do that is:
-```swift
-var user = User(name: nil, age: nil)
-let success = Rosetta().decode(jsonDataOrString, to: &user, usingMap: {(inout object: User, json) -> () in
-  object.name <~ json["name"]
-  object.age  <~ json["age"]
-})
-```
-But if we make `User` conform to the `JSONConvertible` protocol (`JSONConvertibleClass` for `class` types), we can reduce that call down to:
-```swift
-let user: User? = Rosetta().decode(jsonDataOrString)
-```
-`JSONConvertible` implementation for `User` may look like this:
-```swift
-extension User: JSONConvertible {
+  var website: NSURL?
+  var friends: [User]?
+  var family: [String : User]?
+  
   init() {
-    
+    ID = NSUUID().UUIDString
   }
   
   static func map(inout object: User, json: Rosetta) {
-    object.name <~ json["name"]
-    object.age  <~ json["age"]
+    object.ID       <- json["uniqueID"] // Map required properties with <-
+    object.name     <~ json["name"] // Map optional properties with <~
+    object.age      <~ json["age"] § {$0 > 0} // Add validation closure after § operator (age > 0)
+    // Types not conforming to Bridgeable protocol (like NSURL here) need to have bridging code after ~ operator
+    object.website  <~ json["website_url"] ~ BridgeString(
+      decoder: {NSURL(string: $0 as String)}, // convert NSString from json to NSURL
+      encoder: {$0.absoluteString} // convert NSURL from Person to NSString for JSON
+    )
+    object.friends  <~ json["friends"] // Automaticaly mapped arrays
+    object.family   <~ json["family"] // Automaticaly mapped dictionaries
   }
 }
 ```
+and then you can convert `JSON` to `Person` with
+```swift
+let user = Rosetta().decode(jsonDataOrString) as User?
+```
+and `Person` to `JSON` with
+```swift
+let jsonData = Rosetta().encode(user) as NSData?
+let jsonString = Rosetta().encode(user) as String?
+```
+
 For details on how `decoding` works, please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decodin)
 
 ### JSON Encoding
