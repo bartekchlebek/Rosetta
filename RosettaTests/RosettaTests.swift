@@ -1187,4 +1187,123 @@ class RosettaTests: XCTestCase {
       "encoded dictionary does not match the original dictionary"
     )
   }
+  
+  func testReadme() {
+    struct User: JSONConvertible {
+      var ID: String?
+      var name: String?
+      var age: Int?
+      var website: NSURL?
+      var friends: [User]?
+      var family: [String : User]?
+      
+      init() {
+        
+      }
+      
+      static func map(inout object: User, json: Rosetta) {
+        object.ID       <- json["uniqueID"] // Map required properties with <-
+        object.name     <~ json["name"] // Map optional properties with <~
+        object.age      <~ json["age"] § {$0 > 0} // Add validation closure after § operator (age > 0)
+        // Types not conforming to Bridgeable protocol (like NSURL here) need to have bridging code after ~ operator
+        object.website  <~ json["website_url"] ~ BridgeString(
+          decoder: {NSURL(string: $0 as String)}, // convert NSString from json to NSURL
+          encoder: {$0.absoluteString} // convert NSURL from Person to NSString for JSON
+        )
+        object.friends  <~ json["friends"] // Automaticaly mapped arrays
+        object.family   <~ json["family"] // Automaticaly mapped dictionaries
+      }
+    }
+  }
+  
+  func testReadme1() {
+    
+    struct CustomConvertibleType: JSONConvertible {
+      var someValue: Double?
+      
+      init() {
+        
+      }
+      
+      static func map(inout object: CustomConvertibleType, json: Rosetta) {
+        object.someValue <- json["value"]
+      }
+    }
+    
+    enum CustomBridgeableType: Int, Bridgeable {
+      case One = 1, Two, Three, Four
+      
+      static func bridge() -> Bridge<CustomBridgeableType, NSNumber> {
+        return BridgeNumber(
+          decoder: {CustomBridgeableType(rawValue: $0.integerValue)},
+          encoder: {$0.rawValue}
+        )
+      }
+    }
+    
+    struct YourCustomType: JSONConvertible {
+      var value1: Int?
+      var value2: CustomBridgeableType?
+      var value3: CustomConvertibleType?
+      var value4: NSURL?
+      
+      var requiredValue1: String = ""
+      var requiredValue2: String!
+      var requiredValue3: String?
+      
+      var validatedValue1: String?
+      var validatedValue2: CustomBridgeableType?
+      var validatedValue3: CustomConvertibleType?
+      var validatedValue4: NSURL?
+      
+      var array1: [Int]?
+      var array2: [CustomBridgeableType]?
+      var array3: [CustomConvertibleType]?
+      var array4: [NSURL]?
+      
+      var dictionary1: [String : Int]?
+      var dictionary2: [String : CustomBridgeableType]?
+      var dictionary3: [String : CustomConvertibleType]?
+      var dictionary4: [String : NSURL]?
+      
+      init() {
+        
+      }
+      
+      static func map(inout object: YourCustomType, json: Rosetta) {
+        object.value1 <~ json["value1"]
+        object.value2 <~ json["value2"]
+        object.value2 <~ json["value3"]
+        object.value4 <~ json["value4"] ~ BridgeString(
+          decoder: {NSURL(string: $0 as String)},
+          encoder: {$0.absoluteString}
+        )
+        
+        // Bridging placed in a constant just to reuse
+        let urlBridge = BridgeString(
+          decoder: {NSURL(string: $0 as String)},
+          encoder: {$0.absoluteString}
+        )
+        
+        object.requiredValue1 <- json["required1"]
+        object.requiredValue2 <- json["required2"]
+        object.requiredValue3 <- json["required3"]
+        
+        object.validatedValue1 <~ json["validated1"] § {$0.hasPrefix("requiredPrefix")}
+        object.validatedValue2 <~ json["validated2"] § {$0 == .One || $0 == .Three}
+        object.validatedValue3 <~ json["validated3"] § {$0.someValue > 10.0}
+        object.validatedValue4 <~ json["validated4"] ~ urlBridge § {$0.scheme == "https"}
+        
+        object.array1 <~ json["array1"]
+        object.array2 <~ json["array2"]
+        object.array3 <~ json["array3"]
+        object.array4 <~ json["array4"] ~ BridgeArray(urlBridge)
+        
+        object.dictionary1 <~ json["dictionary1"]
+        object.dictionary2 <~ json["dictionary2"]
+        object.dictionary3 <~ json["dictionary3"]
+        object.dictionary4 <~ json["dictionary4"] ~ BridgeObject(urlBridge)
+      }
+    }
+  }
 }
