@@ -208,6 +208,42 @@ public func <~<T: Bridgeable>(inout left: T?, right: (Rosetta, (T -> Bool))) {
   left <~ (right.0, T.bridge(), right.1)
 }
 
+// ------------------------------------------------
+
+public func <-<T: JSONConvertible>(inout left: T, right: (Rosetta, (T -> Bool))) {
+  left <- (right.0, JSONConvertibleBridge(), right.1)
+}
+
+public func <-<T: JSONConvertible>(inout left: T!, right: (Rosetta, (T -> Bool))) {
+  left <- (right.0, JSONConvertibleBridge(), right.1)
+}
+
+public func <-<T: JSONConvertible>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+  left <- (right.0, JSONConvertibleBridge(), right.1)
+}
+
+public func <~<T: JSONConvertible>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+  left <~ (right.0, JSONConvertibleBridge(), right.1)
+}
+
+// ------------------------------------------------
+
+public func <-<T: JSONConvertibleClass>(inout left: T, right: (Rosetta, (T -> Bool))) {
+  left <- (right.0, JSONConvertibleClassBridge(), right.1)
+}
+
+public func <-<T: JSONConvertibleClass>(inout left: T!, right: (Rosetta, (T -> Bool))) {
+  left <- (right.0, JSONConvertibleClassBridge(), right.1)
+}
+
+public func <-<T: JSONConvertibleClass>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+  left <- (right.0, JSONConvertibleClassBridge(), right.1)
+}
+
+public func <~<T: JSONConvertibleClass>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+  left <~ (right.0, JSONConvertibleClassBridge(), right.1)
+}
+
 //MARK: Implicit Bridge for JSONConvertible types
 
 public func <-<T: JSONConvertible>(inout left: T, right: Rosetta) {
