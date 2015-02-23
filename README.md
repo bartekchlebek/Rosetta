@@ -37,7 +37,7 @@ This is just a brief overview of how `Rosetta` works, but it should give you the
 The easiest way to use `Rosetta` is to have your type implement `JSONConvertible` protocol
 ```swift
 struct User: JSONConvertible {
-  var ID: String
+  var ID: String?
   var name: String?
   var age: Int?
   var website: NSURL?
@@ -45,7 +45,7 @@ struct User: JSONConvertible {
   var family: [String : User]?
   
   init() {
-    ID = NSUUID().UUIDString
+    
   }
   
   static func map(inout object: User, json: Rosetta) {
@@ -150,6 +150,96 @@ or
 rosetta.logLevel = .Verbose
 ```
 You can also change the **log output** (if `println()` does not suit you) and **customize** the log format. All that is described in-depth in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#logs)
+
+## Examples
+
+```swift
+struct CustomConvertibleType: JSONConvertible {
+  var someValue: Double?
+  
+  init() {
+    
+  }
+  
+  static func map(inout object: CustomConvertibleType, json: Rosetta) {
+    object.someValue <- json["value"]
+  }
+}
+enum CustomBridgeableType: Int, Bridgeable {
+  case One = 1, Two, Three, Four
+  
+  static func bridge() -> Bridge<CustomBridgeableType, NSNumber> {
+    return BridgeNumber(
+      decoder: {CustomBridgeableType(rawValue: $0.integerValue)},
+      encoder: {$0.rawValue}
+    )
+  }
+}
+struct YourCustomType: JSONConvertible {
+  var value1: Int?
+  var value2: CustomBridgeableType?
+  var value3: CustomConvertibleType?
+  var value4: NSURL?
+  
+  var requiredValue1: String = ""
+  var requiredValue2: String!
+  var requiredValue3: String?
+  
+  var validatedValue1: String?
+  var validatedValue2: CustomBridgeableType?
+  var validatedValue3: CustomConvertibleType?
+  var validatedValue4: NSURL?
+  
+  var array1: [Int]?
+  var array2: [CustomBridgeableType]?
+  var array3: [CustomConvertibleType]?
+  var array4: [NSURL]?
+  
+  var dictionary1: [String : Int]?
+  var dictionary2: [String : CustomBridgeableType]?
+  var dictionary3: [String : CustomConvertibleType]?
+  var dictionary4: [String : NSURL]?
+  
+  init() {
+    
+  }
+  
+  static func map(inout object: YourCustomType, json: Rosetta) {
+    object.value1 <~ json["value1"]
+    object.value2 <~ json["value2"]
+    object.value2 <~ json["value3"]
+    object.value4 <~ json["value4"] ~ BridgeString(
+      decoder: {NSURL(string: $0 as String)},
+      encoder: {$0.absoluteString}
+    )
+    
+    // Bridging placed in a constant just to reuse
+    let urlBridge = BridgeString(
+      decoder: {NSURL(string: $0 as String)},
+      encoder: {$0.absoluteString}
+    )
+    
+    object.requiredValue1 <- json["required1"]
+    object.requiredValue2 <- json["required2"]
+    object.requiredValue3 <- json["required3"]
+    
+    object.validatedValue1 <~ json["validated1"] § {$0.hasPrefix("requiredPrefix")}
+    object.validatedValue2 <~ json["validated2"] § {$0 == .One || $0 == .Three}
+    object.validatedValue3 <~ json["validated3"] § {$0.someValue > 10.0}
+    object.validatedValue4 <~ json["validated4"] ~ urlBridge § {$0.scheme == "https"}
+    
+    object.array1 <~ json["array1"]
+    object.array2 <~ json["array2"]
+    object.array3 <~ json["array3"]
+    object.array4 <~ json["array4"] ~ BridgeArray(urlBridge)
+    
+    object.dictionary1 <~ json["dictionary1"]
+    object.dictionary2 <~ json["dictionary2"]
+    object.dictionary3 <~ json["dictionary3"]
+    object.dictionary4 <~ json["dictionary4"] ~ BridgeObject(urlBridge)
+  }
+}
+```
 
 ## License
 Rosetta is available under the MIT license. See the [LICENSE](https://github.com/bartekchlebek/Rosetta/blob/master/LICENSE) file for more info.
