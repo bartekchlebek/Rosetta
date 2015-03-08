@@ -87,12 +87,12 @@ public class Rosetta {
   //MARK: Structure types decoding
   
   func decode<T>(
-    input: JSON,
-    inout to object: T,
-    usingMap map: (inout T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ input: JSON,
+    inout to object: T,
+    usingMap map: (inout T, json: Rosetta) -> ()
     ) -> Bool {
       
       // prepare rosetta
@@ -159,109 +159,110 @@ public class Rosetta {
   }
   
   public func decode<T>(
-    jsonData: NSData,
-    inout to object: T,
-    usingMap map: (inout T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonData: NSData,
+    inout to object: T,
+    usingMap map: (inout T, json: Rosetta) -> ()
     ) -> Bool {
       
-      return self.decode(JSON.Data(jsonData), to: &object, usingMap: map, file: file, line: line, function: function)
+      let input = JSON.Data(jsonData)
+      return self.decode(file: file, line: line, function: function, input, to: &object, usingMap: map)
   }
   
   public func decode<T>(
-    jsonString: String,
-    inout to object: T,
-    usingMap map: (inout T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonString: String,
+    inout to object: T,
+    usingMap map: (inout T, json: Rosetta) -> ()
     ) -> Bool {
       
       let input = JSON.String(jsonString)
-      return self.decode(input, to: &object, usingMap: map, file: file, line: line, function: function)
+      return self.decode(file: file, line: line, function: function, input, to: &object, usingMap: map)
   }
   
   public func decode<T: Creatable>(
-    jsonData: NSData,
-    usingMap map: (inout T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonData: NSData,
+    usingMap map: (inout T, json: Rosetta) -> ()
     ) -> T? {
       
       var object = T()
-      if self.decode(jsonData, to: &object, usingMap: map, file: file, line: line, function: function) == false {
+      if self.decode(file: file, line: line, function: function, jsonData, to: &object, usingMap: map) == false {
         return nil
       }
       return object
   }
   
   public func decode<T: Creatable>(
-    jsonString: String,
-    usingMap map: (inout T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    jsonString: String,
+    usingMap map: (inout T, json: Rosetta) -> ()
     ) -> T? {
       
       var object = T()
-      if self.decode(jsonString, to: &object, usingMap: map, file: file, line: line, function: function) == false {
+      if self.decode(file: file, line: line, function: function, jsonString, to: &object, usingMap: map) == false {
         return nil
       }
       return object
   }
   
   public func decode<T: Mappable>(
-    jsonData: NSData,
-    inout to object: T,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonData: NSData,
+    inout to object: T
     ) -> Bool {
       
       let map = {(inout x: T, y: Rosetta) -> () in T.map(&x, json: y)}
-      return self.decode(jsonData, to: &object, usingMap: map, file: file, line: line, function: function)
+      return self.decode(file: file, line: line, function: function, jsonData, to: &object, usingMap: map)
   }
   
   public func decode<T: Mappable>(
-    jsonString: String,
-    inout to object: T,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonString: String,
+    inout to object: T
     ) -> Bool {
       
       let map = {(inout x: T, y: Rosetta) -> () in T.map(&x, json: y)}
-      return self.decode(jsonString, to: &object, usingMap: map, file: file, line: line, function: function)
+      return self.decode(file: file, line: line, function: function, jsonString, to: &object, usingMap: map)
   }
   
   public func decode<T: JSONConvertible>(
-    jsonData: NSData,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonData: NSData
     ) -> T? {
       
       var object = T()
       let map = {(inout x: T, y: Rosetta) -> () in T.map(&x, json: y)}
-      if self.decode(jsonData, to: &object, usingMap: map, file: file, line: line, function: function) == false {
+      if self.decode(file: file, line: line, function: function, jsonData, to: &object, usingMap: map) == false {
         return nil
       }
       return object
   }
   
   public func decode<T: JSONConvertible>(
-    jsonString: String,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonString: String
     ) -> T? {
       
       var object = T()
       let map = {(inout x: T, y: Rosetta) -> () in T.map(&x, json: y)}
-      if self.decode(jsonString, to: &object, usingMap: map, file: file, line: line, function: function) == false {
+      if self.decode(file: file, line: line, function: function, jsonString, to: &object, usingMap: map) == false {
         return nil
       }
       return object
@@ -270,11 +271,11 @@ public class Rosetta {
   //MARK: Structure types encoding
   
   func encode<T>(
-    object: T,
-    usingMap map: (inout T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ object: T,
+    usingMap map: (inout T, json: Rosetta) -> ()
     ) -> [String: AnyObject]? {
       
       // prepare rosetta
@@ -307,15 +308,15 @@ public class Rosetta {
   }
   
   public func encode<T>(
-    obj: T,
-    usingMap map: (inout T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ obj: T,
+    usingMap map: (inout T, json: Rosetta) -> ()
     ) -> NSData? {
       
       var data: NSData?
-      if let json: [String: AnyObject] = self.encode(obj, usingMap: map, file: file, line: line, function: function) {
+      if let json: [String: AnyObject] = self.encode(file: file, line: line, function: function, obj, usingMap: map) {
         // TODO: Add json parsing error
         data = NSJSONSerialization.dataWithJSONObject(json, options: nil, error: nil)
       }
@@ -323,15 +324,15 @@ public class Rosetta {
   }
   
   public func encode<T>(
-    obj: T,
-    usingMap map: (inout T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ obj: T,
+    usingMap map: (inout T, json: Rosetta) -> ()
     ) -> String? {
       
       var string: String?
-      if let data: NSData = self.encode(obj, usingMap: map, file: file, line: line, function: function) {
+      if let data: NSData = self.encode(file: file, line: line, function: function, obj, usingMap: map) {
         string = data.toString()
         if string == nil {
           // TODO: Add error
@@ -341,36 +342,36 @@ public class Rosetta {
   }
   
   public func encode<T: Mappable>(
-    obj: T,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ obj: T
     ) -> NSData? {
       
       let map = {(inout x: T, y: Rosetta) -> () in T.map(&x, json: y)}
-      return self.encode(obj, usingMap: map, file: file, line: line, function: function)
+      return self.encode(file: file, line: line, function: function, obj, usingMap: map)
   }
   
   public func encode<T: Mappable>(
-    obj: T,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ obj: T
     ) -> String? {
       
       let map = {(inout x: T, y: Rosetta) -> () in T.map(&x, json: y)}
-      return self.encode(obj, usingMap: map, file: file, line: line, function: function)
+      return self.encode(file: file, line: line, function: function, obj, usingMap: map)
   }
   
   //MARK: Class types decoding
   
   func decode<T>(
-    input: JSON,
-    inout to object: T,
-    usingMap map: (T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ input: JSON,
+    inout to object: T,
+    usingMap map: (T, json: Rosetta) -> ()
     ) -> Bool {
       
       // prepare rosetta
@@ -437,109 +438,109 @@ public class Rosetta {
   }
   
   public func decode<T>(
-    jsonData: NSData,
-    inout to object: T,
-    usingMap map: (T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonData: NSData,
+    inout to object: T,
+    usingMap map: (T, json: Rosetta) -> ()
     ) -> Bool {
       
-      return self.decode(JSON.Data(jsonData), to: &object, usingMap: map, file: file, line: line, function: function)
+      return self.decode(file: file, line: line, function: function, JSON.Data(jsonData), to: &object, usingMap: map)
   }
   
   public func decode<T>(
-    jsonString: String,
-    inout to object: T,
-    usingMap map: (T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonString: String,
+    inout to object: T,
+    usingMap map: (T, json: Rosetta) -> ()
     ) -> Bool {
       
       let input = JSON.String(jsonString)
-      return self.decode(input, to: &object, usingMap: map, file: file, line: line, function: function)
+      return self.decode(file: file, line: line, function: function, input, to: &object, usingMap: map)
   }
   
   public func decode<T: Creatable>(
-    jsonData: NSData,
-    usingMap map: (T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonData: NSData,
+    usingMap map: (T, json: Rosetta) -> ()
     ) -> T? {
       
       var object = T()
-      if self.decode(jsonData, to: &object, usingMap: map, file: file, line: line, function: function) == false {
+      if self.decode(file: file, line: line, function: function, jsonData, to: &object, usingMap: map) == false {
         return nil
       }
       return object
   }
   
   public func decode<T: Creatable>(
-    jsonString: String,
-    usingMap map: (T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonString: String,
+    usingMap map: (T, json: Rosetta) -> ()
     ) -> T? {
       
       var object = T()
-      if self.decode(jsonString, to: &object, usingMap: map, file: file, line: line, function: function) == false {
+      if self.decode(file: file, line: line, function: function, jsonString, to: &object, usingMap: map) == false {
         return nil
       }
       return object
   }
   
   public func decode<T: MappableClass>(
-    jsonData: NSData,
-    inout to object: T,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonData: NSData,
+    inout to object: T
     ) -> Bool {
       
       let map = {(x: T, y: Rosetta) -> () in T.map(x, json: y)}
-      return self.decode(jsonData, to: &object, usingMap: map, file: file, line: line, function: function)
+      return self.decode(file: file, line: line, function: function, jsonData, to: &object, usingMap: map)
   }
   
   public func decode<T: MappableClass>(
-    jsonString: String,
-    inout to object: T,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonString: String,
+    inout to object: T
     ) -> Bool {
       
       let map = {(x: T, y: Rosetta) -> () in T.map(x, json: y)}
-      return self.decode(jsonString, to: &object, usingMap: map, file: file, line: line, function: function)
+      return self.decode(file: file, line: line, function: function, jsonString, to: &object, usingMap: map)
   }
   
   public func decode<T: JSONConvertibleClass>(
-    jsonData: NSData,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonData: NSData
     ) -> T? {
       
       var object = T()
       let map = {(x: T, y: Rosetta) -> () in T.map(x, json: y)}
-      if self.decode(jsonData, to: &object, usingMap: map, file: file, line: line, function: function) == false {
+      if self.decode(file: file, line: line, function: function, jsonData, to: &object, usingMap: map) == false {
         return nil
       }
       return object
   }
   
   public func decode<T: JSONConvertibleClass>(
-    jsonString: String,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ jsonString: String
     ) -> T? {
       
       var object = T()
       let map = {(x: T, y: Rosetta) -> () in T.map(x, json: y)}
-      if self.decode(jsonString, to: &object, usingMap: map, file: file, line: line, function: function) == false {
+      if self.decode(file: file, line: line, function: function, jsonString, to: &object, usingMap: map) == false {
         return nil
       }
       return object
@@ -548,11 +549,11 @@ public class Rosetta {
   //MARK: Class types encoding
   
   func encode<T>(
-    object: T,
-    usingMap map: (T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ object: T,
+    usingMap map: (T, json: Rosetta) -> ()
     ) -> [String: AnyObject]? {
       
       // prepare rosetta
@@ -585,15 +586,15 @@ public class Rosetta {
   }
   
   public func encode<T>(
-    obj: T,
-    usingMap map: (T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ obj: T,
+    usingMap map: (T, json: Rosetta) -> ()
     ) -> NSData? {
       
       var data: NSData?
-      if let json: [String: AnyObject] = self.encode(obj, usingMap: map, file: file, line: line, function: function) {
+      if let json: [String: AnyObject] = self.encode(file: file, line: line, function: function, obj, usingMap: map) {
         // TODO: Add json parsing error
         data = NSJSONSerialization.dataWithJSONObject(json, options: nil, error: nil)
       }
@@ -601,15 +602,15 @@ public class Rosetta {
   }
   
   public func encode<T>(
-    obj: T,
-    usingMap map: (T, json: Rosetta) -> (),
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ obj: T,
+    usingMap map: (T, json: Rosetta) -> ()
     ) -> String? {
       
       var string: String?
-      if let data: NSData = self.encode(obj, usingMap: map, file: file, line: line, function: function) {
+      if let data: NSData = self.encode(file: file, line: line, function: function, obj, usingMap: map) {
         string = data.toString()
         if string == nil {
           // TODO: Add error
@@ -619,25 +620,25 @@ public class Rosetta {
   }
   
   public func encode<T: MappableClass>(
-    obj: T,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ obj: T
     ) -> NSData? {
       
       let map = {(x: T, y: Rosetta) -> () in T.map(x, json: y)}
-      return self.encode(obj, usingMap: map, file: file, line: line, function: function)
+      return self.encode(file: file, line: line, function: function, obj, usingMap: map)
   }
   
   public func encode<T: MappableClass>(
-    obj: T,
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
-    function: StaticString = __FUNCTION__
+    function: StaticString = __FUNCTION__,
+    _ obj: T
     ) -> String? {
       
       let map = {(x: T, y: Rosetta) -> () in T.map(x, json: y)}
-      return self.encode(obj, usingMap: map, file: file, line: line, function: function)
+      return self.encode(file: file, line: line, function: function, obj, usingMap: map)
   }
   
   //MARK: Helpers
