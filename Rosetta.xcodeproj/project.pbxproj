@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DBA59B91AACA56B0037EDFF /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */; };
+		0DBA59BA1AACA56B0037EDFF /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */; };
 		0DE919D01A5A014C00FE94DE /* Rosetta.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DE919CF1A5A014C00FE94DE /* Rosetta.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0DE919D61A5A014D00FE94DE /* Rosetta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE919CA1A5A014C00FE94DE /* Rosetta.framework */; };
 		0DE919DD1A5A014D00FE94DE /* RosettaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */; };
@@ -53,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RosettaConvenience.swift; sourceTree = "<group>"; };
 		0DE919CA1A5A014C00FE94DE /* Rosetta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rosetta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE919CE1A5A014C00FE94DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DE919CF1A5A014C00FE94DE /* Rosetta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rosetta.h; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				0DE919EC1A5A056100FE94DE /* Rosetta.swift */,
+				0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */,
 				0DE919EA1A5A056100FE94DE /* Operators.swift */,
 				0DE919E71A5A056100FE94DE /* Bridging.swift */,
 				0DE919E61A5A056100FE94DE /* Bridgeable.swift */,
@@ -350,6 +354,7 @@
 			files = (
 				0DE919ED1A5A056100FE94DE /* Bridgeable.swift in Sources */,
 				0DE919F11A5A056100FE94DE /* Operators.swift in Sources */,
+				0DBA59B91AACA56B0037EDFF /* RosettaConvenience.swift in Sources */,
 				0DE919EE1A5A056100FE94DE /* Bridging.swift in Sources */,
 				0DE919F31A5A056100FE94DE /* Rosetta.swift in Sources */,
 				0DE919F21A5A056100FE94DE /* Protocols.swift in Sources */,
@@ -373,6 +378,7 @@
 			files = (
 				0DE91A221A5A0A5300FE94DE /* Rosetta.swift in Sources */,
 				0DE91A231A5A0A5300FE94DE /* Operators.swift in Sources */,
+				0DBA59BA1AACA56B0037EDFF /* RosettaConvenience.swift in Sources */,
 				0DE91A241A5A0A5300FE94DE /* Bridging.swift in Sources */,
 				0DE91A251A5A0A5300FE94DE /* Bridgeable.swift in Sources */,
 				0DE91A261A5A0A5300FE94DE /* BridgingBuiltin.swift in Sources */,
