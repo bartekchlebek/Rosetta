@@ -823,6 +823,45 @@ class RosettaClassTests: XCTestCase {
     }
   }
   
+  //MARK: syntax tests (only to test if the code compiles)
+  
+  func testTrailingClosure()
+  {
+    let data = NSData()
+    let string = ""
+    
+    class ClassType: Creatable {
+      required init() {
+        
+      }
+    }
+    
+    var classTypeObject = ClassType()
+    var classTypeResult: ClassType?
+    
+    Rosetta().decode(data, to: &classTypeObject) { (o: ClassType, j) -> () in
+      
+    }
+    classTypeResult = Rosetta().decode(data) { (o: ClassType, j) -> () in
+      
+    }
+    Rosetta().decode(string, to: &classTypeObject) { (o: ClassType, j) -> () in
+      
+    }
+    classTypeResult = Rosetta().decode(string) { (o: ClassType, j) -> () in
+      
+    }
+    
+    var dataResult: NSData?
+    var stringResult: String?
+    dataResult = Rosetta().encode(classTypeObject) { (o: ClassType, j) -> () in
+      
+    }
+    stringResult = Rosetta().encode(classTypeObject) { (o: ClassType, json) -> () in
+      
+    }
+  }
+  
   //MARK: validators
   
   func testValidation() {
