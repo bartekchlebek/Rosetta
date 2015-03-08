@@ -419,6 +419,30 @@ class RosettaClassTests: XCTestCase {
     XCTAssertTrue(object!.a1 == nil, "object.a1 should not exist")
   }
   
+  func testDroppingAllChangesIfDecodingFails()
+  {
+    class Object {
+      var a: String
+      var b: String
+      
+      init(a: String, b: String) {
+        self.a = a
+        self.b = b
+      }
+    }
+    
+    let data = dataFrom(["a" : "1"])
+    var object = Object(a: "0", b: "0")
+    let success = Rosetta().decode(data, to: &object) { (o: Object, j) -> () in
+      o.a <- j["a"]
+      o.b <- j["b"]
+    }
+    
+    XCTAssertTrue(success == false, "decodig should return failure")
+    XCTAssertTrue(object.a == "0", "object.a should be equal to \"0\"")
+    XCTAssertTrue(object.b == "0", "object.b should be equal to \"0\"")
+  }
+  
   //MARK: Key Path tests
   
   class KeyPathObject: JSONConvertibleClass {
