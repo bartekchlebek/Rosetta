@@ -8,7 +8,7 @@ extension Rosetta {
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
     inout to object: T,
-    usingMap map: (inout T, json: Rosetta) -> ()
+    usingMap map: (inout T, Rosetta) -> ()
     ) -> Bool {
       
       return self.decode(file: file, line: line, function: function, JSON.Data(jsonData), to: &object, usingMap: map)
@@ -20,7 +20,7 @@ extension Rosetta {
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
     inout to object: T,
-    usingMap map: (inout T, json: Rosetta) -> ()
+    usingMap map: (inout T, Rosetta) -> ()
     ) -> Bool {
       
       let input = JSON.String(jsonString)
@@ -32,7 +32,7 @@ extension Rosetta {
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
-    usingMap map: (inout T, json: Rosetta) -> ()
+    usingMap map: (inout T, Rosetta) -> ()
     ) -> T? {
       
       var object = T()
@@ -47,7 +47,7 @@ extension Rosetta {
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
-    usingMap map: (inout T, json: Rosetta) -> ()
+    usingMap map: (inout T, Rosetta) -> ()
     ) -> T? {
       
       var object = T()
@@ -115,7 +115,7 @@ extension Rosetta {
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T,
-    usingMap map: (inout T, json: Rosetta) -> ()
+    usingMap map: (inout T, Rosetta) -> ()
     ) -> NSData? {
       
       var data: NSData?
@@ -131,7 +131,7 @@ extension Rosetta {
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T,
-    usingMap map: (inout T, json: Rosetta) -> ()
+    usingMap map: (inout T, Rosetta) -> ()
     ) -> String? {
       
       var string: String?
@@ -173,7 +173,7 @@ extension Rosetta {
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
     inout to object: T,
-    usingMap map: (T, json: Rosetta) -> ()
+    usingMap map: (T, Rosetta) -> ()
     ) -> Bool {
       
       return self.decode(file: file, line: line, function: function, JSON.Data(jsonData), to: &object, usingMap: map)
@@ -185,7 +185,7 @@ extension Rosetta {
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
     inout to object: T,
-    usingMap map: (T, json: Rosetta) -> ()
+    usingMap map: (T, Rosetta) -> ()
     ) -> Bool {
       
       let input = JSON.String(jsonString)
@@ -197,7 +197,7 @@ extension Rosetta {
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
-    usingMap map: (T, json: Rosetta) -> ()
+    usingMap map: (T, Rosetta) -> ()
     ) -> T? {
       
       var object = T()
@@ -212,7 +212,7 @@ extension Rosetta {
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
-    usingMap map: (T, json: Rosetta) -> ()
+    usingMap map: (T, Rosetta) -> ()
     ) -> T? {
       
       var object = T()
@@ -280,7 +280,7 @@ extension Rosetta {
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T,
-    usingMap map: (T, json: Rosetta) -> ()
+    usingMap map: (T, Rosetta) -> ()
     ) -> NSData? {
       
       var data: NSData?
@@ -296,7 +296,7 @@ extension Rosetta {
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T,
-    usingMap map: (T, json: Rosetta) -> ()
+    usingMap map: (T, Rosetta) -> ()
     ) -> String? {
       
       var string: String?
