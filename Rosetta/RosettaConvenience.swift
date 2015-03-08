@@ -46,7 +46,7 @@ extension Rosetta {
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
-    jsonString: String,
+    _ jsonString: String,
     usingMap map: (inout T, json: Rosetta) -> ()
     ) -> T? {
       
