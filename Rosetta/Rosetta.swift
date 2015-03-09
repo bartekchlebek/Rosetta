@@ -21,6 +21,48 @@ public enum JSON {
       return string.toData()
     }
   }
+  
+  func toDictionary() -> ([Swift.String: AnyObject]?, [Log]?)
+  {
+    var logs: [Log] = []
+    
+    let parseData = {(data: NSData) -> ([Swift.String: AnyObject]?) in
+      var error = NSErrorPointer()
+      if let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: error)
+        as? [Swift.String: AnyObject] {
+          return json
+      }
+      else {
+        logs.append(Log.DataToJSON(data: data, error: error.memory))
+        return nil
+      }
+    }
+    
+    let parseString = {(string: Swift.String) -> ([Swift.String: AnyObject]?) in
+      if let data = string.toData() {
+        return parseData(data)
+      }
+      else {
+        logs.append(Log.StringToData(string: string))
+        return nil
+      }
+    }
+    
+    var jsonDictionary: [Swift.String: AnyObject]?
+    switch self {
+    case let .String(string):
+      jsonDictionary = parseString(string)
+    case let .Data(data):
+      jsonDictionary = parseData(data)
+    }
+    
+    if (jsonDictionary != nil) {
+      return (jsonDictionary, nil)
+    }
+    else {
+      return (nil, logs)
+    }
+  }
 }
 
 enum Mode {
@@ -30,6 +72,7 @@ enum Mode {
 
 public class Rosetta {
   var keyPath: [String] = []
+  var testRun: Bool = false
   var currentValue: AnyObject! {
     return valueForKeyPath(keyPath, inDictionary: dictionary)
   }
@@ -96,43 +139,17 @@ public class Rosetta {
     ) -> Bool {
       
       // prepare rosetta
-      currentMode = .Decode
-      var jsonData: NSData?
+      self.currentMode = .Decode
+      self.testRun = false
       
-      let parseData = {(data: NSData) -> ([String: AnyObject]?) in
-        jsonData = data
-        var error = NSErrorPointer()
-        if let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: error) as? [String: AnyObject] {
-          return json
-        }
-        else {
-          self.logs.append(Log.DataToJSON(data: data, error: error.memory))
-          return nil
-        }
-      }
-      
-      let parseString = {(string: String) -> ([String: AnyObject]?) in
-        if let data = string.toData() {
-          return parseData(data)
-        }
-        else {
-          self.logs.append(Log.StringToData(string: string))
-          return nil
-        }
-      }
-      
-      var jsonDictionary: [String: AnyObject]?
-      switch input {
-      case let .String(string):
-        jsonDictionary = parseString(string)
-      case let .Data(data):
-        jsonDictionary = parseData(data)
-      }
+      // parse input into a dictionary
+      let inputParsingResult = input.toDictionary()
+      let jsonDictionary = inputParsingResult.0
+      self.logs += inputParsingResult.1 ?? []
       
       var localObject = object
       if let jsonDictionary = jsonDictionary {
         dictionary = jsonDictionary
-        // map
         map(&localObject, json: self)
       }
       
@@ -242,16 +259,21 @@ public class Rosetta {
         jsonDictionary = parseData(data)
       }
       
-      var localObject = object
+      self.testRun = true
       if let jsonDictionary = jsonDictionary {
         dictionary = jsonDictionary
         // map
-        map(localObject, json: self)
+        map(object, json: self)
       }
       
       var success = !LogsContainError(logs)
       if success == true {
-        object = localObject
+        self.testRun = false
+        if let jsonDictionary = jsonDictionary {
+          dictionary = jsonDictionary
+          // map
+          map(object, json: self)
+        }
       }
       
       switch logLevel {
@@ -364,8 +386,10 @@ func decodeTo<T, U, V>(
   #optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
-    if let decoded = decoded {
-      property = decoded
+    if rosetta.testRun == false {
+      if let decoded = decoded {
+        property = decoded
+      }
     }
 }
 
@@ -378,8 +402,10 @@ func decodeTo<T, U, V>(
   #optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
-    if let decoded = decoded {
-      property = decoded
+    if rosetta.testRun == false {
+      if let decoded = decoded {
+        property = decoded
+      }
     }
 }
 
@@ -392,8 +418,10 @@ func decodeTo<T, U, V>(
   #optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
-    if let decoded = decoded {
-      property = decoded
+    if rosetta.testRun == false {
+      if let decoded = decoded {
+        property = decoded
+      }
     }
 }
 
