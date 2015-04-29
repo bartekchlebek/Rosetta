@@ -21,6 +21,48 @@ public enum JSON {
       return string.toData()
     }
   }
+  
+  func toDictionary() -> ([Swift.String: AnyObject]?, [Log]?)
+  {
+    var logs: [Log] = []
+    
+    let parseData = {(data: NSData) -> ([Swift.String: AnyObject]?) in
+      var error = NSErrorPointer()
+      if let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: error)
+        as? [Swift.String: AnyObject] {
+          return json
+      }
+      else {
+        logs.append(Log.DataToJSON(data: data, error: error.memory))
+        return nil
+      }
+    }
+    
+    let parseString = {(string: Swift.String) -> ([Swift.String: AnyObject]?) in
+      if let data = string.toData() {
+        return parseData(data)
+      }
+      else {
+        logs.append(Log.StringToData(string: string))
+        return nil
+      }
+    }
+    
+    var jsonDictionary: [Swift.String: AnyObject]?
+    switch self {
+    case let .String(string):
+      jsonDictionary = parseString(string)
+    case let .Data(data):
+      jsonDictionary = parseData(data)
+    }
+    
+    if (jsonDictionary != nil) {
+      return (jsonDictionary, nil)
+    }
+    else {
+      return (nil, logs)
+    }
+  }
 }
 
 enum Mode {
@@ -28,8 +70,14 @@ enum Mode {
   case Encode
 }
 
+enum Map<T> {
+  case ValueTypeMap((inout T, Rosetta) -> ())
+  case ClassTypeMap((T, Rosetta) -> ())
+}
+
 public class Rosetta {
   var keyPath: [String] = []
+  var testRun: Bool = false
   var currentValue: AnyObject! {
     return valueForKeyPath(keyPath, inDictionary: dictionary)
   }
@@ -84,61 +132,45 @@ public class Rosetta {
     }
   }
   
-  //MARK: Value types decoding
-  
   func decode<T>(
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ input: JSON,
     inout to object: T,
-    usingMap map: (inout T, json: Rosetta) -> ()
+    usingMap map: Map<T>
     ) -> Bool {
       
-      // prepare rosetta
+      // parse input into a dictionary
+      let inputParsingResult = input.toDictionary()
+      let jsonDictionary = inputParsingResult.0
+      self.logs += inputParsingResult.1 ?? []
+      
+      // perform test run (check if any mapping fail, to leave the object unchanged)
       currentMode = .Decode
-      var jsonData: NSData?
-      
-      let parseData = {(data: NSData) -> ([String: AnyObject]?) in
-        jsonData = data
-        var error = NSErrorPointer()
-        if let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: error) as? [String: AnyObject] {
-          return json
-        }
-        else {
-          self.logs.append(Log.DataToJSON(data: data, error: error.memory))
-          return nil
-        }
-      }
-      
-      let parseString = {(string: String) -> ([String: AnyObject]?) in
-        if let data = string.toData() {
-          return parseData(data)
-        }
-        else {
-          self.logs.append(Log.StringToData(string: string))
-          return nil
-        }
-      }
-      
-      var jsonDictionary: [String: AnyObject]?
-      switch input {
-      case let .String(string):
-        jsonDictionary = parseString(string)
-      case let .Data(data):
-        jsonDictionary = parseData(data)
-      }
-      
-      var localObject = object
+      self.testRun = true
       if let jsonDictionary = jsonDictionary {
         dictionary = jsonDictionary
-        // map
-        map(&localObject, json: self)
+        switch map {
+        case let .ValueTypeMap(map):
+          map(&object, self)
+        case let .ClassTypeMap(map):
+          map(object, self)
+        }
       }
       
       var success = !LogsContainError(logs)
       if success == true {
-        object = localObject
+        self.testRun = false
+        if let jsonDictionary = jsonDictionary {
+          dictionary = jsonDictionary
+          switch map {
+          case let .ValueTypeMap(map):
+            map(&object, self)
+          case let .ClassTypeMap(map):
+            map(object, self)
+          }
+        }
       }
       
       switch logLevel {
@@ -158,14 +190,12 @@ public class Rosetta {
       return success
   }
   
-  //MARK: Value types encoding
-  
   func encode<T>(
     file: StaticString = __FILE__,
     line: UWord = __LINE__,
     function: StaticString = __FUNCTION__,
     _ object: T,
-    usingMap map: (inout T, json: Rosetta) -> ()
+    usingMap map: Map<T>
     ) -> [String: AnyObject]? {
       
       // prepare rosetta
@@ -174,7 +204,12 @@ public class Rosetta {
       
       // parse
       var mutableObject = object
-      map(&mutableObject, json: self)
+      switch map {
+      case let .ValueTypeMap(map):
+        map(&mutableObject, self)
+      case let .ClassTypeMap(map):
+        map(mutableObject, self)
+      }
       
       let result = dictionary
       let logs = self.logs
@@ -195,6 +230,34 @@ public class Rosetta {
       
       cleanup()
       return success ? result : nil
+      
+  }
+  
+  //MARK: Value types decoding
+  
+  func decode<T>(
+    file: StaticString = __FILE__,
+    line: UWord = __LINE__,
+    function: StaticString = __FUNCTION__,
+    _ input: JSON,
+    inout to object: T,
+    usingMap map: (inout T, json: Rosetta) -> ()
+    ) -> Bool {
+      
+      return self.decode(file: file, line: line, function: function, input, to: &object, usingMap: .ValueTypeMap(map))
+  }
+  
+  //MARK: Value types encoding
+  
+  func encode<T>(
+    file: StaticString = __FILE__,
+    line: UWord = __LINE__,
+    function: StaticString = __FUNCTION__,
+    _ object: T,
+    usingMap map: (inout T, json: Rosetta) -> ()
+    ) -> [String: AnyObject]? {
+      
+      return self.encode(file: file, line: line, function: function, object, usingMap: .ValueTypeMap(map))
   }
   
   //MARK: Class types decoding
@@ -208,67 +271,7 @@ public class Rosetta {
     usingMap map: (T, json: Rosetta) -> ()
     ) -> Bool {
       
-      // prepare rosetta
-      currentMode = .Decode
-      var jsonData: NSData?
-      
-      let parseData = {(data: NSData) -> ([String: AnyObject]?) in
-        jsonData = data
-        var error = NSErrorPointer()
-        if let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: error) as? [String: AnyObject] {
-          return json
-        }
-        else {
-          self.logs.append(Log.DataToJSON(data: data, error: error.memory))
-          return nil
-        }
-      }
-      
-      let parseString = {(string: String) -> ([String: AnyObject]?) in
-        if let data = string.toData() {
-          return parseData(data)
-        }
-        else {
-          self.logs.append(Log.StringToData(string: string))
-          return nil
-        }
-      }
-      
-      var jsonDictionary: [String: AnyObject]?
-      switch input {
-      case let .String(string):
-        jsonDictionary = parseString(string)
-      case let .Data(data):
-        jsonDictionary = parseData(data)
-      }
-      
-      var localObject = object
-      if let jsonDictionary = jsonDictionary {
-        dictionary = jsonDictionary
-        // map
-        map(localObject, json: self)
-      }
-      
-      var success = !LogsContainError(logs)
-      if success == true {
-        object = localObject
-      }
-      
-      switch logLevel {
-      case .None:
-        break
-      case .Errors:
-        if success == false {
-          logHandler(logString: logFormatter(json: input, logs: logs, file: file, line: line, function: function))
-        }
-      case .Verbose:
-        if logs.count > 0 {
-          logHandler(logString: logFormatter(json: input, logs: logs, file: file, line: line, function: function))
-        }
-      }
-      
-      cleanup()
-      return success
+      return self.decode(file: file, line: line, function: function, input, to: &object, usingMap: .ClassTypeMap(map))
   }
   
   //MARK: Class types encoding
@@ -281,33 +284,7 @@ public class Rosetta {
     usingMap map: (T, json: Rosetta) -> ()
     ) -> [String: AnyObject]? {
       
-      // prepare rosetta
-      currentMode = .Encode
-      dictionary = [:]
-      
-      // parse
-      var mutableObject = object
-      map(mutableObject, json: self)
-      
-      let result = dictionary
-      let logs = self.logs
-      
-      let success = !LogsContainError(logs)
-      switch logLevel {
-      case .None:
-        break
-      case .Errors:
-        if success == false {
-          logHandler(logString: logFormatter(json: nil, logs: logs, file: file, line: line, function: function))
-        }
-      case .Verbose:
-        if logs.count > 0 {
-          logHandler(logString: logFormatter(json: nil, logs: logs, file: file, line: line, function: function))
-        }
-      }
-      
-      cleanup()
-      return success ? result : nil
+      return self.encode(file: file, line: line, function: function, object, usingMap: .ClassTypeMap(map))
   }
   
   //MARK: Helpers
@@ -364,8 +341,10 @@ func decodeTo<T, U, V>(
   #optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
-    if let decoded = decoded {
-      property = decoded
+    if rosetta.testRun == false {
+      if let decoded = decoded {
+        property = decoded
+      }
     }
 }
 
@@ -378,8 +357,10 @@ func decodeTo<T, U, V>(
   #optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
-    if let decoded = decoded {
-      property = decoded
+    if rosetta.testRun == false {
+      if let decoded = decoded {
+        property = decoded
+      }
     }
 }
 
@@ -392,8 +373,10 @@ func decodeTo<T, U, V>(
   #optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
-    if let decoded = decoded {
-      property = decoded
+    if rosetta.testRun == false {
+      if let decoded = decoded {
+        property = decoded
+      }
     }
 }
 

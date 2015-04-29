@@ -25,7 +25,7 @@ extension Log: Printable {
     case let .StringToData(info):
       string += "String to NSData conversion failed"
       string += "\n"
-      string += "String:\(info.string)"
+      string += "String:\(info)"
     case let .DataToJSON(info):
       string += "NSJSONSerialization failed"
       string += "\n"
