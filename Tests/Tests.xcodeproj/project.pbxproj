@@ -23,10 +23,10 @@
 		0DCD80031AACAE6B00839CBC /* RosettaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCD7FFC1AACAE6B00839CBC /* RosettaTests.swift */; };
 		0DCD80041AACAE6B00839CBC /* RosettaTestsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCD7FFD1AACAE6B00839CBC /* RosettaTestsClass.swift */; };
 		0DCD80051AACAE6B00839CBC /* RosettaTestsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCD7FFD1AACAE6B00839CBC /* RosettaTestsClass.swift */; };
-		9C221647C56CE9B64272ED84 /* Pods_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF56E9BD071C2A8FEFE83D5 /* Pods_osx.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D8A7483C7D9F965B1C088A42 /* Pods_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8898A5D80741498E4B1CE132 /* Pods_iosTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		DA0AF725D1C9F649EACBD6C1 /* Pods_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A24066E4D0A00B2F1CC22B /* Pods_ios.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E19B10517035EE907E669170 /* Pods_osxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBFDCBC7F3879EEACBCA468 /* Pods_osxTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9C221647C56CE9B64272ED84 /* Pods_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF56E9BD071C2A8FEFE83D5 /* Pods_osx.framework */; };
+		D8A7483C7D9F965B1C088A42 /* Pods_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8898A5D80741498E4B1CE132 /* Pods_iosTests.framework */; };
+		DA0AF725D1C9F649EACBD6C1 /* Pods_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A24066E4D0A00B2F1CC22B /* Pods_ios.framework */; };
+		E19B10517035EE907E669170 /* Pods_osxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBFDCBC7F3879EEACBCA468 /* Pods_osxTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,6 +348,7 @@
 		0DBA59BC1AACAB6D0037EDFF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Bartek Chlebek";
 				TargetAttributes = {
