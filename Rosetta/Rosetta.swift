@@ -27,14 +27,13 @@ public enum JSON {
     var logs: [Log] = []
     
     let parseData = {(data: NSData) -> ([Swift.String: AnyObject]?) in
-      let error = NSErrorPointer()
-      if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: []) as? [Swift.String: AnyObject] {
-          return json
-      }
-      else {
-        logs.append(Log.DataToJSON(data: data, error: error.memory))
-        return nil
-      }
+        do {
+            return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [Swift.String: AnyObject]
+        }
+        catch let error as NSError {
+            logs.append(Log.DataToJSON(data: data, error: error))
+            return nil
+        }
     }
     
     let parseString = {(string: Swift.String) -> ([Swift.String: AnyObject]?) in
