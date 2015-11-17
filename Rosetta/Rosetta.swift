@@ -27,9 +27,8 @@ public enum JSON {
     var logs: [Log] = []
     
     let parseData = {(data: NSData) -> ([Swift.String: AnyObject]?) in
-      var error = NSErrorPointer()
-      if let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: error)
-        as? [Swift.String: AnyObject] {
+      let error = NSErrorPointer()
+      if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: []) as? [Swift.String: AnyObject] {
           return json
       }
       else {
@@ -87,7 +86,7 @@ public class Rosetta {
   
   public var logLevel: LogLevel = .Errors
   public typealias LogFormatter
-    = (json: JSON?, logs: [Log], file: StaticString, line: UWord, function: StaticString) -> String
+    = (json: JSON?, logs: [Log], file: StaticString, line: UInt, function: StaticString) -> String
   public typealias LogHandler = (logString: String) -> ()
   public var logFormatter: LogFormatter = {
     json, logs, file, line, function in
@@ -110,10 +109,10 @@ public class Rosetta {
     }
     
     string += "\n"
-    string += "\n".join(logs.map({$0.description}))
+    string += logs.map({$0.description}).joinWithSeparator("\n")
     return string
   }
-  public var logHandler: LogHandler = {println("\($0)\n--------")}
+  public var logHandler: LogHandler = {print("\($0)\n--------")}
   public func setLogFormatter(formatter: LogFormatter) {
     logFormatter = formatter
   }
@@ -133,8 +132,8 @@ public class Rosetta {
   }
   
   func decode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ input: JSON,
     inout to object: T,
@@ -191,8 +190,8 @@ public class Rosetta {
   }
   
   func encode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ object: T,
     usingMap map: Map<T>
@@ -236,8 +235,8 @@ public class Rosetta {
   //MARK: Value types decoding
   
   func decode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ input: JSON,
     inout to object: T,
@@ -250,8 +249,8 @@ public class Rosetta {
   //MARK: Value types encoding
   
   func encode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ object: T,
     usingMap map: (inout T, json: Rosetta) -> ()
@@ -263,8 +262,8 @@ public class Rosetta {
   //MARK: Class types decoding
   
   func decode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ input: JSON,
     inout to object: T,
@@ -277,8 +276,8 @@ public class Rosetta {
   //MARK: Class types encoding
   
   func encode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ object: T,
     usingMap map: (T, json: Rosetta) -> ()
@@ -299,11 +298,11 @@ public class Rosetta {
 //MARK: Decoding
 
 func decode<T, U, V>(
-  #value: U?,
-  #rosetta: Rosetta,
-  #bridge: Bridge<T, V>,
-  #validator: (T -> Bool)?,
-  #optional: Bool) -> T? {
+  value value: U?,
+  rosetta: Rosetta,
+  bridge: Bridge<T, V>,
+  validator: (T -> Bool)?,
+  optional: Bool) -> T? {
     
     let severity: Log.Severity = optional ? .Warning : .Error
     var decodedValue: T?
@@ -334,11 +333,11 @@ func decode<T, U, V>(
 
 func decodeTo<T, U, V>(
   inout property: T,
-  #value: U?,
-  #rosetta: Rosetta,
-  #bridge: Bridge<T, V>,
-  #validator: (T -> Bool)?,
-  #optional: Bool) {
+  value: U?,
+  rosetta: Rosetta,
+  bridge: Bridge<T, V>,
+  validator: (T -> Bool)?,
+  optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
     if rosetta.testRun == false {
@@ -350,11 +349,11 @@ func decodeTo<T, U, V>(
 
 func decodeTo<T, U, V>(
   inout property: T!,
-  #value: U?,
-  #rosetta: Rosetta,
-  #bridge: Bridge<T, V>,
-  #validator: (T -> Bool)?,
-  #optional: Bool) {
+  value: U?,
+  rosetta: Rosetta,
+  bridge: Bridge<T, V>,
+  validator: (T -> Bool)?,
+  optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
     if rosetta.testRun == false {
@@ -366,11 +365,11 @@ func decodeTo<T, U, V>(
 
 func decodeTo<T, U, V>(
   inout property: T?,
-  #value: U?,
-  #rosetta: Rosetta,
-  #bridge: Bridge<T, V>,
-  #validator: (T -> Bool)?,
-  #optional: Bool) {
+  value: U?,
+  rosetta: Rosetta,
+  bridge: Bridge<T, V>,
+  validator: (T -> Bool)?,
+  optional: Bool) {
     
     let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
     if rosetta.testRun == false {
@@ -384,10 +383,10 @@ func decodeTo<T, U, V>(
 
 func encodeFrom<T, U>(
   property: T?,
-  #rosetta: Rosetta,
-  #bridge: Bridge<T, U>,
-  #validator: (T -> Bool)?,
-  #optional: Bool) {
+  rosetta: Rosetta,
+  bridge: Bridge<T, U>,
+  validator: (T -> Bool)?,
+  optional: Bool) {
     
     let severity: Log.Severity = optional ? .Warning : .Error
     if let property = property {
@@ -471,7 +470,7 @@ extension String {
 
 extension NSData {
   func toDictionary() -> [String: AnyObject]? {
-    return NSJSONSerialization.JSONObjectWithData(self, options: nil, error: nil) as? [String: AnyObject]
+    return (try? NSJSONSerialization.JSONObjectWithData(self, options: [])) as? [String: AnyObject]
   }
   
   func toString() -> String? {

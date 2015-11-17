@@ -18,7 +18,7 @@ public enum Log {
   }
 }
 
-extension Log: Printable {
+extension Log: CustomStringConvertible {
   public var description: String {
     var string = ""
     switch self {
@@ -56,7 +56,7 @@ extension Log: Printable {
         string += " Wrong Type"
       }
       string += " for key-path: "
-      string += ".".join(info.keyPath)
+      string += info.keyPath.joinWithSeparator(".")
     }
     return string
   }

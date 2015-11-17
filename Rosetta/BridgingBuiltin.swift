@@ -117,7 +117,7 @@ public func NSNumberBridge() -> Bridge<NSNumber, NSNumber> {
 public func JSONConvertibleBridge<T: JSONConvertible>() -> Bridge<T, NSDictionary> {
   return UnsafeBridgeObject(
     decoder: {
-      if let json = NSJSONSerialization.dataWithJSONObject($0, options: nil, error: nil) {
+      if let json = try? NSJSONSerialization.dataWithJSONObject($0, options: []) {
         return Rosetta().decode(json)
       }
       else {
@@ -126,7 +126,7 @@ public func JSONConvertibleBridge<T: JSONConvertible>() -> Bridge<T, NSDictionar
     },
     encoder: {
       if let data: NSData = Rosetta().encode($0) {
-        if let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary {
+        if let dictionary = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? NSDictionary {
           return dictionary
         }
       }
@@ -140,7 +140,7 @@ public func JSONConvertibleBridge<T: JSONConvertible>() -> Bridge<T, NSDictionar
 public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> Bridge<T, NSDictionary> {
   return UnsafeBridgeObject(
     decoder: {
-      if let json = NSJSONSerialization.dataWithJSONObject($0, options: nil, error: nil) {
+      if let json = try? NSJSONSerialization.dataWithJSONObject($0, options: []) {
         return Rosetta().decode(json)
       }
       else {
@@ -149,7 +149,7 @@ public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> Bridge<T, N
     },
     encoder: {
       if let data: NSData = Rosetta().encode($0) {
-        if let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary {
+        if let dictionary = (try? NSJSONSerialization.JSONObjectWithData(data, options: [])) as? NSDictionary {
           return dictionary
         }
       }
@@ -169,12 +169,12 @@ public func NSURLBridge() -> Bridge<NSURL, NSString> {
 
 //MARK: Helpers
 
-func numberInRange(number: NSNumber, #min: Int64, #max: Int64) -> Int64? {
+func numberInRange(number: NSNumber, min: Int64, max: Int64) -> Int64? {
   let value = number.longLongValue
   return (value >= min) && (value <= max) ? value : nil
 }
 
-func numberInRange(number: NSNumber, #min: UInt64, #max: UInt64) -> UInt64? {
+func numberInRange(number: NSNumber, min: UInt64, max: UInt64) -> UInt64? {
   let value = number.unsignedLongLongValue
   return (value >= min) && (value <= max) ? value : nil
 }

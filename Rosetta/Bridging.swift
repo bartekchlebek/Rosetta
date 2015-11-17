@@ -1,8 +1,8 @@
 import Foundation
 
 public class Bridge<DecodedType, JSONType: AnyObject> {
-  typealias Decoder = (JSONType) -> (DecodedType?)
-  typealias Encoder = (DecodedType) -> (JSONType?)
+  public typealias Decoder = (JSONType) -> (DecodedType?)
+  public typealias Encoder = (DecodedType) -> (JSONType?)
   
   let decoder: Decoder
   let encoder: Encoder
@@ -14,40 +14,40 @@ public class Bridge<DecodedType, JSONType: AnyObject> {
 }
 
 public func BridgeString<T>(
-  #decoder: Bridge<T, NSString>.Decoder,
-  #encoder: Bridge<T, NSString>.Encoder
+  decoder decoder: Bridge<T, NSString>.Decoder,
+  encoder: Bridge<T, NSString>.Encoder
   ) -> Bridge<T, NSString> {
     
     return Bridge<T, NSString>(decoder: decoder, encoder: encoder)
 }
 
 public func BridgeBoolean<T>(
-  #decoder: Bridge<T, NSNumber>.Decoder,
-  #encoder: Bridge<T, NSNumber>.Encoder
+  decoder decoder: Bridge<T, NSNumber>.Decoder,
+  encoder: Bridge<T, NSNumber>.Encoder
   ) -> Bridge<T, NSNumber> {
     
     return Bridge<T, NSNumber>(decoder: decoder, encoder: encoder)
 }
 
 public func BridgeNumber<T>(
-  #decoder: Bridge<T, NSNumber>.Decoder,
-  #encoder: Bridge<T, NSNumber>.Encoder
+  decoder decoder: Bridge<T, NSNumber>.Decoder,
+  encoder: Bridge<T, NSNumber>.Encoder
   ) -> Bridge<T, NSNumber> {
     
     return Bridge<T, NSNumber>(decoder: decoder, encoder: encoder)
 }
 
 public func UnsafeBridgeObject<T>(
-  #decoder: Bridge<T, NSDictionary>.Decoder,
-  #encoder: Bridge<T, NSDictionary>.Encoder
+  decoder decoder: Bridge<T, NSDictionary>.Decoder,
+  encoder: Bridge<T, NSDictionary>.Encoder
   ) -> Bridge<T, NSDictionary> {
     
     return Bridge<T, NSDictionary>(decoder: decoder, encoder: encoder)
 }
 
 public func UnsafeBridgeArray<T>(
-  #decoder: Bridge<T, NSArray>.Decoder,
-  #encoder: Bridge<T, NSArray>.Encoder
+  decoder decoder: Bridge<T, NSArray>.Decoder,
+  encoder: Bridge<T, NSArray>.Encoder
   ) -> Bridge<T, NSArray> {
     
     return Bridge<T, NSArray>(decoder: decoder, encoder: encoder)

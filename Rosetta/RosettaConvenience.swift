@@ -3,20 +3,20 @@ import Foundation
 //MARK: Value types decoding
 extension Rosetta {
   public func decode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
     inout to object: T,
     usingMap map: (inout T, Rosetta) -> ()
     ) -> Bool {
-      
+
       return self.decode(file: file, line: line, function: function, JSON.Data(jsonData), to: &object, usingMap: map)
   }
   
   public func decode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
     inout to object: T,
@@ -28,8 +28,8 @@ extension Rosetta {
   }
   
   public func decode<T: Creatable>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
     usingMap map: (inout T, Rosetta) -> ()
@@ -43,8 +43,8 @@ extension Rosetta {
   }
   
   public func decode<T: Creatable>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
     usingMap map: (inout T, Rosetta) -> ()
@@ -58,8 +58,8 @@ extension Rosetta {
   }
   
   public func decode<T: Mappable>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
     inout to object: T
@@ -69,8 +69,8 @@ extension Rosetta {
   }
   
   public func decode<T: Mappable>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
     inout to object: T
@@ -80,8 +80,8 @@ extension Rosetta {
   }
   
   public func decode<T: JSONConvertible>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData
     ) -> T? {
@@ -94,8 +94,8 @@ extension Rosetta {
   }
   
   public func decode<T: JSONConvertible>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String
     ) -> T? {
@@ -111,8 +111,8 @@ extension Rosetta {
 //MARK: Value types encoding
 extension Rosetta {
   public func encode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T,
     usingMap map: (inout T, Rosetta) -> ()
@@ -121,14 +121,14 @@ extension Rosetta {
       var data: NSData?
       if let json: [String: AnyObject] = self.encode(file: file, line: line, function: function, obj, usingMap: map) {
         // TODO: Add json parsing error
-        data = NSJSONSerialization.dataWithJSONObject(json, options: nil, error: nil)
+        data = try? NSJSONSerialization.dataWithJSONObject(json, options: [])
       }
       return data
   }
   
   public func encode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T,
     usingMap map: (inout T, Rosetta) -> ()
@@ -145,8 +145,8 @@ extension Rosetta {
   }
   
   public func encode<T: Mappable>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T
     ) -> NSData? {
@@ -155,8 +155,8 @@ extension Rosetta {
   }
   
   public func encode<T: Mappable>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T
     ) -> String? {
@@ -168,8 +168,8 @@ extension Rosetta {
 //MARK: Class types decoding
 extension Rosetta {
   public func decode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
     inout to object: T,
@@ -180,8 +180,8 @@ extension Rosetta {
   }
   
   public func decode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
     inout to object: T,
@@ -193,8 +193,8 @@ extension Rosetta {
   }
   
   public func decode<T: Creatable>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
     usingMap map: (T, Rosetta) -> ()
@@ -208,8 +208,8 @@ extension Rosetta {
   }
   
   public func decode<T: Creatable>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
     usingMap map: (T, Rosetta) -> ()
@@ -223,8 +223,8 @@ extension Rosetta {
   }
   
   public func decode<T: MappableClass>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData,
     inout to object: T
@@ -234,8 +234,8 @@ extension Rosetta {
   }
   
   public func decode<T: MappableClass>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String,
     inout to object: T
@@ -245,8 +245,8 @@ extension Rosetta {
   }
   
   public func decode<T: JSONConvertibleClass>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonData: NSData
     ) -> T? {
@@ -259,8 +259,8 @@ extension Rosetta {
   }
   
   public func decode<T: JSONConvertibleClass>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ jsonString: String
     ) -> T? {
@@ -276,8 +276,8 @@ extension Rosetta {
 //MARK: Class types encoding
 extension Rosetta {
   public func encode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T,
     usingMap map: (T, Rosetta) -> ()
@@ -286,14 +286,14 @@ extension Rosetta {
       var data: NSData?
       if let json: [String: AnyObject] = self.encode(file: file, line: line, function: function, obj, usingMap: map) {
         // TODO: Add json parsing error
-        data = NSJSONSerialization.dataWithJSONObject(json, options: nil, error: nil)
+        data = try? NSJSONSerialization.dataWithJSONObject(json, options: [])
       }
       return data
   }
   
   public func encode<T>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T,
     usingMap map: (T, Rosetta) -> ()
@@ -310,8 +310,8 @@ extension Rosetta {
   }
   
   public func encode<T: MappableClass>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T
     ) -> NSData? {
@@ -320,8 +320,8 @@ extension Rosetta {
   }
   
   public func encode<T: MappableClass>(
-    file: StaticString = __FILE__,
-    line: UWord = __LINE__,
+    file file: StaticString = __FILE__,
+    line: UInt = __LINE__,
     function: StaticString = __FUNCTION__,
     _ obj: T
     ) -> String? {
