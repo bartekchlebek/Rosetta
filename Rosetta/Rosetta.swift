@@ -253,19 +253,3 @@ func dictionaryBySettingValue(
 func setValue(value: AnyObject, atKeyPath keyPath: [String], inout inDictionary dictionary: [String: AnyObject]) {
 	dictionary = dictionaryBySettingValue(value, forKeyPath: keyPath, inDictionary: dictionary)
 }
-
-extension String {
-	func toData() -> NSData? {
-		return self.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-	}
-}
-
-extension NSData {
-	func toDictionary() -> [String: AnyObject]? {
-		return (try? NSJSONSerialization.JSONObjectWithData(self, options: [])) as? [String: AnyObject]
-	}
-
-	func toString() -> String? {
-		return NSString(data: self, encoding: NSUTF8StringEncoding) as? String
-	}
-}

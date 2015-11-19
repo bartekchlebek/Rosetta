@@ -38,7 +38,7 @@ extension JSON {
 		}
 
 		let parseString = {(string: Swift.String) -> ([Swift.String: AnyObject]?) in
-			if let data = string.toData() {
+			if let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
 				return parseData(data)
 			}
 			else {

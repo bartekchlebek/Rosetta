@@ -15,6 +15,10 @@
 		0D4492071BFE785100BC8919 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492051BFE785100BC8919 /* LogHandler.swift */; };
 		0D4492091BFE93FD00BC8919 /* OperatorsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492081BFE93FD00BC8919 /* OperatorsHelpers.swift */; };
 		0D44920A1BFE93FD00BC8919 /* OperatorsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492081BFE93FD00BC8919 /* OperatorsHelpers.swift */; };
+		0D44920E1BFE95A600BC8919 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44920D1BFE95A600BC8919 /* String.swift */; };
+		0D44920F1BFE95A600BC8919 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44920D1BFE95A600BC8919 /* String.swift */; };
+		0D4492111BFE95AB00BC8919 /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492101BFE95AB00BC8919 /* NSData.swift */; };
+		0D4492121BFE95AB00BC8919 /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492101BFE95AB00BC8919 /* NSData.swift */; };
 		0DBA59B91AACA56B0037EDFF /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */; };
 		0DBA59BA1AACA56B0037EDFF /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */; };
 		0DE919D01A5A014C00FE94DE /* Rosetta.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DE919CF1A5A014C00FE94DE /* Rosetta.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,6 +44,8 @@
 		0D4492021BFE750E00BC8919 /* LogFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
 		0D4492051BFE785100BC8919 /* LogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHandler.swift; sourceTree = "<group>"; };
 		0D4492081BFE93FD00BC8919 /* OperatorsHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorsHelpers.swift; sourceTree = "<group>"; };
+		0D44920D1BFE95A600BC8919 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		0D4492101BFE95AB00BC8919 /* NSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSData.swift; sourceTree = "<group>"; };
 		0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RosettaConvenience.swift; sourceTree = "<group>"; };
 		0DE919CA1A5A014C00FE94DE /* Rosetta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rosetta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE919CE1A5A014C00FE94DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +78,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D44920C1BFE959200BC8919 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0D44920D1BFE95A600BC8919 /* String.swift */,
+				0D4492101BFE95AB00BC8919 /* NSData.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		0DE919C01A5A014C00FE94DE = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +107,7 @@
 		0DE919CC1A5A014C00FE94DE /* Rosetta */ = {
 			isa = PBXGroup;
 			children = (
+				0D44920C1BFE959200BC8919 /* Extensions */,
 				0DE919EC1A5A056100FE94DE /* Rosetta.swift */,
 				0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */,
 				0DE919EA1A5A056100FE94DE /* Operators.swift */,
@@ -236,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DE919ED1A5A056100FE94DE /* Bridgeable.swift in Sources */,
+				0D44920E1BFE95A600BC8919 /* String.swift in Sources */,
 				0D4492061BFE785100BC8919 /* LogHandler.swift in Sources */,
 				0D4492031BFE750E00BC8919 /* LogFormatter.swift in Sources */,
 				0DE919F11A5A056100FE94DE /* Operators.swift in Sources */,
@@ -246,6 +263,7 @@
 				0DE919F21A5A056100FE94DE /* Protocols.swift in Sources */,
 				0DE919F01A5A056100FE94DE /* Logs.swift in Sources */,
 				0DE919EF1A5A056100FE94DE /* BridgingBuiltin.swift in Sources */,
+				0D4492111BFE95AB00BC8919 /* NSData.swift in Sources */,
 				0D4492091BFE93FD00BC8919 /* OperatorsHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DE91A221A5A0A5300FE94DE /* Rosetta.swift in Sources */,
+				0D44920F1BFE95A600BC8919 /* String.swift in Sources */,
 				0D4492071BFE785100BC8919 /* LogHandler.swift in Sources */,
 				0D4492041BFE750E00BC8919 /* LogFormatter.swift in Sources */,
 				0DE91A231A5A0A5300FE94DE /* Operators.swift in Sources */,
@@ -265,6 +284,7 @@
 				0DE91A261A5A0A5300FE94DE /* BridgingBuiltin.swift in Sources */,
 				0DE91A271A5A0A5300FE94DE /* Logs.swift in Sources */,
 				0DE91A281A5A0A5300FE94DE /* Protocols.swift in Sources */,
+				0D4492121BFE95AB00BC8919 /* NSData.swift in Sources */,
 				0D44920A1BFE93FD00BC8919 /* OperatorsHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
