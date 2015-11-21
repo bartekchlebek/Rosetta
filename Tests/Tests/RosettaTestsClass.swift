@@ -1243,5 +1243,15 @@ class RosettaClassTests: XCTestCase {
       jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
       "encoded dictionary does not match the original dictionary"
     )
-  }
+	}
+
+	//MARK: JSON with array at root
+
+	func testFailingDecodingIfRootIsArrayAndExpectedDictionary() {
+		let data = dataFrom(
+			["value1", "value2", "value3", "value4"]
+		)
+		let object: ObjectClass? = Rosetta().decode(data)
+		XCTAssertTrue(object == nil, "decoded object should not exist")
+	}
 }

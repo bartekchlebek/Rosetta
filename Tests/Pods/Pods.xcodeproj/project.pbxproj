@@ -7,74 +7,86 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00FB4E6FEB3B9BB0FCFC8126B5FA0581 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ACD1A2F4B6E5B90172B761892B389C /* LogFormatter.swift */; };
+		014EE191CA5B0A7E6EBB142407A9CE8D /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985974AABB1E80904511C0EA0C0A927 /* Bridgeable.swift */; };
+		0165BE00271924FA557D5B28B7D10714 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A5EAD89AF340D00B59A8781E553B76 /* LogHandler.swift */; };
 		019210B5152ACFF2D16497EE45E06967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F426C20791C2C776D6B81F15C1EA8A5 /* Foundation.framework */; };
 		01A102EC0A2E9D4C969A6698FD42F2AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F426C20791C2C776D6B81F15C1EA8A5 /* Foundation.framework */; };
-		01FAC4049312863E9F57E03B280562E5 /* Pods-osx-Rosetta-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA5D81A0E902020C889243BD867F460 /* Pods-osx-Rosetta-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		03CAFF240753073A53844FF3E5138D1C /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C82CEDF13BD86ED522E6E35776497 /* Rosetta.swift */; };
+		01FAC4049312863E9F57E03B280562E5 /* Pods-osx-Rosetta-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DF6419E6419651EC1096DB84C2D4F16A /* Pods-osx-Rosetta-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		058F6DE1D58B29D222A281E36C979980 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE25DD04263CA735DBC0065D686C708D /* Cocoa.framework */; };
-		09EABAA3FFFB222338A379893A08C31F /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ACD1A2F4B6E5B90172B761892B389C /* LogFormatter.swift */; };
-		0B782DC7C26A220861B12AB222F22725 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D29C7836E5045DD5F06F2CF054CA07 /* Operators.swift */; };
-		0EBC14B5DF9C0CF5148E8E3CA70F99E5 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A52125BBBD97EFC6168B4455E55FD2 /* Bridging.swift */; };
-		20170E75CBB4AB0BD0A7B8D041BDCCC3 /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DCF5247DAB235D21BFAFF69B60FC /* BridgingBuiltin.swift */; };
-		347B6BC3FB474C33D7AE0B27ED9425DE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FE5ABCB395660E8DFFA4C1F3F5EE0 /* Protocols.swift */; };
-		35AFC59D7687EC1E82A5ADA5BB4F3531 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ACD1A2F4B6E5B90172B761892B389C /* LogFormatter.swift */; };
-		36A41EF70690D0BA0E2108A61C5EC754 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BFC7E864244A00D3FFA26B2C431D44 /* LogHandler.swift */; };
-		3BACB7D09BD36813E27DBE6326C1494F /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68A6D39D32AD713A4EC31F8C9CF2F1 /* Logs.swift */; };
-		3C11F7A036EB410279CA5A3169F967CE /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C82CEDF13BD86ED522E6E35776497 /* Rosetta.swift */; };
-		41BA4CACAC88B412E429602B1D8029BF /* Pods-iosTests-Rosetta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 64CA8B110797B95237F4927AEADDA3DD /* Pods-iosTests-Rosetta-dummy.m */; };
-		43DA2B28A30A3A9108894AB011B9E537 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FE5ABCB395660E8DFFA4C1F3F5EE0 /* Protocols.swift */; };
-		47691FFE921E98AA6672FBAFDE7A3DEB /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DCF5247DAB235D21BFAFF69B60FC /* BridgingBuiltin.swift */; };
+		07B6A3E89BD69B4B55C3FBE597F9A459 /* OperatorsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91F2CF93300323A73F3824000E2ADD /* OperatorsHelpers.swift */; };
+		0A3EAA39CC5380829A06A6F94D521CBC /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBAB312A5305D087A337FD24C84B70 /* Bridging.swift */; };
+		0CAAA132F804E8687BD2151C84FF8433 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A5EAD89AF340D00B59A8781E553B76 /* LogHandler.swift */; };
+		0E0F14A52354397B9B695CFAC0877490 /* Pods-iosTests-Rosetta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1974F0C2C94F735258E744176D1ED897 /* Pods-iosTests-Rosetta-dummy.m */; };
+		19EAACF0DA9070C8D5C62E5E595979EE /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B75AAAEFD723FB32161830364901F /* BridgingBuiltin.swift */; };
+		20847FFB7406A7872F5CB33D03786A2A /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F66F9FE43691A9952B924282AD3459 /* Rosetta.swift */; };
+		27BA3BE1062A0381353EDA283A8B4BD7 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B530AF2A38BFFA35E7A1CB57926C427E /* Logs.swift */; };
+		2C79CE4E13B5ED3506F7924436B9BB2E /* Pods-osxTests-Rosetta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1791C8E205506323E11EA11F5BA546C0 /* Pods-osxTests-Rosetta-dummy.m */; };
+		347FCAC8641E6FE1D4DDA25C6F9A83C8 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B530AF2A38BFFA35E7A1CB57926C427E /* Logs.swift */; };
+		36628F10D629387BF8157A4FCDAF35C1 /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861F756A40694200143D687302FCA624 /* RosettaConvenience.swift */; };
+		36C80C7A62C497BA4EA27390903BF67B /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B530AF2A38BFFA35E7A1CB57926C427E /* Logs.swift */; };
+		387B76D8899A02659D2BA065B19B2B9D /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985974AABB1E80904511C0EA0C0A927 /* Bridgeable.swift */; };
+		3EF9129F5D2E57BC45FDE1F78B8115BF /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01852175AADA193E8B08AFD787FEA655 /* Operators.swift */; };
+		3FB01C1D8F3287E894D87C7ED24F5AB7 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90861ADBB32CC16DA04D5D76BE19DBE4 /* JSON.swift */; };
+		423B51D0A4D1702BD6FC54C98224C8A4 /* OperatorsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91F2CF93300323A73F3824000E2ADD /* OperatorsHelpers.swift */; };
+		464F53779FC1DD385F205AC04C022420 /* OperatorsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91F2CF93300323A73F3824000E2ADD /* OperatorsHelpers.swift */; };
 		4945598141632B2A27375146EB6BC1D8 /* Pods-osxTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9345642EE1BEC52D17EF5D3FF02351 /* Pods-osxTests-dummy.m */; };
+		4B0D458EA60B671676771FB510522206 /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517722D8975E81782EF87C94AA05AE12 /* NSData.swift */; };
+		4CD8A2F135E1BF33ED2F7C3983E623E0 /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F66F9FE43691A9952B924282AD3459 /* Rosetta.swift */; };
 		4E717CFAA9434A06F715A561AD9E251E /* Pods-osxTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DBAA9DD7136C81117C5F59374FBE0107 /* Pods-osxTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50E034D8B79668AED495CEE54CD8306F /* Pods-iosTests-Rosetta-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 99BF06FCB675CDF92E13BC2214B1C9D0 /* Pods-iosTests-Rosetta-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50EE8368A4156192B4631D861D11E35F /* Pods-osxTests-Rosetta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAD606F891D6FCDF996DE436674279E /* Pods-osxTests-Rosetta-dummy.m */; };
+		50E034D8B79668AED495CEE54CD8306F /* Pods-iosTests-Rosetta-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9601C5E0EE9A2EB276F81ED76C1A9D8C /* Pods-iosTests-Rosetta-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53CC348CDE8E34773C6AF4D663614BF6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE25DD04263CA735DBC0065D686C708D /* Cocoa.framework */; };
-		58B3751C0E2A3D6AB806529E16B8369B /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5736C5DD9EE398A10329832787F4C2F /* Bridgeable.swift */; };
-		592079B7C5D8EAE4446A71F6536301B2 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FE5ABCB395660E8DFFA4C1F3F5EE0 /* Protocols.swift */; };
-		60329DFAE4317F44F1F1A263008942E4 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A52125BBBD97EFC6168B4455E55FD2 /* Bridging.swift */; };
-		6349E9333F9F6A77C6865BA63D4E4576 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A52125BBBD97EFC6168B4455E55FD2 /* Bridging.swift */; };
-		68722E22015FC207123F68D9D4F22C48 /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DCF5247DAB235D21BFAFF69B60FC /* BridgingBuiltin.swift */; };
-		6A06A41CA76FD063D4BED1CBBFF7D86E /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A52125BBBD97EFC6168B4455E55FD2 /* Bridging.swift */; };
-		72ED46AB44F8C58EA04A7645F0BFBBD0 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249FE5ABCB395660E8DFFA4C1F3F5EE0 /* Protocols.swift */; };
-		756C0C0F913ABF06150221917264055A /* Pods-ios-Rosetta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C61894BD6B8A6319C62D1BA1C778B /* Pods-ios-Rosetta-dummy.m */; };
-		7852B7E217366EC79A5121AC20C53854 /* Pods-osx-Rosetta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F89DED914A5BF9582DAD5866B989E830 /* Pods-osx-Rosetta-dummy.m */; };
-		7EBD83EBAAF0A5CE4D356C275AD70855 /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0346EC69C4D4FF7F2F3CBF8211B5F05 /* RosettaConvenience.swift */; };
-		7FE67DC1050F6CDF8D3850069B0EA66F /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DD62B295B96EAE9E4B5CFF7475D944 /* JSON.swift */; };
-		80FF12D0C1DE2D9E0C57D428C077F7EC /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68A6D39D32AD713A4EC31F8C9CF2F1 /* Logs.swift */; };
-		828583810F300527728F372C092C3244 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D29C7836E5045DD5F06F2CF054CA07 /* Operators.swift */; };
-		85383977C4A0B31053D14C048A44368C /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5736C5DD9EE398A10329832787F4C2F /* Bridgeable.swift */; };
-		8B96DE7D9633709D77812ADB1DF32BBA /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DD62B295B96EAE9E4B5CFF7475D944 /* JSON.swift */; };
-		A01011F233275D908FCF7CC9DFC14381 /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5736C5DD9EE398A10329832787F4C2F /* Bridgeable.swift */; };
-		A575BCD597B3EC5984533F406EF35BC6 /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C82CEDF13BD86ED522E6E35776497 /* Rosetta.swift */; };
+		53DF8DA96A96EED08AC252AC9094F740 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A5EAD89AF340D00B59A8781E553B76 /* LogHandler.swift */; };
+		62F07AAC62D117B2371D268AE660BF7E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2E8947C4F1B08B0042CDA1696B8B2 /* String.swift */; };
+		6742BFDB174702577CE699CB658FF209 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA9BC8F1DB4F590336790AF72B9A4 /* Protocols.swift */; };
+		68FFBC639638663AC9A790CE2B047FA2 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD281F5E553A7BCFEA60DF60BCBBE4FA /* LogFormatter.swift */; };
+		6DAD8D91D32554A5521036D03B73D01C /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861F756A40694200143D687302FCA624 /* RosettaConvenience.swift */; };
+		6FEEFBA7C1CB896E841036E3EF3CC9E7 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2E8947C4F1B08B0042CDA1696B8B2 /* String.swift */; };
+		71DE96C3FCD42B45A02857D5FA431851 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B530AF2A38BFFA35E7A1CB57926C427E /* Logs.swift */; };
+		72D87FCFEB1BD59194C591C2FABBE11E /* Pods-osx-Rosetta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE0429294EFBA79D975D011FAD657A0 /* Pods-osx-Rosetta-dummy.m */; };
+		79DB7A212808A2BDF2286C878F1750BA /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2E8947C4F1B08B0042CDA1696B8B2 /* String.swift */; };
+		7BFC36C7F4F4DE7B53CD42A08D962927 /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B75AAAEFD723FB32161830364901F /* BridgingBuiltin.swift */; };
+		81B473029672F68D7CB080373B2145A8 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBAB312A5305D087A337FD24C84B70 /* Bridging.swift */; };
+		81E9F6FE4CF22A25F68E38F8FE16F373 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBAB312A5305D087A337FD24C84B70 /* Bridging.swift */; };
+		88289FF2A4F5EECA2ECFFBF0E69B6396 /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B75AAAEFD723FB32161830364901F /* BridgingBuiltin.swift */; };
+		8935CBA87FDF4C132A31DC7E9C9655E8 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA9BC8F1DB4F590336790AF72B9A4 /* Protocols.swift */; };
+		91334C02BE82D2F3AC76F8CF52C26DA9 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA9BC8F1DB4F590336790AF72B9A4 /* Protocols.swift */; };
+		95496D919D3FC3F1D7462B9143669288 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01852175AADA193E8B08AFD787FEA655 /* Operators.swift */; };
+		9688AB8C5F782C1E9220AB033F81D9E6 /* Pods-ios-Rosetta-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DC39F2E0133B9D9398D53F458CBC52 /* Pods-ios-Rosetta-dummy.m */; };
+		98EDBBBE8B452385DC9EF322729BE8F6 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD281F5E553A7BCFEA60DF60BCBBE4FA /* LogFormatter.swift */; };
+		AA92F32CEBF1CB953D5CA83B28895033 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD281F5E553A7BCFEA60DF60BCBBE4FA /* LogFormatter.swift */; };
+		AC8B0F43BA78C915365E608CCE5F02C4 /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B75AAAEFD723FB32161830364901F /* BridgingBuiltin.swift */; };
 		ACEEB8D3981AB2CA9C0E11B8A8647143 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE25DD04263CA735DBC0065D686C708D /* Cocoa.framework */; };
-		B2A57C4D7BBFEEE828FC34D22A88A4B1 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68A6D39D32AD713A4EC31F8C9CF2F1 /* Logs.swift */; };
-		B354950DE62903674E42820819A76C80 /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C82CEDF13BD86ED522E6E35776497 /* Rosetta.swift */; };
-		B5BB9A70AAC2807A82F81765CAD407E4 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BFC7E864244A00D3FFA26B2C431D44 /* LogHandler.swift */; };
-		B6AC3194B0E43B70E8CDF0179EB9530C /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68A6D39D32AD713A4EC31F8C9CF2F1 /* Logs.swift */; };
-		BA1989016B4032C12675C519B592CED7 /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0346EC69C4D4FF7F2F3CBF8211B5F05 /* RosettaConvenience.swift */; };
-		BC68C415674B8A88042AB256286AA0CB /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D29C7836E5045DD5F06F2CF054CA07 /* Operators.swift */; };
-		BDD3EB43925EE7BF8CDB62DD79B906A6 /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5736C5DD9EE398A10329832787F4C2F /* Bridgeable.swift */; };
-		C119EA31A087F7DCC570316731D5556B /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DD62B295B96EAE9E4B5CFF7475D944 /* JSON.swift */; };
-		C1627C44A633DB6E93A5E93F23C2D90A /* Pods-osxTests-Rosetta-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7332CF92A9193636F31DEB9FD0246BAC /* Pods-osxTests-Rosetta-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C1C5F221A1F1612E9DC0825298B5B797 /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0346EC69C4D4FF7F2F3CBF8211B5F05 /* RosettaConvenience.swift */; };
+		AEE5C8902E77026C200BF2A8642CD72E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D2E8947C4F1B08B0042CDA1696B8B2 /* String.swift */; };
+		B04FB1EBA3C87F383E2DF7CB7DFC2257 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77FA9BC8F1DB4F590336790AF72B9A4 /* Protocols.swift */; };
+		BA62B385D04ED9F1F0702D33B90D8727 /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F66F9FE43691A9952B924282AD3459 /* Rosetta.swift */; };
+		BCC89099AEC32308B29036AD1525F576 /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861F756A40694200143D687302FCA624 /* RosettaConvenience.swift */; };
+		BE8441E0BEB54E82F545CFD08FB8DA71 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01852175AADA193E8B08AFD787FEA655 /* Operators.swift */; };
+		BE876D6DE90A85536E2D5909496C781D /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD281F5E553A7BCFEA60DF60BCBBE4FA /* LogFormatter.swift */; };
+		BF15F26DA76B8B6BEDEF91B205BB992F /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90861ADBB32CC16DA04D5D76BE19DBE4 /* JSON.swift */; };
+		BFBB7A2A51D48A82855A1E5F43B80A38 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90861ADBB32CC16DA04D5D76BE19DBE4 /* JSON.swift */; };
+		C1627C44A633DB6E93A5E93F23C2D90A /* Pods-osxTests-Rosetta-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 47E5425D0D9CE752583D837826D0B4AD /* Pods-osxTests-Rosetta-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C34656568A42D7CEE88523BD490EABF8 /* Pods-iosTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCE3F10920BD1550AF2DB76F32EE810 /* Pods-iosTests-dummy.m */; };
 		C392E22A828292054D6C94C4AF7A9827 /* Pods-iosTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 922D5B1066A44F351F3F03EC8C9D9999 /* Pods-iosTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C60DC3559F78E4EB9978C86554C84875 /* Pods-osx-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F55491597BC1A80DAECB55952F550A /* Pods-osx-dummy.m */; };
+		C883B7CF0B35474EB48F3102C3F1DF52 /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985974AABB1E80904511C0EA0C0A927 /* Bridgeable.swift */; };
+		CBEB48E50CB41028FAD28D615C5572F6 /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDBAB312A5305D087A337FD24C84B70 /* Bridging.swift */; };
+		CC6AFEE11CA72D9BD5983527E05AE7F6 /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C985974AABB1E80904511C0EA0C0A927 /* Bridgeable.swift */; };
 		CE9A2975B4FC05D50E2295E5CDD8D85B /* Pods-ios-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA2218A08A04470B76CB3A70DF53C67 /* Pods-ios-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D1472E7D5A3EDAB18E1FC4FA9C6DC512 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DD62B295B96EAE9E4B5CFF7475D944 /* JSON.swift */; };
-		D43E49341D8DC6E322DC78BA914F7ED0 /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0346EC69C4D4FF7F2F3CBF8211B5F05 /* RosettaConvenience.swift */; };
-		D87F053E6943ABC61CB537B4655FAB07 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BFC7E864244A00D3FFA26B2C431D44 /* LogHandler.swift */; };
-		D99133AAA53904B107137917A048F536 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BFC7E864244A00D3FFA26B2C431D44 /* LogHandler.swift */; };
+		D1F3E4DAB00444C88E0AF7CF7D9ECFA5 /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517722D8975E81782EF87C94AA05AE12 /* NSData.swift */; };
+		DBFDE7FE42970C1334E936958DA17BDC /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F66F9FE43691A9952B924282AD3459 /* Rosetta.swift */; };
 		E7DFA44CC2621797A0D559E9E1A80156 /* Pods-ios-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D3072C1ECB3E204400A7362A5A231E17 /* Pods-ios-dummy.m */; };
-		EA78E1B2391AF9A4C303F58BDEC8B45A /* Pods-ios-Rosetta-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A5D79F86257393F7FAA4066E507BE9A7 /* Pods-ios-Rosetta-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA78E1B2391AF9A4C303F58BDEC8B45A /* Pods-ios-Rosetta-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3457EF2A6B03897E14D89F00A908EF27 /* Pods-ios-Rosetta-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAA3BA1D247057E1AB0ECCDDD6918B86 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90861ADBB32CC16DA04D5D76BE19DBE4 /* JSON.swift */; };
 		EAFB914E010C704BE3A80D5723ED0B4F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE25DD04263CA735DBC0065D686C708D /* Cocoa.framework */; };
-		EE00BA7C33F4ADCBC93BC2E6EB46EB18 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ACD1A2F4B6E5B90172B761892B389C /* LogFormatter.swift */; };
 		EFFBFA73C131A1E21106247439BC6A7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F426C20791C2C776D6B81F15C1EA8A5 /* Foundation.framework */; };
+		F1C21CF13A1BBFEBC4AF159517B1F8E9 /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861F756A40694200143D687302FCA624 /* RosettaConvenience.swift */; };
+		F53C6EF3005BFCF4CCB32B5B9B85A1EF /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517722D8975E81782EF87C94AA05AE12 /* NSData.swift */; };
 		F829131B22F8CB45442D3C7A6D218D11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F426C20791C2C776D6B81F15C1EA8A5 /* Foundation.framework */; };
 		F88894F605B15E47FA7497AD14AD0573 /* Pods-osx-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F2B663394ABF3CEF1C799682C50A425 /* Pods-osx-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F9C0E41010DB9AC311754BFB6BA41C82 /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2DCF5247DAB235D21BFAFF69B60FC /* BridgingBuiltin.swift */; };
-		FFECB777B05777BF09AAB80238E9918C /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D29C7836E5045DD5F06F2CF054CA07 /* Operators.swift */; };
+		F8999B79B97112CAC12EF2D6B048F63F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01852175AADA193E8B08AFD787FEA655 /* Operators.swift */; };
+		FB7879F85070C8F8D1FAF1EC4AAE617A /* OperatorsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E91F2CF93300323A73F3824000E2ADD /* OperatorsHelpers.swift */; };
+		FC3BEADAC895085EC4DF4E1B9F29B323 /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517722D8975E81782EF87C94AA05AE12 /* NSData.swift */; };
+		FF843783392E696DCBEF146A2E70ADF7 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A5EAD89AF340D00B59A8781E553B76 /* LogHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,89 +121,92 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01852175AADA193E8B08AFD787FEA655 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		07F9208BB507B23AABC058470A62241B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0826F1B0E7F627247067F7FD482A7AE3 /* Pods-osx-Rosetta.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Pods-osx-Rosetta.modulemap"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta.modulemap"; sourceTree = "<group>"; };
 		0906D927AED6F2738AB7E738792CD712 /* Rosetta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rosetta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		150B628EA89FFE15E5696C95145C3252 /* Pods-osxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-osxTests.release.xcconfig"; sourceTree = "<group>"; };
+		15A5EAD89AF340D00B59A8781E553B76 /* LogHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogHandler.swift; sourceTree = "<group>"; };
 		174E41A3B979BF5E35BFB8F5A3E24634 /* Pods-osxTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-osxTests.modulemap"; sourceTree = "<group>"; };
-		1784CFCAD3F1DB240C777A1D08472DB0 /* Pods-osx-Rosetta-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-osx-Rosetta-prefix.pch"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta-prefix.pch"; sourceTree = "<group>"; };
+		1791C8E205506323E11EA11F5BA546C0 /* Pods-osxTests-Rosetta-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-osxTests-Rosetta-dummy.m"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta-dummy.m"; sourceTree = "<group>"; };
 		18AE719D38BCEAF9735F440AE7017499 /* Pods-ios-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ios-acknowledgements.plist"; sourceTree = "<group>"; };
 		19164588DF49700F1AC29F48922C7F72 /* Pods-iosTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		1974F0C2C94F735258E744176D1ED897 /* Pods-iosTests-Rosetta-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-iosTests-Rosetta-dummy.m"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta-dummy.m"; sourceTree = "<group>"; };
 		1DC8F14668E299AA8CDB708AE8CCF1F3 /* Pods-osx.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-osx.debug.xcconfig"; sourceTree = "<group>"; };
 		1F2B663394ABF3CEF1C799682C50A425 /* Pods-osx-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-osx-umbrella.h"; sourceTree = "<group>"; };
 		206521A8C9898570EBFEBD51901B0136 /* Pods-iosTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosTests-resources.sh"; sourceTree = "<group>"; };
+		20F4D2B4B2E90B4F6EF318847678372F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Pods-iosTests-Rosetta/Info.plist"; sourceTree = "<group>"; };
+		212D0ACE373DEAFC63783720A34C59A9 /* Pods-iosTests-Rosetta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosTests-Rosetta.xcconfig"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta.xcconfig"; sourceTree = "<group>"; };
 		23E5BC54F89498CB1FBA1759248BB023 /* Pods-iosTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosTests-frameworks.sh"; sourceTree = "<group>"; };
-		249FE5ABCB395660E8DFFA4C1F3F5EE0 /* Protocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		261A7AEA2DEA3FAA8164F96C45AFD039 /* Pods-osxTests-Rosetta.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Pods-osxTests-Rosetta.modulemap"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta.modulemap"; sourceTree = "<group>"; };
-		27C0695A128D839B1C4F20D8075A2568 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Pods-osxTests-Rosetta/Info.plist"; sourceTree = "<group>"; };
+		2E91F2CF93300323A73F3824000E2ADD /* OperatorsHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OperatorsHelpers.swift; sourceTree = "<group>"; };
 		2ECCD46B7B0335A1EB6730BF985801C3 /* Pods-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2EE53FC3371A75F2F510A5332CFC907C /* Pods-osx-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-osx-resources.sh"; sourceTree = "<group>"; };
-		2EFE716AFE07A768361C4404DE183567 /* Pods-ios-Rosetta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-Rosetta.xcconfig"; sourceTree = "<group>"; };
 		2F426C20791C2C776D6B81F15C1EA8A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		30ACD1A2F4B6E5B90172B761892B389C /* LogFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
+		3457EF2A6B03897E14D89F00A908EF27 /* Pods-ios-Rosetta-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-Rosetta-umbrella.h"; sourceTree = "<group>"; };
 		35F7B79F19C0BC46C8FF0F0D130178D7 /* Pods-ios-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ios-resources.sh"; sourceTree = "<group>"; };
 		38311CE6D67A8392608DD5B45135BD27 /* Pods-osx.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-osx.modulemap"; sourceTree = "<group>"; };
+		383B75AAAEFD723FB32161830364901F /* BridgingBuiltin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BridgingBuiltin.swift; sourceTree = "<group>"; };
 		3AA751594461AB77C6E51BE75D1E5CB3 /* Pods-iosTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		3D3D11869B9C8C1C4A6A6A6F117B2F01 /* Pods-iosTests-Rosetta.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Pods-iosTests-Rosetta.modulemap"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta.modulemap"; sourceTree = "<group>"; };
 		428B8D6F5818FAC2CF85579FA11DF2E4 /* Pods_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		44A52125BBBD97EFC6168B4455E55FD2 /* Bridging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
+		46F66F9FE43691A9952B924282AD3459 /* Rosetta.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Rosetta.swift; sourceTree = "<group>"; };
+		47E5425D0D9CE752583D837826D0B4AD /* Pods-osxTests-Rosetta-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-osxTests-Rosetta-umbrella.h"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta-umbrella.h"; sourceTree = "<group>"; };
 		4ADE53A9BD89DC490ECB14EB883B5C16 /* Pods-ios-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ios-frameworks.sh"; sourceTree = "<group>"; };
-		4CE9C4357746A87B6579719762D2710D /* Pods-iosTests-Rosetta-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-iosTests-Rosetta-prefix.pch"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta-prefix.pch"; sourceTree = "<group>"; };
 		4DE577133F9BD8A6D6AAB0D4D006D638 /* Pods-osx-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-osx-frameworks.sh"; sourceTree = "<group>"; };
+		517722D8975E81782EF87C94AA05AE12 /* NSData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSData.swift; sourceTree = "<group>"; };
+		5357A11DA3E9A1946E191F0AB9E3ACEA /* Pods-osxTests-Rosetta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osxTests-Rosetta.xcconfig"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta.xcconfig"; sourceTree = "<group>"; };
 		5A98CE8B0DE227B94B16A26E4E142F1F /* Pods-osxTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-osxTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		5BDBAB312A5305D087A337FD24C84B70 /* Bridging.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
 		62B0A3D24E752806E59F6BC8DCDD1699 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		64CA8B110797B95237F4927AEADDA3DD /* Pods-iosTests-Rosetta-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-iosTests-Rosetta-dummy.m"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta-dummy.m"; sourceTree = "<group>"; };
 		66D7D693948522C15342259C18D29D42 /* Pods-osx-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-osx-acknowledgements.markdown"; sourceTree = "<group>"; };
+		67DC39F2E0133B9D9398D53F458CBC52 /* Pods-ios-Rosetta-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ios-Rosetta-dummy.m"; sourceTree = "<group>"; };
 		680ADAC55ED877FE87EF6FCD48AEE8A5 /* Pods-ios-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ios-acknowledgements.markdown"; sourceTree = "<group>"; };
-		68BFC7E864244A00D3FFA26B2C431D44 /* LogHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogHandler.swift; sourceTree = "<group>"; };
 		6BA2218A08A04470B76CB3A70DF53C67 /* Pods-ios-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-umbrella.h"; sourceTree = "<group>"; };
+		6DA7BDC137B225D723E25B2515D71F54 /* Pods-iosTests-Rosetta-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-iosTests-Rosetta-prefix.pch"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta-prefix.pch"; sourceTree = "<group>"; };
 		70373F4018BB59206B66150572059DA7 /* Pods-osxTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-osxTests-frameworks.sh"; sourceTree = "<group>"; };
-		7332CF92A9193636F31DEB9FD0246BAC /* Pods-osxTests-Rosetta-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-osxTests-Rosetta-umbrella.h"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta-umbrella.h"; sourceTree = "<group>"; };
+		7117BC10FB8C02C7A6787736F5D013DF /* Pods-osxTests-Rosetta-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-osxTests-Rosetta-prefix.pch"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta-prefix.pch"; sourceTree = "<group>"; };
+		74EF33D376932D5F866DEE4B3219A270 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Pods-osx-Rosetta/Info.plist"; sourceTree = "<group>"; };
 		7B9345642EE1BEC52D17EF5D3FF02351 /* Pods-osxTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-osxTests-dummy.m"; sourceTree = "<group>"; };
-		80D29C7836E5045DD5F06F2CF054CA07 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8346D06123656879D943889852D07E22 /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
-		851CA5D3A820F938906D70B3644BA39F /* Pods-osx-Rosetta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osx-Rosetta.xcconfig"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta.xcconfig"; sourceTree = "<group>"; };
+		861F756A40694200143D687302FCA624 /* RosettaConvenience.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RosettaConvenience.swift; sourceTree = "<group>"; };
+		889F11C9AEF32D6E7F0E934783E4A3EC /* Pods-osx-Rosetta-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-osx-Rosetta-prefix.pch"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta-prefix.pch"; sourceTree = "<group>"; };
 		8AF89AA61C4F633035DE51A65FB4C22E /* Pods_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EE43F7D30AA429320220F139ACC69A7 /* Pods-ios-Rosetta-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-Rosetta-prefix.pch"; sourceTree = "<group>"; };
+		90861ADBB32CC16DA04D5D76BE19DBE4 /* JSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		91F914858E383A4A28F41FBF50DD9FE9 /* Pods_osx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_osx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		922D5B1066A44F351F3F03EC8C9D9999 /* Pods-iosTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosTests-umbrella.h"; sourceTree = "<group>"; };
 		93A48FEFF86A4E0B448BC30E5493ECCE /* Pods-ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ios.modulemap"; sourceTree = "<group>"; };
-		99BF06FCB675CDF92E13BC2214B1C9D0 /* Pods-iosTests-Rosetta-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-iosTests-Rosetta-umbrella.h"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta-umbrella.h"; sourceTree = "<group>"; };
+		9601C5E0EE9A2EB276F81ED76C1A9D8C /* Pods-iosTests-Rosetta-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-iosTests-Rosetta-umbrella.h"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta-umbrella.h"; sourceTree = "<group>"; };
 		9D0B21666367495CD07920B774214ABA /* Pods-osxTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-osxTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		9DB76673A6559DF843BCE0AE750504C5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9DECD80AD1877358070A9748AC4D88EF /* Pods-osxTests-Rosetta-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-osxTests-Rosetta-prefix.pch"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta-prefix.pch"; sourceTree = "<group>"; };
-		9E68A6D39D32AD713A4EC31F8C9CF2F1 /* Logs.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
+		A2D3C527EB1D965950156026A2409A32 /* Pods-osx-Rosetta.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Pods-osx-Rosetta.modulemap"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta.modulemap"; sourceTree = "<group>"; };
+		A2E516F309A7A40B2CC3D6F5EF3ED080 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A54F614C82F461EED629CD7C11ED39FB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A58C61894BD6B8A6319C62D1BA1C778B /* Pods-ios-Rosetta-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ios-Rosetta-dummy.m"; sourceTree = "<group>"; };
-		A5D79F86257393F7FAA4066E507BE9A7 /* Pods-ios-Rosetta-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-Rosetta-umbrella.h"; sourceTree = "<group>"; };
-		AB90747B4DE086191164418E2B870B25 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Pods-osx-Rosetta/Info.plist"; sourceTree = "<group>"; };
+		A88785862C7CCFCAA3ABB3E0F49CF0F7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Pods-osxTests-Rosetta/Info.plist"; sourceTree = "<group>"; };
 		AF148034738A47FD5AFB812CEC679B09 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1F55491597BC1A80DAECB55952F550A /* Pods-osx-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-osx-dummy.m"; sourceTree = "<group>"; };
 		B5125CD38B486FA3F533ED7CC97E6A02 /* Pods-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosTests.release.xcconfig"; sourceTree = "<group>"; };
-		B6DD62B295B96EAE9E4B5CFF7475D944 /* JSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		B530AF2A38BFFA35E7A1CB57926C427E /* Logs.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
 		B7535D0E36846F716D520E29D6301A21 /* Pods-osxTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-osxTests-resources.sh"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BCAD606F891D6FCDF996DE436674279E /* Pods-osxTests-Rosetta-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-osxTests-Rosetta-dummy.m"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta-dummy.m"; sourceTree = "<group>"; };
-		C0D2DCF5247DAB235D21BFAFF69B60FC /* BridgingBuiltin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BridgingBuiltin.swift; sourceTree = "<group>"; };
-		C13F80314A5B08335CA78741589E42B3 /* Pods-iosTests-Rosetta.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Pods-iosTests-Rosetta.modulemap"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta.modulemap"; sourceTree = "<group>"; };
-		C3190DE7B632E84AB8C02BCED2222B76 /* Pods-ios-Rosetta.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ios-Rosetta.modulemap"; sourceTree = "<group>"; };
+		C1B1AB11CACC55DCFD911AA4F581D9BF /* Pods-ios-Rosetta.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ios-Rosetta.modulemap"; sourceTree = "<group>"; };
 		C82DE44233042FF6D19C9A7B68DC4058 /* Pods-osxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-osxTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CD8DB5167E8506B2F38F5B96207055F0 /* Pods-iosTests-Rosetta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosTests-Rosetta.xcconfig"; path = "../Pods-iosTests-Rosetta/Pods-iosTests-Rosetta.xcconfig"; sourceTree = "<group>"; };
+		C985974AABB1E80904511C0EA0C0A927 /* Bridgeable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Bridgeable.swift; sourceTree = "<group>"; };
+		CD281F5E553A7BCFEA60DF60BCBBE4FA /* LogFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
+		CDE0429294EFBA79D975D011FAD657A0 /* Pods-osx-Rosetta-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-osx-Rosetta-dummy.m"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta-dummy.m"; sourceTree = "<group>"; };
 		CFCE3F10920BD1550AF2DB76F32EE810 /* Pods-iosTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosTests-dummy.m"; sourceTree = "<group>"; };
 		D3072C1ECB3E204400A7362A5A231E17 /* Pods-ios-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ios-dummy.m"; sourceTree = "<group>"; };
-		D39F3084A639EF651990D1C3420868F1 /* Pods-osxTests-Rosetta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osxTests-Rosetta.xcconfig"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta.xcconfig"; sourceTree = "<group>"; };
-		D695DB1A31C08ED246BCA47A60FE6B7B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Pods-iosTests-Rosetta/Info.plist"; sourceTree = "<group>"; };
 		DBAA9DD7136C81117C5F59374FBE0107 /* Pods-osxTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-osxTests-umbrella.h"; sourceTree = "<group>"; };
 		DE25DD04263CA735DBC0065D686C708D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		E0346EC69C4D4FF7F2F3CBF8211B5F05 /* RosettaConvenience.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RosettaConvenience.swift; sourceTree = "<group>"; };
-		E17C82CEDF13BD86ED522E6E35776497 /* Rosetta.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Rosetta.swift; sourceTree = "<group>"; };
+		DF6419E6419651EC1096DB84C2D4F16A /* Pods-osx-Rosetta-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-osx-Rosetta-umbrella.h"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta-umbrella.h"; sourceTree = "<group>"; };
+		DFA9ECD43E05A2EE2DCBCED014DB00AA /* Pods-osxTests-Rosetta.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Pods-osxTests-Rosetta.modulemap"; path = "../Pods-osxTests-Rosetta/Pods-osxTests-Rosetta.modulemap"; sourceTree = "<group>"; };
 		E23EE02FBB4631C5B449D8A01DE99601 /* Pods-osx-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-osx-acknowledgements.plist"; sourceTree = "<group>"; };
 		E507C819B0A727F434F8681894C4598E /* Pods-osx.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-osx.release.xcconfig"; sourceTree = "<group>"; };
-		E5736C5DD9EE398A10329832787F4C2F /* Bridgeable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Bridgeable.swift; sourceTree = "<group>"; };
+		E5D6E97A59FBE4732B3FED628DE1B149 /* Pods-ios-Rosetta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-Rosetta.xcconfig"; sourceTree = "<group>"; };
+		E77FA9BC8F1DB4F590336790AF72B9A4 /* Protocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		EAF262D037BB1AF3D72BB4F0EC81E580 /* Pods-iosTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-iosTests.modulemap"; sourceTree = "<group>"; };
-		ECA5D81A0E902020C889243BD867F460 /* Pods-osx-Rosetta-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-osx-Rosetta-umbrella.h"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta-umbrella.h"; sourceTree = "<group>"; };
 		EE313DE14BE0B714AC7DCAD648AECB55 /* Pods-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		F0D2E8947C4F1B08B0042CDA1696B8B2 /* String.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		F3D5CF442B8D7520588870C0D455CA22 /* Pods-ios-Rosetta-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-Rosetta-prefix.pch"; sourceTree = "<group>"; };
 		F59CC00A3FC8279375E85062D08B4060 /* Pods_osxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_osxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F89DED914A5BF9582DAD5866B989E830 /* Pods-osx-Rosetta-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-osx-Rosetta-dummy.m"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta-dummy.m"; sourceTree = "<group>"; };
+		FBFE984FB8648247A166AB88ADDCF594 /* Pods-osx-Rosetta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osx-Rosetta.xcconfig"; path = "../Pods-osx-Rosetta/Pods-osx-Rosetta.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,9 +280,19 @@
 		088EBFB803527FACF1F62708CA7881FF /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4444A239BE15E152DDDD1BB117B8D838 /* Rosetta */,
+				22DDFD8F00745B371423BBCC59785D1D /* Rosetta */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		22DDFD8F00745B371423BBCC59785D1D /* Rosetta */ = {
+			isa = PBXGroup;
+			children = (
+				79F51203F6D71F6959D8AF74167D84A7 /* Rosetta */,
+				D6BC78FD5921507A0B301F281AAD8DD6 /* Support Files */,
+			);
+			name = Rosetta;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		2BD8E7DA3461B730A57745315CB79CD3 /* Pods-osx */ = {
@@ -315,16 +340,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4444A239BE15E152DDDD1BB117B8D838 /* Rosetta */ = {
-			isa = PBXGroup;
-			children = (
-				5150307236CA7D9BF8ADB9BF893A80B8 /* Rosetta */,
-				9C2AEA14A276D4AFDC5B7713E23A5BA8 /* Support Files */,
-			);
-			name = Rosetta;
-			path = ../..;
-			sourceTree = "<group>";
-		};
 		4AA7041544D620D73FB38EE7C8FB0D9B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,20 +352,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5150307236CA7D9BF8ADB9BF893A80B8 /* Rosetta */ = {
+		79F51203F6D71F6959D8AF74167D84A7 /* Rosetta */ = {
 			isa = PBXGroup;
 			children = (
-				E5736C5DD9EE398A10329832787F4C2F /* Bridgeable.swift */,
-				44A52125BBBD97EFC6168B4455E55FD2 /* Bridging.swift */,
-				C0D2DCF5247DAB235D21BFAFF69B60FC /* BridgingBuiltin.swift */,
-				B6DD62B295B96EAE9E4B5CFF7475D944 /* JSON.swift */,
-				30ACD1A2F4B6E5B90172B761892B389C /* LogFormatter.swift */,
-				68BFC7E864244A00D3FFA26B2C431D44 /* LogHandler.swift */,
-				9E68A6D39D32AD713A4EC31F8C9CF2F1 /* Logs.swift */,
-				80D29C7836E5045DD5F06F2CF054CA07 /* Operators.swift */,
-				249FE5ABCB395660E8DFFA4C1F3F5EE0 /* Protocols.swift */,
-				E17C82CEDF13BD86ED522E6E35776497 /* Rosetta.swift */,
-				E0346EC69C4D4FF7F2F3CBF8211B5F05 /* RosettaConvenience.swift */,
+				C985974AABB1E80904511C0EA0C0A927 /* Bridgeable.swift */,
+				5BDBAB312A5305D087A337FD24C84B70 /* Bridging.swift */,
+				383B75AAAEFD723FB32161830364901F /* BridgingBuiltin.swift */,
+				90861ADBB32CC16DA04D5D76BE19DBE4 /* JSON.swift */,
+				CD281F5E553A7BCFEA60DF60BCBBE4FA /* LogFormatter.swift */,
+				15A5EAD89AF340D00B59A8781E553B76 /* LogHandler.swift */,
+				B530AF2A38BFFA35E7A1CB57926C427E /* Logs.swift */,
+				517722D8975E81782EF87C94AA05AE12 /* NSData.swift */,
+				01852175AADA193E8B08AFD787FEA655 /* Operators.swift */,
+				2E91F2CF93300323A73F3824000E2ADD /* OperatorsHelpers.swift */,
+				E77FA9BC8F1DB4F590336790AF72B9A4 /* Protocols.swift */,
+				46F66F9FE43691A9952B924282AD3459 /* Rosetta.swift */,
+				861F756A40694200143D687302FCA624 /* RosettaConvenience.swift */,
+				F0D2E8947C4F1B08B0042CDA1696B8B2 /* String.swift */,
 			);
 			path = Rosetta;
 			sourceTree = "<group>";
@@ -382,38 +400,6 @@
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		9C2AEA14A276D4AFDC5B7713E23A5BA8 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				D695DB1A31C08ED246BCA47A60FE6B7B /* Info.plist */,
-				9DB76673A6559DF843BCE0AE750504C5 /* Info.plist */,
-				AB90747B4DE086191164418E2B870B25 /* Info.plist */,
-				27C0695A128D839B1C4F20D8075A2568 /* Info.plist */,
-				C3190DE7B632E84AB8C02BCED2222B76 /* Pods-ios-Rosetta.modulemap */,
-				2EFE716AFE07A768361C4404DE183567 /* Pods-ios-Rosetta.xcconfig */,
-				A58C61894BD6B8A6319C62D1BA1C778B /* Pods-ios-Rosetta-dummy.m */,
-				8EE43F7D30AA429320220F139ACC69A7 /* Pods-ios-Rosetta-prefix.pch */,
-				A5D79F86257393F7FAA4066E507BE9A7 /* Pods-ios-Rosetta-umbrella.h */,
-				C13F80314A5B08335CA78741589E42B3 /* Pods-iosTests-Rosetta.modulemap */,
-				CD8DB5167E8506B2F38F5B96207055F0 /* Pods-iosTests-Rosetta.xcconfig */,
-				64CA8B110797B95237F4927AEADDA3DD /* Pods-iosTests-Rosetta-dummy.m */,
-				4CE9C4357746A87B6579719762D2710D /* Pods-iosTests-Rosetta-prefix.pch */,
-				99BF06FCB675CDF92E13BC2214B1C9D0 /* Pods-iosTests-Rosetta-umbrella.h */,
-				0826F1B0E7F627247067F7FD482A7AE3 /* Pods-osx-Rosetta.modulemap */,
-				851CA5D3A820F938906D70B3644BA39F /* Pods-osx-Rosetta.xcconfig */,
-				F89DED914A5BF9582DAD5866B989E830 /* Pods-osx-Rosetta-dummy.m */,
-				1784CFCAD3F1DB240C777A1D08472DB0 /* Pods-osx-Rosetta-prefix.pch */,
-				ECA5D81A0E902020C889243BD867F460 /* Pods-osx-Rosetta-umbrella.h */,
-				261A7AEA2DEA3FAA8164F96C45AFD039 /* Pods-osxTests-Rosetta.modulemap */,
-				D39F3084A639EF651990D1C3420868F1 /* Pods-osxTests-Rosetta.xcconfig */,
-				BCAD606F891D6FCDF996DE436674279E /* Pods-osxTests-Rosetta-dummy.m */,
-				9DECD80AD1877358070A9748AC4D88EF /* Pods-osxTests-Rosetta-prefix.pch */,
-				7332CF92A9193636F31DEB9FD0246BAC /* Pods-osxTests-Rosetta-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Tests/Pods/Target Support Files/Pods-ios-Rosetta";
-			sourceTree = "<group>";
-		};
 		B9D053C2343DD9F447ACBE1684F054D9 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +409,38 @@
 				FD1D33AEBEDCC106FB815DA4DB0E883B /* Pods-osxTests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		D6BC78FD5921507A0B301F281AAD8DD6 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				20F4D2B4B2E90B4F6EF318847678372F /* Info.plist */,
+				A2E516F309A7A40B2CC3D6F5EF3ED080 /* Info.plist */,
+				74EF33D376932D5F866DEE4B3219A270 /* Info.plist */,
+				A88785862C7CCFCAA3ABB3E0F49CF0F7 /* Info.plist */,
+				C1B1AB11CACC55DCFD911AA4F581D9BF /* Pods-ios-Rosetta.modulemap */,
+				E5D6E97A59FBE4732B3FED628DE1B149 /* Pods-ios-Rosetta.xcconfig */,
+				67DC39F2E0133B9D9398D53F458CBC52 /* Pods-ios-Rosetta-dummy.m */,
+				F3D5CF442B8D7520588870C0D455CA22 /* Pods-ios-Rosetta-prefix.pch */,
+				3457EF2A6B03897E14D89F00A908EF27 /* Pods-ios-Rosetta-umbrella.h */,
+				3D3D11869B9C8C1C4A6A6A6F117B2F01 /* Pods-iosTests-Rosetta.modulemap */,
+				212D0ACE373DEAFC63783720A34C59A9 /* Pods-iosTests-Rosetta.xcconfig */,
+				1974F0C2C94F735258E744176D1ED897 /* Pods-iosTests-Rosetta-dummy.m */,
+				6DA7BDC137B225D723E25B2515D71F54 /* Pods-iosTests-Rosetta-prefix.pch */,
+				9601C5E0EE9A2EB276F81ED76C1A9D8C /* Pods-iosTests-Rosetta-umbrella.h */,
+				A2D3C527EB1D965950156026A2409A32 /* Pods-osx-Rosetta.modulemap */,
+				FBFE984FB8648247A166AB88ADDCF594 /* Pods-osx-Rosetta.xcconfig */,
+				CDE0429294EFBA79D975D011FAD657A0 /* Pods-osx-Rosetta-dummy.m */,
+				889F11C9AEF32D6E7F0E934783E4A3EC /* Pods-osx-Rosetta-prefix.pch */,
+				DF6419E6419651EC1096DB84C2D4F16A /* Pods-osx-Rosetta-umbrella.h */,
+				DFA9ECD43E05A2EE2DCBCED014DB00AA /* Pods-osxTests-Rosetta.modulemap */,
+				5357A11DA3E9A1946E191F0AB9E3ACEA /* Pods-osxTests-Rosetta.xcconfig */,
+				1791C8E205506323E11EA11F5BA546C0 /* Pods-osxTests-Rosetta-dummy.m */,
+				7117BC10FB8C02C7A6787736F5D013DF /* Pods-osxTests-Rosetta-prefix.pch */,
+				47E5425D0D9CE752583D837826D0B4AD /* Pods-osxTests-Rosetta-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Tests/Pods/Target Support Files/Pods-ios-Rosetta";
 			sourceTree = "<group>";
 		};
 		FA6D31EB7F6B61121CF551275994300E /* Pods-iosTests */ = {
@@ -553,7 +571,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1837064CDF8CD40BB534A8B69D9C7587 /* Build configuration list for PBXNativeTarget "Pods-osx-Rosetta" */;
 			buildPhases = (
-				82BF39451047FD4B226578207266AA1B /* Sources */,
+				7C0B69E81E887AA20D68DAF7D808620C /* Sources */,
 				B60214F8887274DDF0EBC754DBE32EA5 /* Frameworks */,
 				F99D38D17639E8226C75D1C043FF42EC /* Headers */,
 			);
@@ -606,7 +624,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7134DF902C5462140E99FE3C40F42A16 /* Build configuration list for PBXNativeTarget "Pods-osxTests-Rosetta" */;
 			buildPhases = (
-				A5E1B8DFDB437978C6F9FB168678C5A0 /* Sources */,
+				626CF12174EB3FF7B0B94C9986DA0756 /* Sources */,
 				12164590D1C892D61A32757F36D20B72 /* Frameworks */,
 				05196459F0860C806015F283B7163F09 /* Headers */,
 			);
@@ -641,7 +659,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 954C428E0F16CCF383138388F6905BD7 /* Build configuration list for PBXNativeTarget "Pods-iosTests-Rosetta" */;
 			buildPhases = (
-				D9C786063543D5E62ACF1EB64FED1AAA /* Sources */,
+				0AA889CF9D87F92BB5258C5E0E20175F /* Sources */,
 				616C5D3CE419C89618B8BA7E80137E3C /* Frameworks */,
 				DFE8A040A7AA1D9A1D3C80A7278FB99C /* Headers */,
 			);
@@ -658,7 +676,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DDB5BE8DAAA4403DFE61C6BB01EA3B4 /* Build configuration list for PBXNativeTarget "Pods-ios-Rosetta" */;
 			buildPhases = (
-				B9A8BEA6B142271C529019EB7A38C12E /* Sources */,
+				1D84FA27BD601A5E0B841E0E6488815F /* Sources */,
 				7F104767CD1E3F5428A03591443F058A /* Frameworks */,
 				551197A8CD9305959426EBAA3D63EAA0 /* Headers */,
 			);
@@ -713,6 +731,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0AA889CF9D87F92BB5258C5E0E20175F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				014EE191CA5B0A7E6EBB142407A9CE8D /* Bridgeable.swift in Sources */,
+				CBEB48E50CB41028FAD28D615C5572F6 /* Bridging.swift in Sources */,
+				AC8B0F43BA78C915365E608CCE5F02C4 /* BridgingBuiltin.swift in Sources */,
+				BFBB7A2A51D48A82855A1E5F43B80A38 /* JSON.swift in Sources */,
+				BE876D6DE90A85536E2D5909496C781D /* LogFormatter.swift in Sources */,
+				FF843783392E696DCBEF146A2E70ADF7 /* LogHandler.swift in Sources */,
+				347FCAC8641E6FE1D4DDA25C6F9A83C8 /* Logs.swift in Sources */,
+				4B0D458EA60B671676771FB510522206 /* NSData.swift in Sources */,
+				95496D919D3FC3F1D7462B9143669288 /* Operators.swift in Sources */,
+				464F53779FC1DD385F205AC04C022420 /* OperatorsHelpers.swift in Sources */,
+				0E0F14A52354397B9B695CFAC0877490 /* Pods-iosTests-Rosetta-dummy.m in Sources */,
+				91334C02BE82D2F3AC76F8CF52C26DA9 /* Protocols.swift in Sources */,
+				BA62B385D04ED9F1F0702D33B90D8727 /* Rosetta.swift in Sources */,
+				BCC89099AEC32308B29036AD1525F576 /* RosettaConvenience.swift in Sources */,
+				79DB7A212808A2BDF2286C878F1750BA /* String.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0F85BBEC0167422EC460CC9F87A5F1D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -721,22 +761,69 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		82BF39451047FD4B226578207266AA1B /* Sources */ = {
+		1D84FA27BD601A5E0B841E0E6488815F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A01011F233275D908FCF7CC9DFC14381 /* Bridgeable.swift in Sources */,
-				60329DFAE4317F44F1F1A263008942E4 /* Bridging.swift in Sources */,
-				F9C0E41010DB9AC311754BFB6BA41C82 /* BridgingBuiltin.swift in Sources */,
-				7FE67DC1050F6CDF8D3850069B0EA66F /* JSON.swift in Sources */,
-				09EABAA3FFFB222338A379893A08C31F /* LogFormatter.swift in Sources */,
-				B5BB9A70AAC2807A82F81765CAD407E4 /* LogHandler.swift in Sources */,
-				B2A57C4D7BBFEEE828FC34D22A88A4B1 /* Logs.swift in Sources */,
-				0B782DC7C26A220861B12AB222F22725 /* Operators.swift in Sources */,
-				7852B7E217366EC79A5121AC20C53854 /* Pods-osx-Rosetta-dummy.m in Sources */,
-				592079B7C5D8EAE4446A71F6536301B2 /* Protocols.swift in Sources */,
-				A575BCD597B3EC5984533F406EF35BC6 /* Rosetta.swift in Sources */,
-				C1C5F221A1F1612E9DC0825298B5B797 /* RosettaConvenience.swift in Sources */,
+				C883B7CF0B35474EB48F3102C3F1DF52 /* Bridgeable.swift in Sources */,
+				0A3EAA39CC5380829A06A6F94D521CBC /* Bridging.swift in Sources */,
+				19EAACF0DA9070C8D5C62E5E595979EE /* BridgingBuiltin.swift in Sources */,
+				BF15F26DA76B8B6BEDEF91B205BB992F /* JSON.swift in Sources */,
+				98EDBBBE8B452385DC9EF322729BE8F6 /* LogFormatter.swift in Sources */,
+				0165BE00271924FA557D5B28B7D10714 /* LogHandler.swift in Sources */,
+				36C80C7A62C497BA4EA27390903BF67B /* Logs.swift in Sources */,
+				D1F3E4DAB00444C88E0AF7CF7D9ECFA5 /* NSData.swift in Sources */,
+				F8999B79B97112CAC12EF2D6B048F63F /* Operators.swift in Sources */,
+				07B6A3E89BD69B4B55C3FBE597F9A459 /* OperatorsHelpers.swift in Sources */,
+				9688AB8C5F782C1E9220AB033F81D9E6 /* Pods-ios-Rosetta-dummy.m in Sources */,
+				6742BFDB174702577CE699CB658FF209 /* Protocols.swift in Sources */,
+				20847FFB7406A7872F5CB33D03786A2A /* Rosetta.swift in Sources */,
+				36628F10D629387BF8157A4FCDAF35C1 /* RosettaConvenience.swift in Sources */,
+				62F07AAC62D117B2371D268AE660BF7E /* String.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		626CF12174EB3FF7B0B94C9986DA0756 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				387B76D8899A02659D2BA065B19B2B9D /* Bridgeable.swift in Sources */,
+				81B473029672F68D7CB080373B2145A8 /* Bridging.swift in Sources */,
+				88289FF2A4F5EECA2ECFFBF0E69B6396 /* BridgingBuiltin.swift in Sources */,
+				EAA3BA1D247057E1AB0ECCDDD6918B86 /* JSON.swift in Sources */,
+				AA92F32CEBF1CB953D5CA83B28895033 /* LogFormatter.swift in Sources */,
+				53DF8DA96A96EED08AC252AC9094F740 /* LogHandler.swift in Sources */,
+				27BA3BE1062A0381353EDA283A8B4BD7 /* Logs.swift in Sources */,
+				FC3BEADAC895085EC4DF4E1B9F29B323 /* NSData.swift in Sources */,
+				BE8441E0BEB54E82F545CFD08FB8DA71 /* Operators.swift in Sources */,
+				FB7879F85070C8F8D1FAF1EC4AAE617A /* OperatorsHelpers.swift in Sources */,
+				2C79CE4E13B5ED3506F7924436B9BB2E /* Pods-osxTests-Rosetta-dummy.m in Sources */,
+				8935CBA87FDF4C132A31DC7E9C9655E8 /* Protocols.swift in Sources */,
+				DBFDE7FE42970C1334E936958DA17BDC /* Rosetta.swift in Sources */,
+				F1C21CF13A1BBFEBC4AF159517B1F8E9 /* RosettaConvenience.swift in Sources */,
+				AEE5C8902E77026C200BF2A8642CD72E /* String.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7C0B69E81E887AA20D68DAF7D808620C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC6AFEE11CA72D9BD5983527E05AE7F6 /* Bridgeable.swift in Sources */,
+				81E9F6FE4CF22A25F68E38F8FE16F373 /* Bridging.swift in Sources */,
+				7BFC36C7F4F4DE7B53CD42A08D962927 /* BridgingBuiltin.swift in Sources */,
+				3FB01C1D8F3287E894D87C7ED24F5AB7 /* JSON.swift in Sources */,
+				68FFBC639638663AC9A790CE2B047FA2 /* LogFormatter.swift in Sources */,
+				0CAAA132F804E8687BD2151C84FF8433 /* LogHandler.swift in Sources */,
+				71DE96C3FCD42B45A02857D5FA431851 /* Logs.swift in Sources */,
+				F53C6EF3005BFCF4CCB32B5B9B85A1EF /* NSData.swift in Sources */,
+				3EF9129F5D2E57BC45FDE1F78B8115BF /* Operators.swift in Sources */,
+				423B51D0A4D1702BD6FC54C98224C8A4 /* OperatorsHelpers.swift in Sources */,
+				72D87FCFEB1BD59194C591C2FABBE11E /* Pods-osx-Rosetta-dummy.m in Sources */,
+				B04FB1EBA3C87F383E2DF7CB7DFC2257 /* Protocols.swift in Sources */,
+				4CD8A2F135E1BF33ED2F7C3983E623E0 /* Rosetta.swift in Sources */,
+				6DAD8D91D32554A5521036D03B73D01C /* RosettaConvenience.swift in Sources */,
+				6FEEFBA7C1CB896E841036E3EF3CC9E7 /* String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,63 +832,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7DFA44CC2621797A0D559E9E1A80156 /* Pods-ios-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A5E1B8DFDB437978C6F9FB168678C5A0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				85383977C4A0B31053D14C048A44368C /* Bridgeable.swift in Sources */,
-				0EBC14B5DF9C0CF5148E8E3CA70F99E5 /* Bridging.swift in Sources */,
-				68722E22015FC207123F68D9D4F22C48 /* BridgingBuiltin.swift in Sources */,
-				C119EA31A087F7DCC570316731D5556B /* JSON.swift in Sources */,
-				35AFC59D7687EC1E82A5ADA5BB4F3531 /* LogFormatter.swift in Sources */,
-				D87F053E6943ABC61CB537B4655FAB07 /* LogHandler.swift in Sources */,
-				B6AC3194B0E43B70E8CDF0179EB9530C /* Logs.swift in Sources */,
-				828583810F300527728F372C092C3244 /* Operators.swift in Sources */,
-				50EE8368A4156192B4631D861D11E35F /* Pods-osxTests-Rosetta-dummy.m in Sources */,
-				72ED46AB44F8C58EA04A7645F0BFBBD0 /* Protocols.swift in Sources */,
-				3C11F7A036EB410279CA5A3169F967CE /* Rosetta.swift in Sources */,
-				D43E49341D8DC6E322DC78BA914F7ED0 /* RosettaConvenience.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B9A8BEA6B142271C529019EB7A38C12E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				58B3751C0E2A3D6AB806529E16B8369B /* Bridgeable.swift in Sources */,
-				6A06A41CA76FD063D4BED1CBBFF7D86E /* Bridging.swift in Sources */,
-				47691FFE921E98AA6672FBAFDE7A3DEB /* BridgingBuiltin.swift in Sources */,
-				D1472E7D5A3EDAB18E1FC4FA9C6DC512 /* JSON.swift in Sources */,
-				EE00BA7C33F4ADCBC93BC2E6EB46EB18 /* LogFormatter.swift in Sources */,
-				36A41EF70690D0BA0E2108A61C5EC754 /* LogHandler.swift in Sources */,
-				3BACB7D09BD36813E27DBE6326C1494F /* Logs.swift in Sources */,
-				BC68C415674B8A88042AB256286AA0CB /* Operators.swift in Sources */,
-				756C0C0F913ABF06150221917264055A /* Pods-ios-Rosetta-dummy.m in Sources */,
-				43DA2B28A30A3A9108894AB011B9E537 /* Protocols.swift in Sources */,
-				B354950DE62903674E42820819A76C80 /* Rosetta.swift in Sources */,
-				7EBD83EBAAF0A5CE4D356C275AD70855 /* RosettaConvenience.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D9C786063543D5E62ACF1EB64FED1AAA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BDD3EB43925EE7BF8CDB62DD79B906A6 /* Bridgeable.swift in Sources */,
-				6349E9333F9F6A77C6865BA63D4E4576 /* Bridging.swift in Sources */,
-				20170E75CBB4AB0BD0A7B8D041BDCCC3 /* BridgingBuiltin.swift in Sources */,
-				8B96DE7D9633709D77812ADB1DF32BBA /* JSON.swift in Sources */,
-				00FB4E6FEB3B9BB0FCFC8126B5FA0581 /* LogFormatter.swift in Sources */,
-				D99133AAA53904B107137917A048F536 /* LogHandler.swift in Sources */,
-				80FF12D0C1DE2D9E0C57D428C077F7EC /* Logs.swift in Sources */,
-				FFECB777B05777BF09AAB80238E9918C /* Operators.swift in Sources */,
-				41BA4CACAC88B412E429602B1D8029BF /* Pods-iosTests-Rosetta-dummy.m in Sources */,
-				347B6BC3FB474C33D7AE0B27ED9425DE /* Protocols.swift in Sources */,
-				03CAFF240753073A53844FF3E5138D1C /* Rosetta.swift in Sources */,
-				BA1989016B4032C12675C519B592CED7 /* RosettaConvenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,7 +905,7 @@
 		};
 		05FDD7851B19CD0DD06D216DC29C7E12 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 851CA5D3A820F938906D70B3644BA39F /* Pods-osx-Rosetta.xcconfig */;
+			baseConfigurationReference = FBFE984FB8648247A166AB88ADDCF594 /* Pods-osx-Rosetta.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -903,7 +933,7 @@
 		};
 		1DB7B3D2017A6EAFFE87035A1E3624BD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D39F3084A639EF651990D1C3420868F1 /* Pods-osxTests-Rosetta.xcconfig */;
+			baseConfigurationReference = 5357A11DA3E9A1946E191F0AB9E3ACEA /* Pods-osxTests-Rosetta.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1024,7 +1054,7 @@
 		};
 		75962484A3E0B42A5FDCB442E057B92A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EFE716AFE07A768361C4404DE183567 /* Pods-ios-Rosetta.xcconfig */;
+			baseConfigurationReference = E5D6E97A59FBE4732B3FED628DE1B149 /* Pods-ios-Rosetta.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1051,7 +1081,7 @@
 		};
 		76961CFC2E06C3E860B623C4F7998CA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EFE716AFE07A768361C4404DE183567 /* Pods-ios-Rosetta.xcconfig */;
+			baseConfigurationReference = E5D6E97A59FBE4732B3FED628DE1B149 /* Pods-ios-Rosetta.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1110,7 +1140,7 @@
 		};
 		81E5BE73953B387C3B2E207820362282 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D39F3084A639EF651990D1C3420868F1 /* Pods-osxTests-Rosetta.xcconfig */;
+			baseConfigurationReference = 5357A11DA3E9A1946E191F0AB9E3ACEA /* Pods-osxTests-Rosetta.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1239,7 +1269,7 @@
 		};
 		AB72066E85F0915C847CE020C8D0DF03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD8DB5167E8506B2F38F5B96207055F0 /* Pods-iosTests-Rosetta.xcconfig */;
+			baseConfigurationReference = 212D0ACE373DEAFC63783720A34C59A9 /* Pods-iosTests-Rosetta.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1301,7 +1331,7 @@
 		};
 		BFC772B961B40D6499B010FD99F3653E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 851CA5D3A820F938906D70B3644BA39F /* Pods-osx-Rosetta.xcconfig */;
+			baseConfigurationReference = FBFE984FB8648247A166AB88ADDCF594 /* Pods-osx-Rosetta.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1329,7 +1359,7 @@
 		};
 		CE872C473E37D1A02F265D01AA5073CD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD8DB5167E8506B2F38F5B96207055F0 /* Pods-iosTests-Rosetta.xcconfig */;
+			baseConfigurationReference = 212D0ACE373DEAFC63783720A34C59A9 /* Pods-iosTests-Rosetta.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'AB57BD0440F914E8A8DBECF2'
+               BlueprintIdentifier = '5F4ADF1795BE1972F7544C45'
                BlueprintName = 'Pods-osx-Rosetta'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Rosetta.framework'>

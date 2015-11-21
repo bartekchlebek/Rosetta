@@ -29,7 +29,14 @@ extension JSON {
 
 		let parseData = {(data: NSData) -> ([Swift.String: AnyObject]?) in
 			do {
-				return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [Swift.String: AnyObject]
+				let JSONObject = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+				if let dictionary = JSONObject as? [Swift.String: AnyObject] {
+					return dictionary
+				}
+				else {
+					logs.append(Log.DataToJSON(data: data, error: NSError(domain: "Rosetta", code: -1, userInfo: nil)))
+					return nil
+				}
 			}
 			catch let error as NSError {
 				logs.append(Log.DataToJSON(data: data, error: error))
