@@ -1367,4 +1367,12 @@ class RosettaTests: XCTestCase {
 		let object: Object? = Rosetta().decode(data)
 		XCTAssertTrue(object == nil, "decoded object should not exist")
 	}
+
+	func testDecodingJSONWithArrayAtRoot() {
+		let array = ["value1", "value2", "value3", "value4"]
+		let data = dataFrom(array)
+		let object: [String]? = Rosetta().decode(data)
+		XCTAssertTrue(object != nil, "decoded object should not exist")
+		XCTAssertTrue(object == array)
+	}
 }
