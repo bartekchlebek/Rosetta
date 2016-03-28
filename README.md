@@ -32,60 +32,47 @@ Clone this repo. Add the Rosetta project file to your workspace. Then in your ta
 
 This is just a brief overview of how `Rosetta` works, but it should give you the idea. Please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md) for thorough documentation.
 
-### JSON Decoding
+### JSON Decoding/Encoding
 
-Let's look at a simple example. Say we have a `JSON` representation of a user:
-```json
-{  
-  "name": "Bill",
-  "age": 22
-}
-```
-and want to be able to parse that into a Swift `struct`:
+The easiest way to use `Rosetta` is to have your type implement `JSONConvertible` protocol
 ```swift
-struct User {
+struct User: JSONConvertible {
+  var ID: String?
   var name: String?
   var age: Int?
-}
-```
-The most blunt and verbose way to do that is:
-```swift
-var user = User(name: nil, age: nil)
-let success = Rosetta().decode(jsonDataOrString, to: &user, usingMap: {(inout object: User, json) -> () in
-  object.name <~ json["name"]
-  object.age  <~ json["age"]
-})
-```
-But if we make `User` conform to the `JSONConvertible` protocol (`JSONConvertibleClass` for `class` types), we can reduce that call down to:
-```swift
-let user: User? = Rosetta().decode(jsonDataOrString)
-```
-`JSONConvertible` implementation for `User` may look like this:
-```swift
-extension User: JSONConvertible {
+  var website: NSURL?
+  var friends: [User]?
+  var family: [String : User]?
+  
   init() {
     
   }
   
   static func map(inout object: User, json: Rosetta) {
-    object.name <~ json["name"]
-    object.age  <~ json["age"]
+    object.ID       <- json["uniqueID"] // Map required properties with <-
+    object.name     <~ json["name"] // Map optional properties with <~
+    object.age      <~ json["age"] § {$0 > 0} // Add validation closure after § operator (age > 0)
+    // Types not conforming to Bridgeable protocol (like NSURL here) need to have bridging code after ~ operator
+    object.website  <~ json["website_url"] ~ BridgeString(
+      decoder: {NSURL(string: $0 as String)}, // convert NSString from json to NSURL
+      encoder: {$0.absoluteString} // convert NSURL from Person to NSString for JSON
+    )
+    object.friends  <~ json["friends"] // Automaticaly mapped arrays
+    object.family   <~ json["family"] // Automaticaly mapped dictionaries
   }
 }
 ```
-For details on how `decoding` works, please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decodin)
-
-### JSON Encoding
-
-You can always get a `JSON` back (assuming `userObject` conforms to `JSONConvertible` / `JSONConvertibleClass` protocol) as `NSData`
+and then you can convert `JSON` to `Person` with
 ```swift
-let json: NSData? = Rosetta().encode(userObject)
+let user = Rosetta().decode(jsonDataOrString) as User?
 ```
-or `String`
+and `Person` to `JSON` with
 ```swift
-let json: String? = Rosetta().encode(userObject)
+let jsonData = Rosetta().encode(user) as NSData?
+let jsonString = Rosetta().encode(user) as String?
 ```
-Further `encoding` details are described in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-encoding)
+
+For details on how `decoding` and `encoding` work, please refer to [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#json-decodin)
 
 ### Required fields
 
@@ -163,6 +150,96 @@ or
 rosetta.logLevel = .Verbose
 ```
 You can also change the **log output** (if `println()` does not suit you) and **customize** the log format. All that is described in-depth in [guide](https://github.com/bartekchlebek/Rosetta/blob/documentation/GUIDE.md#logs)
+
+## Examples
+
+```swift
+struct CustomConvertibleType: JSONConvertible {
+  var someValue: Double?
+  
+  init() {
+    
+  }
+  
+  static func map(inout object: CustomConvertibleType, json: Rosetta) {
+    object.someValue <- json["value"]
+  }
+}
+enum CustomBridgeableType: Int, Bridgeable {
+  case One = 1, Two, Three, Four
+  
+  static func bridge() -> Bridge<CustomBridgeableType, NSNumber> {
+    return BridgeNumber(
+      decoder: {CustomBridgeableType(rawValue: $0.integerValue)},
+      encoder: {$0.rawValue}
+    )
+  }
+}
+struct YourCustomType: JSONConvertible {
+  var value1: Int?
+  var value2: CustomBridgeableType?
+  var value3: CustomConvertibleType?
+  var value4: NSURL?
+  
+  var requiredValue1: String = ""
+  var requiredValue2: String!
+  var requiredValue3: String?
+  
+  var validatedValue1: String?
+  var validatedValue2: CustomBridgeableType?
+  var validatedValue3: CustomConvertibleType?
+  var validatedValue4: NSURL?
+  
+  var array1: [Int]?
+  var array2: [CustomBridgeableType]?
+  var array3: [CustomConvertibleType]?
+  var array4: [NSURL]?
+  
+  var dictionary1: [String : Int]?
+  var dictionary2: [String : CustomBridgeableType]?
+  var dictionary3: [String : CustomConvertibleType]?
+  var dictionary4: [String : NSURL]?
+  
+  init() {
+    
+  }
+  
+  static func map(inout object: YourCustomType, json: Rosetta) {
+    object.value1 <~ json["value1"]
+    object.value2 <~ json["value2"]
+    object.value2 <~ json["value3"]
+    object.value4 <~ json["value4"] ~ BridgeString(
+      decoder: {NSURL(string: $0 as String)},
+      encoder: {$0.absoluteString}
+    )
+    
+    // Bridging placed in a constant just to reuse
+    let urlBridge = BridgeString(
+      decoder: {NSURL(string: $0 as String)},
+      encoder: {$0.absoluteString}
+    )
+    
+    object.requiredValue1 <- json["required1"]
+    object.requiredValue2 <- json["required2"]
+    object.requiredValue3 <- json["required3"]
+    
+    object.validatedValue1 <~ json["validated1"] § {$0.hasPrefix("requiredPrefix")}
+    object.validatedValue2 <~ json["validated2"] § {$0 == .One || $0 == .Three}
+    object.validatedValue3 <~ json["validated3"] § {$0.someValue > 10.0}
+    object.validatedValue4 <~ json["validated4"] ~ urlBridge § {$0.scheme == "https"}
+    
+    object.array1 <~ json["array1"]
+    object.array2 <~ json["array2"]
+    object.array3 <~ json["array3"]
+    object.array4 <~ json["array4"] ~ BridgeArray(urlBridge)
+    
+    object.dictionary1 <~ json["dictionary1"]
+    object.dictionary2 <~ json["dictionary2"]
+    object.dictionary3 <~ json["dictionary3"]
+    object.dictionary4 <~ json["dictionary4"] ~ BridgeObject(urlBridge)
+  }
+}
+```
 
 ## License
 Rosetta is available under the MIT license. See the [LICENSE](https://github.com/bartekchlebek/Rosetta/blob/master/LICENSE) file for more info.

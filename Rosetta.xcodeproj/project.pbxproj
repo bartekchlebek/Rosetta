@@ -7,9 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D4492001BFE6EB500BC8919 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4491FF1BFE6EB500BC8919 /* JSON.swift */; };
+		0D4492011BFE6EB900BC8919 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4491FF1BFE6EB500BC8919 /* JSON.swift */; };
+		0D4492031BFE750E00BC8919 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492021BFE750E00BC8919 /* LogFormatter.swift */; };
+		0D4492041BFE750E00BC8919 /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492021BFE750E00BC8919 /* LogFormatter.swift */; };
+		0D4492061BFE785100BC8919 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492051BFE785100BC8919 /* LogHandler.swift */; };
+		0D4492071BFE785100BC8919 /* LogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492051BFE785100BC8919 /* LogHandler.swift */; };
+		0D4492091BFE93FD00BC8919 /* OperatorsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492081BFE93FD00BC8919 /* OperatorsHelpers.swift */; };
+		0D44920A1BFE93FD00BC8919 /* OperatorsHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492081BFE93FD00BC8919 /* OperatorsHelpers.swift */; };
+		0D44920E1BFE95A600BC8919 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44920D1BFE95A600BC8919 /* String.swift */; };
+		0D44920F1BFE95A600BC8919 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44920D1BFE95A600BC8919 /* String.swift */; };
+		0D4492111BFE95AB00BC8919 /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492101BFE95AB00BC8919 /* NSData.swift */; };
+		0D4492121BFE95AB00BC8919 /* NSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4492101BFE95AB00BC8919 /* NSData.swift */; };
+		0DBA59B91AACA56B0037EDFF /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */; };
+		0DBA59BA1AACA56B0037EDFF /* RosettaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */; };
+		0DC1C87F1C00B31D00EE99FA /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC1C87E1C00B31D00EE99FA /* Dictionary.swift */; };
+		0DC1C8801C00B31D00EE99FA /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC1C87E1C00B31D00EE99FA /* Dictionary.swift */; };
 		0DE919D01A5A014C00FE94DE /* Rosetta.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DE919CF1A5A014C00FE94DE /* Rosetta.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0DE919D61A5A014D00FE94DE /* Rosetta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE919CA1A5A014C00FE94DE /* Rosetta.framework */; };
-		0DE919DD1A5A014D00FE94DE /* RosettaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */; };
 		0DE919ED1A5A056100FE94DE /* Bridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E61A5A056100FE94DE /* Bridgeable.swift */; };
 		0DE919EE1A5A056100FE94DE /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E71A5A056100FE94DE /* Bridging.swift */; };
 		0DE919EF1A5A056100FE94DE /* BridgingBuiltin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E81A5A056100FE94DE /* BridgingBuiltin.swift */; };
@@ -17,10 +31,6 @@
 		0DE919F11A5A056100FE94DE /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EA1A5A056100FE94DE /* Operators.swift */; };
 		0DE919F21A5A056100FE94DE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EB1A5A056100FE94DE /* Protocols.swift */; };
 		0DE919F31A5A056100FE94DE /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EC1A5A056100FE94DE /* Rosetta.swift */; };
-		0DE919F71A5A05C600FE94DE /* complex JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F41A5A05C600FE94DE /* complex JSON.json */; };
-		0DE919F81A5A05C600FE94DE /* complex keyPath JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */; };
-		0DE919F91A5A05C600FE94DE /* RosettaTestsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */; };
-		0DE91A111A5A09C400FE94DE /* Rosetta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DE91A061A5A09C300FE94DE /* Rosetta.framework */; };
 		0DE91A221A5A0A5300FE94DE /* Rosetta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EC1A5A056100FE94DE /* Rosetta.swift */; };
 		0DE91A231A5A0A5300FE94DE /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EA1A5A056100FE94DE /* Operators.swift */; };
 		0DE91A241A5A0A5300FE94DE /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E71A5A056100FE94DE /* Bridging.swift */; };
@@ -29,36 +39,20 @@
 		0DE91A271A5A0A5300FE94DE /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919E91A5A056100FE94DE /* Logs.swift */; };
 		0DE91A281A5A0A5300FE94DE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919EB1A5A056100FE94DE /* Protocols.swift */; };
 		0DE91A291A5A0A5F00FE94DE /* Rosetta.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DE919CF1A5A014C00FE94DE /* Rosetta.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0DE91A2A1A5A0A6B00FE94DE /* RosettaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */; };
-		0DE91A2B1A5A0A6C00FE94DE /* RosettaTestsClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */; };
-		0DE91A2C1A5A0A7200FE94DE /* complex JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F41A5A05C600FE94DE /* complex JSON.json */; };
-		0DE91A2D1A5A0A7400FE94DE /* complex keyPath JSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		0DE919D71A5A014D00FE94DE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0DE919C11A5A014C00FE94DE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0DE919C91A5A014C00FE94DE;
-			remoteInfo = Rosetta;
-		};
-		0DE91A121A5A09C400FE94DE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0DE919C11A5A014C00FE94DE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0DE91A051A5A09C300FE94DE;
-			remoteInfo = "Rosetta-OSX";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		0D4491FF1BFE6EB500BC8919 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		0D4492021BFE750E00BC8919 /* LogFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
+		0D4492051BFE785100BC8919 /* LogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHandler.swift; sourceTree = "<group>"; };
+		0D4492081BFE93FD00BC8919 /* OperatorsHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorsHelpers.swift; sourceTree = "<group>"; };
+		0D44920D1BFE95A600BC8919 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		0D4492101BFE95AB00BC8919 /* NSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSData.swift; sourceTree = "<group>"; };
+		0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RosettaConvenience.swift; sourceTree = "<group>"; };
+		0DC1C87E1C00B31D00EE99FA /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		0DE919CA1A5A014C00FE94DE /* Rosetta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rosetta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE919CE1A5A014C00FE94DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DE919CF1A5A014C00FE94DE /* Rosetta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Rosetta.h; sourceTree = "<group>"; };
-		0DE919D51A5A014D00FE94DE /* RosettaTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RosettaTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0DE919DB1A5A014D00FE94DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosettaTests.swift; sourceTree = "<group>"; };
 		0DE919E61A5A056100FE94DE /* Bridgeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bridgeable.swift; sourceTree = "<group>"; };
 		0DE919E71A5A056100FE94DE /* Bridging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
 		0DE919E81A5A056100FE94DE /* BridgingBuiltin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BridgingBuiltin.swift; sourceTree = "<group>"; };
@@ -66,11 +60,7 @@
 		0DE919EA1A5A056100FE94DE /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		0DE919EB1A5A056100FE94DE /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		0DE919EC1A5A056100FE94DE /* Rosetta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rosetta.swift; sourceTree = "<group>"; };
-		0DE919F41A5A05C600FE94DE /* complex JSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "complex JSON.json"; sourceTree = "<group>"; };
-		0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "complex keyPath JSON.json"; sourceTree = "<group>"; };
-		0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RosettaTestsClass.swift; sourceTree = "<group>"; };
 		0DE91A061A5A09C300FE94DE /* Rosetta.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rosetta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0DE91A101A5A09C400FE94DE /* RosettaTests-OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RosettaTests-OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,14 +71,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0DE919D21A5A014D00FE94DE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0DE919D61A5A014D00FE94DE /* Rosetta.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0DE91A021A5A09C300FE94DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,22 +78,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0DE91A0D1A5A09C400FE94DE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0DE91A111A5A09C400FE94DE /* Rosetta.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D44920C1BFE959200BC8919 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0D44920D1BFE95A600BC8919 /* String.swift */,
+				0D4492101BFE95AB00BC8919 /* NSData.swift */,
+				0DC1C87E1C00B31D00EE99FA /* Dictionary.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		0DE919C01A5A014C00FE94DE = {
 			isa = PBXGroup;
 			children = (
 				0DE919CC1A5A014C00FE94DE /* Rosetta */,
-				0DE919D91A5A014D00FE94DE /* RosettaTests */,
 				0DE919CB1A5A014C00FE94DE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -120,9 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				0DE919CA1A5A014C00FE94DE /* Rosetta.framework */,
-				0DE919D51A5A014D00FE94DE /* RosettaTests-iOS.xctest */,
 				0DE91A061A5A09C300FE94DE /* Rosetta.framework */,
-				0DE91A101A5A09C400FE94DE /* RosettaTests-OSX.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,7 +111,9 @@
 		0DE919CC1A5A014C00FE94DE /* Rosetta */ = {
 			isa = PBXGroup;
 			children = (
+				0D44920C1BFE959200BC8919 /* Extensions */,
 				0DE919EC1A5A056100FE94DE /* Rosetta.swift */,
+				0DBA59B81AACA56B0037EDFF /* RosettaConvenience.swift */,
 				0DE919EA1A5A056100FE94DE /* Operators.swift */,
 				0DE919E71A5A056100FE94DE /* Bridging.swift */,
 				0DE919E61A5A056100FE94DE /* Bridgeable.swift */,
@@ -139,6 +122,10 @@
 				0DE919EB1A5A056100FE94DE /* Protocols.swift */,
 				0DE919CF1A5A014C00FE94DE /* Rosetta.h */,
 				0DE919CD1A5A014C00FE94DE /* Supporting Files */,
+				0D4491FF1BFE6EB500BC8919 /* JSON.swift */,
+				0D4492021BFE750E00BC8919 /* LogFormatter.swift */,
+				0D4492051BFE785100BC8919 /* LogHandler.swift */,
+				0D4492081BFE93FD00BC8919 /* OperatorsHelpers.swift */,
 			);
 			path = Rosetta;
 			sourceTree = "<group>";
@@ -147,26 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				0DE919CE1A5A014C00FE94DE /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		0DE919D91A5A014D00FE94DE /* RosettaTests */ = {
-			isa = PBXGroup;
-			children = (
-				0DE919DC1A5A014D00FE94DE /* RosettaTests.swift */,
-				0DE919F61A5A05C600FE94DE /* RosettaTestsClass.swift */,
-				0DE919F41A5A05C600FE94DE /* complex JSON.json */,
-				0DE919F51A5A05C600FE94DE /* complex keyPath JSON.json */,
-				0DE919DA1A5A014D00FE94DE /* Supporting Files */,
-			);
-			path = RosettaTests;
-			sourceTree = "<group>";
-		};
-		0DE919DA1A5A014D00FE94DE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				0DE919DB1A5A014D00FE94DE /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -211,24 +178,6 @@
 			productReference = 0DE919CA1A5A014C00FE94DE /* Rosetta.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		0DE919D41A5A014D00FE94DE /* RosettaTests-iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0DE919E31A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-iOS" */;
-			buildPhases = (
-				0DE919D11A5A014D00FE94DE /* Sources */,
-				0DE919D21A5A014D00FE94DE /* Frameworks */,
-				0DE919D31A5A014D00FE94DE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0DE919D81A5A014D00FE94DE /* PBXTargetDependency */,
-			);
-			name = "RosettaTests-iOS";
-			productName = RosettaTests;
-			productReference = 0DE919D51A5A014D00FE94DE /* RosettaTests-iOS.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		0DE91A051A5A09C300FE94DE /* Rosetta-OSX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DE91A191A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "Rosetta-OSX" */;
@@ -247,43 +196,21 @@
 			productReference = 0DE91A061A5A09C300FE94DE /* Rosetta.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		0DE91A0F1A5A09C400FE94DE /* RosettaTests-OSX */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0DE91A1C1A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-OSX" */;
-			buildPhases = (
-				0DE91A0C1A5A09C400FE94DE /* Sources */,
-				0DE91A0D1A5A09C400FE94DE /* Frameworks */,
-				0DE91A0E1A5A09C400FE94DE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0DE91A131A5A09C400FE94DE /* PBXTargetDependency */,
-			);
-			name = "RosettaTests-OSX";
-			productName = "Rosetta-OSXTests";
-			productReference = 0DE91A101A5A09C400FE94DE /* RosettaTests-OSX.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0DE919C11A5A014C00FE94DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Bartek Chlebek";
 				TargetAttributes = {
 					0DE919C91A5A014C00FE94DE = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
-					0DE919D41A5A014D00FE94DE = {
-						CreatedOnToolsVersion = 6.1.1;
-					};
 					0DE91A051A5A09C300FE94DE = {
-						CreatedOnToolsVersion = 6.1.1;
-					};
-					0DE91A0F1A5A09C400FE94DE = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
@@ -301,9 +228,7 @@
 			projectRoot = "";
 			targets = (
 				0DE919C91A5A014C00FE94DE /* Rosetta-iOS */,
-				0DE919D41A5A014D00FE94DE /* RosettaTests-iOS */,
 				0DE91A051A5A09C300FE94DE /* Rosetta-OSX */,
-				0DE91A0F1A5A09C400FE94DE /* RosettaTests-OSX */,
 			);
 		};
 /* End PBXProject section */
@@ -316,28 +241,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0DE919D31A5A014D00FE94DE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0DE919F71A5A05C600FE94DE /* complex JSON.json in Resources */,
-				0DE919F81A5A05C600FE94DE /* complex keyPath JSON.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0DE91A041A5A09C300FE94DE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0DE91A0E1A5A09C400FE94DE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0DE91A2C1A5A0A7200FE94DE /* complex JSON.json in Resources */,
-				0DE91A2D1A5A0A7400FE94DE /* complex keyPath JSON.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,21 +256,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DE919ED1A5A056100FE94DE /* Bridgeable.swift in Sources */,
+				0D44920E1BFE95A600BC8919 /* String.swift in Sources */,
+				0D4492061BFE785100BC8919 /* LogHandler.swift in Sources */,
+				0D4492031BFE750E00BC8919 /* LogFormatter.swift in Sources */,
 				0DE919F11A5A056100FE94DE /* Operators.swift in Sources */,
+				0DBA59B91AACA56B0037EDFF /* RosettaConvenience.swift in Sources */,
+				0D4492001BFE6EB500BC8919 /* JSON.swift in Sources */,
 				0DE919EE1A5A056100FE94DE /* Bridging.swift in Sources */,
 				0DE919F31A5A056100FE94DE /* Rosetta.swift in Sources */,
 				0DE919F21A5A056100FE94DE /* Protocols.swift in Sources */,
 				0DE919F01A5A056100FE94DE /* Logs.swift in Sources */,
+				0DC1C87F1C00B31D00EE99FA /* Dictionary.swift in Sources */,
 				0DE919EF1A5A056100FE94DE /* BridgingBuiltin.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0DE919D11A5A014D00FE94DE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0DE919DD1A5A014D00FE94DE /* RosettaTests.swift in Sources */,
-				0DE919F91A5A05C600FE94DE /* RosettaTestsClass.swift in Sources */,
+				0D4492111BFE95AB00BC8919 /* NSData.swift in Sources */,
+				0D4492091BFE93FD00BC8919 /* OperatorsHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,38 +278,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DE91A221A5A0A5300FE94DE /* Rosetta.swift in Sources */,
+				0D44920F1BFE95A600BC8919 /* String.swift in Sources */,
+				0D4492071BFE785100BC8919 /* LogHandler.swift in Sources */,
+				0D4492041BFE750E00BC8919 /* LogFormatter.swift in Sources */,
 				0DE91A231A5A0A5300FE94DE /* Operators.swift in Sources */,
+				0DBA59BA1AACA56B0037EDFF /* RosettaConvenience.swift in Sources */,
+				0D4492011BFE6EB900BC8919 /* JSON.swift in Sources */,
 				0DE91A241A5A0A5300FE94DE /* Bridging.swift in Sources */,
 				0DE91A251A5A0A5300FE94DE /* Bridgeable.swift in Sources */,
 				0DE91A261A5A0A5300FE94DE /* BridgingBuiltin.swift in Sources */,
 				0DE91A271A5A0A5300FE94DE /* Logs.swift in Sources */,
+				0DC1C8801C00B31D00EE99FA /* Dictionary.swift in Sources */,
 				0DE91A281A5A0A5300FE94DE /* Protocols.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0DE91A0C1A5A09C400FE94DE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0DE91A2A1A5A0A6B00FE94DE /* RosettaTests.swift in Sources */,
-				0DE91A2B1A5A0A6C00FE94DE /* RosettaTestsClass.swift in Sources */,
+				0D4492121BFE95AB00BC8919 /* NSData.swift in Sources */,
+				0D44920A1BFE93FD00BC8919 /* OperatorsHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0DE919D81A5A014D00FE94DE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0DE919C91A5A014C00FE94DE /* Rosetta-iOS */;
-			targetProxy = 0DE919D71A5A014D00FE94DE /* PBXContainerItemProxy */;
-		};
-		0DE91A131A5A09C400FE94DE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0DE91A051A5A09C300FE94DE /* Rosetta-OSX */;
-			targetProxy = 0DE91A121A5A09C400FE94DE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0DE919DE1A5A014D00FE94DE /* Debug */ = {
@@ -524,36 +416,6 @@
 			};
 			name = Release;
 		};
-		0DE919E41A5A014D00FE94DE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RosettaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		0DE919E51A5A014D00FE94DE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RosettaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		0DE91A1A1A5A09C400FE94DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -597,43 +459,6 @@
 			};
 			name = Release;
 		};
-		0DE91A1D1A5A09C400FE94DE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RosettaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		0DE91A1E1A5A09C400FE94DE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RosettaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -655,29 +480,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0DE919E31A5A014D00FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0DE919E41A5A014D00FE94DE /* Debug */,
-				0DE919E51A5A014D00FE94DE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		0DE91A191A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "Rosetta-OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0DE91A1A1A5A09C400FE94DE /* Debug */,
 				0DE91A1B1A5A09C400FE94DE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0DE91A1C1A5A09C400FE94DE /* Build configuration list for PBXNativeTarget "RosettaTests-OSX" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0DE91A1D1A5A09C400FE94DE /* Debug */,
-				0DE91A1E1A5A09C400FE94DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

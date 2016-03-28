@@ -1,0 +1,6 @@
+framework module Rosetta {
+  umbrella header "Pods-iosTests-Rosetta-umbrella.h"
+
+  export *
+  module * { export * }
+}
