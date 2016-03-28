@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name                  = 'Rosetta'
-  spec.version               = '0.0.3'
+  spec.version               = '0.0.5'
   spec.summary               = 'Swift JSON mapper'
   spec.homepage              = 'https://github.com/bartekchlebek/Rosetta'
   spec.license               = { :type => 'MIT' }
