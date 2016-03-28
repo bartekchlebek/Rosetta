@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol Bridgeable {
-	typealias JSONType: NSObject
+	associatedtype JSONType: NSObject
 	static func bridge() -> Bridge<Self, JSONType>
 }
 

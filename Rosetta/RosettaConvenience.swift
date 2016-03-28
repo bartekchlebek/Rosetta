@@ -318,11 +318,11 @@ extension Rosetta {
 		return try decode(json, to: &object, usingMap: .ClassTypeMap(map))
 	}
 
-	public func decode<T>(json: NSData, var to object: T, usingMap map: (T, Rosetta) -> ()) throws {
+	public func decode<T>(json: NSData, inout to object: T, usingMap map: (T, Rosetta) -> ()) throws {
 		return try decode(JSON(data: json), to: &object, usingMap: map)
 	}
 
-	public func decode<T>(json: String, var to object: T, usingMap map: (T, Rosetta) -> ()) throws {
+	public func decode<T>(json: String, inout to object: T, usingMap map: (T, Rosetta) -> ()) throws {
 		return try decode(JSON(string: json), to: &object, usingMap: map)
 	}
 
