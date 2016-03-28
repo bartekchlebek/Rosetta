@@ -192,55 +192,55 @@ public func <~<T: JSONConvertibleClass>(inout left: [String: T]?, right: Rosetta
 
 // ------------------------------------------------
 
-public func <-<T: Bridgeable>(inout left: T, right: (Rosetta, (T -> Bool))) {
+public func <-<T: Bridgeable>(inout left: T, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, T.bridge(), right.1)
 }
 
-public func <-<T: Bridgeable>(inout left: T!, right: (Rosetta, (T -> Bool))) {
+public func <-<T: Bridgeable>(inout left: T!, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, T.bridge(), right.1)
 }
 
-public func <-<T: Bridgeable>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+public func <-<T: Bridgeable>(inout left: T?, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, T.bridge(), right.1)
 }
 
-public func <~<T: Bridgeable>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+public func <~<T: Bridgeable>(inout left: T?, right: (Rosetta, (T -> Bool)?)) {
 	left <~ (right.0, T.bridge(), right.1)
 }
 
 // ------------------------------------------------
 
-public func <-<T: JSONConvertible>(inout left: T, right: (Rosetta, (T -> Bool))) {
+public func <-<T: JSONConvertible>(inout left: T, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, JSONConvertibleBridge(), right.1)
 }
 
-public func <-<T: JSONConvertible>(inout left: T!, right: (Rosetta, (T -> Bool))) {
+public func <-<T: JSONConvertible>(inout left: T!, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, JSONConvertibleBridge(), right.1)
 }
 
-public func <-<T: JSONConvertible>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+public func <-<T: JSONConvertible>(inout left: T?, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, JSONConvertibleBridge(), right.1)
 }
 
-public func <~<T: JSONConvertible>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+public func <~<T: JSONConvertible>(inout left: T?, right: (Rosetta, (T -> Bool)?)) {
 	left <~ (right.0, JSONConvertibleBridge(), right.1)
 }
 
 // ------------------------------------------------
 
-public func <-<T: JSONConvertibleClass>(inout left: T, right: (Rosetta, (T -> Bool))) {
+public func <-<T: JSONConvertibleClass>(inout left: T, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, JSONConvertibleClassBridge(), right.1)
 }
 
-public func <-<T: JSONConvertibleClass>(inout left: T!, right: (Rosetta, (T -> Bool))) {
+public func <-<T: JSONConvertibleClass>(inout left: T!, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, JSONConvertibleClassBridge(), right.1)
 }
 
-public func <-<T: JSONConvertibleClass>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+public func <-<T: JSONConvertibleClass>(inout left: T?, right: (Rosetta, (T -> Bool)?)) {
 	left <- (right.0, JSONConvertibleClassBridge(), right.1)
 }
 
-public func <~<T: JSONConvertibleClass>(inout left: T?, right: (Rosetta, (T -> Bool))) {
+public func <~<T: JSONConvertibleClass>(inout left: T?, right: (Rosetta, (T -> Bool)?)) {
 	left <~ (right.0, JSONConvertibleClassBridge(), right.1)
 }
 
@@ -296,10 +296,10 @@ infix operator §{
 precedence 135
 }
 
-public func §<T, U>(lhs: (Rosetta, Bridge<T, U>), rhs: (T -> Bool)) -> (Rosetta, Bridge<T, U>, (T -> Bool)?) {
+public func §<T, U>(lhs: (Rosetta, Bridge<T, U>), rhs: (T -> Bool)?) -> (Rosetta, Bridge<T, U>, (T -> Bool)?) {
 	return (lhs.0, lhs.1, rhs)
 }
 
-public func §<T>(left: Rosetta, right: (T -> Bool)) -> (Rosetta, (T -> Bool)) {
+public func §<T>(left: Rosetta, right: (T -> Bool)?) -> (Rosetta, (T -> Bool)?) {
 	return (left, right)
 }

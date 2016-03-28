@@ -10,7 +10,7 @@ enum Map<T> {
 	case ClassTypeMap((T, Rosetta) -> ())
 }
 
-public class Rosetta {
+public final class Rosetta {
 	var testRun: Bool = false
 	var dictionary: [String: AnyObject]!
 	var keyPath: [String] = []
@@ -36,164 +36,82 @@ public class Rosetta {
 		}
 	}
 
-	func decode<T>(
-		file file: StaticString = __FILE__,
-		line: UInt = __LINE__,
-		function: StaticString = __FUNCTION__,
-		_ input: JSON,
-		inout to object: T,
-		usingMap map: Map<T>
-		) -> Bool {
+	func decode<T>(input: JSON, inout to object: T, usingMap map: Map<T>) throws {
 
-			// parse input into a dictionary
-			let inputParsingResult = input.toDictionary()
-			let jsonDictionary = inputParsingResult.0
-			self.logs += inputParsingResult.1 ?? []
+		let jsonDictionary = try input.toDictionary()
 
-			// perform test run (check if any mapping fail, to leave the object unchanged)
-			currentMode = .Decode
+		// perform test run (check if any mapping fail, to leave the object unchanged)
+		currentMode = .Decode
+		dictionary = jsonDictionary
+
+		switch map {
+		case .ClassTypeMap(let map):
 			self.testRun = true
-			if let jsonDictionary = jsonDictionary {
-				dictionary = jsonDictionary
-				switch map {
-				case let .ValueTypeMap(map):
-					map(&object, self)
-				case let .ClassTypeMap(map):
-					map(object, self)
-				}
+			map(object, self)
+
+			if LogsContainError(logs) {
+				throw genericError
 			}
 
-			let success = !LogsContainError(logs)
-			if success == true {
-				self.testRun = false
-				if let jsonDictionary = jsonDictionary {
-					dictionary = jsonDictionary
-					switch map {
-					case let .ValueTypeMap(map):
-						map(&object, self)
-					case let .ClassTypeMap(map):
-						map(object, self)
-					}
-				}
+			self.testRun = false
+			map(object, self)
+		case .ValueTypeMap(let map):
+			var tmpObject = object
+
+			map(&tmpObject, self)
+
+			if LogsContainError(logs) {
+				throw genericError
 			}
 
-			switch logLevel {
-			case .None:
-				break
-			case .Errors:
-				if success == false {
-					logHandler(logString: logFormatter(json: input, logs: logs, file: file, line: line, function: function))
-				}
-			case .Verbose:
-				if logs.count > 0 {
-					logHandler(logString: logFormatter(json: input, logs: logs, file: file, line: line, function: function))
-				}
+			object = tmpObject
+		}
+		self.cleanup()
+	}
+
+	func encode<T>(object: T, usingMap map: Map<T>) throws -> JSON {
+		// prepare rosetta
+		currentMode = .Encode
+		dictionary = [:]
+
+		// parse
+		var mutableObject = object
+		switch map {
+		case let .ValueTypeMap(map):
+			map(&mutableObject, self)
+		case let .ClassTypeMap(map):
+			map(mutableObject, self)
+		}
+
+		let result = dictionary
+		let logs = self.logs
+
+		let success = !LogsContainError(logs)
+		switch logLevel {
+		case .None:
+			break
+		case .Errors:
+			if success == false {
+				logHandler(logString: logFormatter(json: nil, logs: logs))
 			}
-
-			cleanup()
-			return success
-	}
-
-	func encode<T>(
-		file file: StaticString = __FILE__,
-		line: UInt = __LINE__,
-		function: StaticString = __FUNCTION__,
-		_ object: T,
-		usingMap map: Map<T>
-		) -> [String: AnyObject]? {
-
-			// prepare rosetta
-			currentMode = .Encode
-			dictionary = [:]
-
-			// parse
-			var mutableObject = object
-			switch map {
-			case let .ValueTypeMap(map):
-				map(&mutableObject, self)
-			case let .ClassTypeMap(map):
-				map(mutableObject, self)
+		case .Verbose:
+			if logs.count > 0 {
+				logHandler(logString: logFormatter(json: nil, logs: logs))
 			}
+		}
 
-			let result = dictionary
-			let logs = self.logs
+		cleanup()
 
-			let success = !LogsContainError(logs)
-			switch logLevel {
-			case .None:
-				break
-			case .Errors:
-				if success == false {
-					logHandler(logString: logFormatter(json: nil, logs: logs, file: file, line: line, function: function))
-				}
-			case .Verbose:
-				if logs.count > 0 {
-					logHandler(logString: logFormatter(json: nil, logs: logs, file: file, line: line, function: function))
-				}
-			}
-
-			cleanup()
-			return success ? result : nil
-
-	}
-
-	//MARK: Value types decoding
-
-	func decode<T>(
-		file file: StaticString = __FILE__,
-		line: UInt = __LINE__,
-		function: StaticString = __FUNCTION__,
-		_ input: JSON,
-		inout to object: T,
-		usingMap map: (inout T, json: Rosetta) -> ()
-		) -> Bool {
-
-			return self.decode(file: file, line: line, function: function, input, to: &object, usingMap: .ValueTypeMap(map))
-	}
-
-	//MARK: Value types encoding
-
-	func encode<T>(
-		file file: StaticString = __FILE__,
-		line: UInt = __LINE__,
-		function: StaticString = __FUNCTION__,
-		_ object: T,
-		usingMap map: (inout T, json: Rosetta) -> ()
-		) -> [String: AnyObject]? {
-
-			return self.encode(file: file, line: line, function: function, object, usingMap: .ValueTypeMap(map))
-	}
-
-	//MARK: Class types decoding
-
-	func decode<T>(
-		file file: StaticString = __FILE__,
-		line: UInt = __LINE__,
-		function: StaticString = __FUNCTION__,
-		_ input: JSON,
-		inout to object: T,
-		usingMap map: (T, json: Rosetta) -> ()
-		) -> Bool {
-
-			return self.decode(file: file, line: line, function: function, input, to: &object, usingMap: .ClassTypeMap(map))
-	}
-
-	//MARK: Class types encoding
-
-	func encode<T>(
-		file file: StaticString = __FILE__,
-		line: UInt = __LINE__,
-		function: StaticString = __FUNCTION__,
-		_ object: T,
-		usingMap map: (T, json: Rosetta) -> ()
-		) -> [String: AnyObject]? {
-
-			return self.encode(file: file, line: line, function: function, object, usingMap: .ClassTypeMap(map))
+		if !success {
+			throw genericError
+		}
+		
+		return JSON(dictionary: result)
 	}
 
 	//MARK: Helpers
 
-	func cleanup() {
+	private func cleanup() {
 		currentMode = nil
 		dictionary = nil
 		logs.removeAll(keepCapacity: false)

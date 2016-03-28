@@ -1,72 +1,116 @@
 import Foundation
 
-public enum JSON {
+private enum Source {
 	case Data(NSData)
 	case String(Swift.String)
+	case Array([AnyObject])
+	case Dictionary([Swift.String: AnyObject])
+}
 
-	var stringValue: Swift.String? {
-		switch self {
-		case let .Data(data):
-			return NSString(data: data, encoding: NSUTF8StringEncoding) as? Swift.String
-		case let .String(string):
-			return string
+final class JSON: CustomStringConvertible {
+	private let source: Source
+
+	lazy var data: NSData? = {
+		switch self.source {
+		case .Data(let data): return data
+		case .String(let string): return string.toData()
+		case .Array(let array): return try? NSJSONSerialization.dataWithJSONObject(array, options: [])
+		case .Dictionary(let dictionary): return try? NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
 		}
+	}()
+
+	lazy var string: String? = {
+		switch self.source {
+		case .Data(let data): return data.toString()
+		case .String(let string): return string
+		case .Array(let array): return self.data?.toString()
+		case .Dictionary(let dictionary): return self.data?.toString()
+		}
+	}()
+
+	lazy var dictionary: [String: AnyObject]? = {
+		switch self.source {
+		case .Data(let data):
+			guard let object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else { return nil }
+			return object as? [String: AnyObject]
+		case .String(let string):
+			guard let data = self.data else { return nil }
+			guard let object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else { return nil }
+			return object as? [String: AnyObject]
+		case .Array(let array): return nil
+		case .Dictionary(let dictionary): return dictionary
+		}
+	}()
+
+	lazy var array: [AnyObject]? = {
+		switch self.source {
+		case .Data(let data):
+			guard let object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else { return nil }
+			return object as? [AnyObject]
+		case .String(let string):
+			guard let data = self.data else { return nil }
+			guard let object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else { return nil }
+			return object as? [AnyObject]
+		case .Array(let array): return array
+		case .Dictionary(let dictionary): return nil
+		}
+	}()
+
+	var description: String {
+		return ""
 	}
 
-	var dataValue: NSData? {
-		switch self {
-		case let .Data(data):
-			return data
-		case let .String(string):
-			return string.toData()
-		}
+	init(data: NSData) {
+		self.source = .Data(data)
+	}
+
+	init(string: String) {
+		self.source = .String(string)
+	}
+
+	init(dictionary: [String: AnyObject]) {
+		self.source = .Dictionary(dictionary)
+	}
+
+	init(array: [AnyObject]) {
+		self.source = .Array(array)
 	}
 }
 
 extension JSON {
-	func toDictionary() -> ([Swift.String: AnyObject]?, [Log]?) {
-		var logs: [Log] = []
-
-		let parseData = {(data: NSData) -> ([Swift.String: AnyObject]?) in
-			do {
-				let JSONObject = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-				if let dictionary = JSONObject as? [Swift.String: AnyObject] {
-					return dictionary
-				}
-				else {
-					logs.append(Log.DataToJSON(data: data, error: NSError(domain: "Rosetta", code: -1, userInfo: nil)))
-					return nil
-				}
-			}
-			catch let error as NSError {
-				logs.append(Log.DataToJSON(data: data, error: error))
-				return nil
-			}
-		}
-
-		let parseString = {(string: Swift.String) -> ([Swift.String: AnyObject]?) in
-			if let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
-				return parseData(data)
-			}
-			else {
-				logs.append(Log.StringToData(string: string))
-				return nil
-			}
-		}
-
-		var jsonDictionary: [Swift.String: AnyObject]?
-		switch self {
-		case let .String(string):
-			jsonDictionary = parseString(string)
-		case let .Data(data):
-			jsonDictionary = parseData(data)
-		}
-
-		if (jsonDictionary != nil) {
-			return (jsonDictionary, nil)
+	func toData() throws -> NSData {
+		if let data = self.data {
+			return data
 		}
 		else {
-			return (nil, logs)
+			throw genericError
+		}
+	}
+
+	func toString() throws -> Swift.String {
+		if let string = self.string {
+			return string
+		}
+		else {
+			throw genericError
+		}
+	}
+
+	func toArray() throws -> [AnyObject] {
+		if let array = self.array {
+			return array
+		}
+		else {
+			throw genericError
+		}
+	}
+
+	func toDictionary() throws -> [String: AnyObject] {
+		if let dictionary = self.dictionary {
+			return dictionary
+		}
+		else {
+			throw genericError
 		}
 	}
 }

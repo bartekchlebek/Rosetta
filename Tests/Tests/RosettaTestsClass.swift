@@ -2,6 +2,25 @@ import Foundation
 import XCTest
 import Rosetta
 
+func XCTAssertThrows(block: () throws -> ()) {
+	do {
+		try block()
+		XCTFail("No error thrown")
+	}
+	catch {
+		
+	}
+}
+
+func XCTAssertNoThrow(block: () throws -> ()) {
+	do {
+		try block()
+	}
+	catch {
+		XCTFail("Error thrown")
+	}
+}
+
 func ==(lhs: SubObjectClass, rhs: SubObjectClass) -> Bool {
   return lhs.a1 == rhs.a1
 }
@@ -78,21 +97,21 @@ class ObjectClass: JSONConvertibleClass {
     object.e2 <- json["e2-key"]
     object.e3 <~ json["e3-key"]
     
-    object.f1 <- json["f1-key"] ~ NSURLBridge()
-    object.f2 <- json["f2-key"] ~ NSURLBridge()
-    object.f3 <~ json["f3-key"] ~ NSURLBridge()
+    object.f1 <- json["f1-key"] ~ NSURLBridge
+    object.f2 <- json["f2-key"] ~ NSURLBridge
+    object.f3 <~ json["f3-key"] ~ NSURLBridge
     
     object.g1 <- json["g1-key"]
     object.g2 <- json["g2-key"]
     object.g3 <~ json["g3-key"]
     
-    object.h1 <- json["h1-key"] ~ BridgeArray(NSURLBridge())
-    object.h2 <- json["h2-key"] ~ BridgeArray(NSURLBridge())
-    object.h3 <~ json["h3-key"] ~ BridgeArray(NSURLBridge())
+    object.h1 <- json["h1-key"] ~ BridgeArray(NSURLBridge)
+    object.h2 <- json["h2-key"] ~ BridgeArray(NSURLBridge)
+    object.h3 <~ json["h3-key"] ~ BridgeArray(NSURLBridge)
     
-    object.i1 <- json["i1-key"] ~ BridgeObject(NSURLBridge())
-    object.i2 <- json["i2-key"] ~ BridgeObject(NSURLBridge())
-    object.i3 <~ json["i3-key"] ~ BridgeObject(NSURLBridge())
+    object.i1 <- json["i1-key"] ~ BridgeObject(NSURLBridge)
+    object.i2 <- json["i2-key"] ~ BridgeObject(NSURLBridge)
+    object.i3 <~ json["i3-key"] ~ BridgeObject(NSURLBridge)
   }
 }
 
@@ -303,11 +322,11 @@ class TestType13: JSONConvertibleClass {
 
         object.c0 <- json["c0"]
 
-        object.d0 <- json["d0"] ~ NSNumberBridge()
+        object.d0 <- json["d0"] ~ NSNumberBridge
 
         object.e0 <- json["e0"]
-        object.e1 <- json["e1"] ~ NSStringBridge()
-        object.e2 <- json["e2"] ~ NSMutableStringBridge()
+        object.e1 <- json["e1"] ~ NSStringBridge
+        object.e2 <- json["e2"] ~ NSMutableStringBridge
 
         //        object.f0 <- json["f0"] ~ AnyObjectBridge()
         //        object.g0 <- json["g0"] ~ BridgeArray(AnyObjectBridge())
@@ -343,9 +362,9 @@ class TestType15: JSONConvertibleClass {
     }
 
     class func map(object: TestType15, json: Rosetta) {
-        object.a1 <- json["a1"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
-        object.a2 <- json["a2"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
-        object.a3 <~ json["a3"] ~ NSURLBridge() § {$0.absoluteString == "http://www.google.com"}
+        object.a1 <- json["a1"] ~ NSURLBridge § {$0.absoluteString == "http://www.google.com"}
+        object.a2 <- json["a2"] ~ NSURLBridge § {$0.absoluteString == "http://www.google.com"}
+        object.a3 <~ json["a3"] ~ NSURLBridge § {$0.absoluteString == "http://www.google.com"}
     }
 }
 
@@ -440,26 +459,26 @@ class RosettaClassTests: XCTestCase {
   }
   
   func testSimpleDecoder() {
-    let object: TestType1? = Rosetta().decode(dataFrom(["name": "Bob"]))
+    let object = try? Rosetta().decode(dataFrom(["name": "Bob"])) as TestType1
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testSimpleDecoderWithUnwrappedOptional() {
-    let object: TestType2? = Rosetta().decode(dataFrom(["name": "Bob"]))
+    let object = try? Rosetta().decode(dataFrom(["name": "Bob"])) as TestType2
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testSimpleDecoderWithOptional() {
-    let object: TestType3? = Rosetta().decode(dataFrom(Dictionary<String, AnyObject>()))
+    let object = try? Rosetta().decode(dataFrom(Dictionary<String, AnyObject>())) as TestType3
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertTrue(object!.name == nil, "object.name should remain unmodified")
   }
   
   func testComplexDecoder() {
     let dictionary = complexJSON()
-    let object: ObjectClass? = Rosetta().decode(dictionary)
+    let object = try? Rosetta().decode(dictionary) as ObjectClass
     
     XCTAssertTrue(object != nil, "object should exist")
     
@@ -495,9 +514,9 @@ class RosettaClassTests: XCTestCase {
   
   func testComplexEncoder() {
     let data = complexJSON()
-    let decoded: ObjectClass? = Rosetta().decode(data)
+    let decoded = try? Rosetta().decode(data) as ObjectClass
     XCTAssertTrue(decoded != nil, "decoded object should exist")
-    let encoded: NSData? = Rosetta().encode(decoded!)
+    let encoded = try? Rosetta().encode(decoded!) as NSData
     XCTAssertTrue(encoded != nil, "encoded object should exist")
     XCTAssertTrue(
       jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
@@ -506,43 +525,43 @@ class RosettaClassTests: XCTestCase {
   }
   
   func testFailingDecoder() {
-    let object: TestType4? = Rosetta().decode(dataFrom(["name": 11]))
+    let object = try? Rosetta().decode(dataFrom(["name": 11])) as TestType4
     XCTAssertTrue(object == nil, "object should not exist")
   }
   
   func testFailingDecoderWithError() {
     
-    let object: TestType5? = Rosetta().decode(dataFrom(["name": 11]))
+    let object = try? Rosetta().decode(dataFrom(["name": 11])) as TestType5
     XCTAssertTrue(object == nil, "object should not exist")
   }
   
   func testValidatedEncoder() {
     let structure = TestType6()
-    let json: NSData? = Rosetta().encode(structure)
+    let json = try? Rosetta().encode(structure) as NSData
     XCTAssertTrue(json == nil, "json should not exist")
   }
   
   func testValidatedEncoder1() {
     let structure = TestType7()
-    let json: NSData? = Rosetta().encode(structure)
+    let json = try? Rosetta().encode(structure) as NSData
     XCTAssertTrue(json != nil, "json should exist")
     XCTAssertTrue(jsonFrom(json!)["a1"] == nil, "json[\"a1\"] should not exist")
   }
   
   func testKeyPathsDecoder() {
-    let object: TestType8? = Rosetta().decode(dataFrom(["result": ["name": "Bob"]]))
+    let object = try? Rosetta().decode(dataFrom(["result": ["name": "Bob"]])) as TestType8
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testKeyPathsEncoder() {
-    let object: TestType9? = Rosetta().decode(dataFrom(["result": ["name": "Bob"]]))
+    let object = try? Rosetta().decode(dataFrom(["result": ["name": "Bob"]])) as TestType9
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testRequiredOptionalType() {
-    let object: TestType10? = Rosetta().decode(dataFrom(["a2": "a2"]))
+    let object = try? Rosetta().decode(dataFrom(["a2": "a2"])) as TestType10
     XCTAssertTrue(object == nil, "object should not exist")
   }
   
@@ -555,11 +574,12 @@ class RosettaClassTests: XCTestCase {
       }
     }
     let jsonData = dataFrom(["a1": "a1-value"])
-    var object = ObjectClass()
-    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (object, json) -> () in
-      object.a1 <- json["a1"]
-    })
-    XCTAssertTrue(result == true, "result should be 'true'")
+    let object = ObjectClass()
+		XCTAssertNoThrow {
+			try Rosetta().decode(jsonData, to: object) { object, json in
+				object.a1 <- json["a1"]
+			}
+		}
     XCTAssertTrue(object.a1 != nil, "object.a1 should exist")
     XCTAssertEqual(object.a1!, "a1-value")
   }
@@ -573,12 +593,14 @@ class RosettaClassTests: XCTestCase {
       }
     }
     let jsonData = dataFrom(["a2": "garbage"])
-    var object = ObjectClass()
+    let object = ObjectClass()
     object.a1 = "a1-value"
-    let result = Rosetta().decode(jsonData, to: &object, usingMap: { (object, json) -> () in
-      object.a1 <- json["a1"]
-    })
-    XCTAssertTrue(result == false, "result should be 'false'")
+
+		XCTAssertThrows {
+			try Rosetta().decode(jsonData, to: object, usingMap: { (object, json) -> () in
+				object.a1 <- json["a1"]
+			})
+		}
     XCTAssertTrue(object.a1 != nil, "object.a1 should exist")
     XCTAssertEqual(object.a1!, "a1-value")
   }
@@ -592,7 +614,7 @@ class RosettaClassTests: XCTestCase {
       }
     }
     let jsonData = dataFrom(["a1": "a1-value"])
-    let object = Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
+    let object = try? Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(object != nil, "object should exist")
@@ -609,7 +631,7 @@ class RosettaClassTests: XCTestCase {
       }
     }
     let jsonData = dataFrom(["a2": "garbage"])
-    let object = Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
+    let object = try? Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
       object.a1 <- json["a1"]
     })
     XCTAssertTrue(object == nil, "object should not exist")
@@ -624,7 +646,7 @@ class RosettaClassTests: XCTestCase {
       }
     }
     let jsonData = dataFrom(["a2": "garbage"])
-    let object = Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
+    let object = try? Rosetta().decode(jsonData, usingMap: { (object: ObjectClass, json) -> () in
       object.a1 <~ json["a1"]
     })
     XCTAssertTrue(object != nil, "object should exist")
@@ -645,12 +667,14 @@ class RosettaClassTests: XCTestCase {
     
     let data = dataFrom(["a" : "1"])
     var object = Object(a: "0", b: "0")
-    let success = Rosetta().decode(data, to: &object) { (o: Object, j) -> () in
-      o.a <- j["a"]
-      o.b <- j["b"]
-    }
-    
-    XCTAssertTrue(success == false, "decodig should return failure")
+
+		XCTAssertThrows {
+			try Rosetta().decode(data, to: object) { (o: Object, j) -> () in
+				o.a <- j["a"]
+				o.b <- j["b"]
+			}
+		}
+
     XCTAssertTrue(object.a == "0", "object.a should be equal to \"0\"")
     XCTAssertTrue(object.b == "0", "object.b should be equal to \"0\"")
   }
@@ -719,21 +743,21 @@ class RosettaClassTests: XCTestCase {
       object.e2 <- json["result"]["object"]["e2-key"]
       object.e3 <- json["result"]["object"]["e3-key"]
       
-      object.f1 <- json["result"]["object"]["f1-key"] ~ NSURLBridge()
-      object.f2 <- json["result"]["object"]["f2-key"] ~ NSURLBridge()
-      object.f3 <- json["result"]["object"]["f3-key"] ~ NSURLBridge()
+      object.f1 <- json["result"]["object"]["f1-key"] ~ NSURLBridge
+      object.f2 <- json["result"]["object"]["f2-key"] ~ NSURLBridge
+      object.f3 <- json["result"]["object"]["f3-key"] ~ NSURLBridge
       
       object.g1 <- json["result"]["object"]["g1-key"]
       object.g2 <- json["result"]["object"]["g2-key"]
       object.g3 <- json["result"]["object"]["g3-key"]
       
-      object.h1 <- json["result"]["object"]["h1-key"] ~ BridgeArray(NSURLBridge())
-      object.h2 <- json["result"]["object"]["h2-key"] ~ BridgeArray(NSURLBridge())
-      object.h3 <- json["result"]["object"]["h3-key"] ~ BridgeArray(NSURLBridge())
+      object.h1 <- json["result"]["object"]["h1-key"] ~ BridgeArray(NSURLBridge)
+      object.h2 <- json["result"]["object"]["h2-key"] ~ BridgeArray(NSURLBridge)
+      object.h3 <- json["result"]["object"]["h3-key"] ~ BridgeArray(NSURLBridge)
       
-      object.i1 <- json["result"]["object"]["i1-key"] ~ BridgeObject(NSURLBridge())
-      object.i2 <- json["result"]["object"]["i2-key"] ~ BridgeObject(NSURLBridge())
-      object.i3 <- json["result"]["object"]["i3-key"] ~ BridgeObject(NSURLBridge())
+      object.i1 <- json["result"]["object"]["i1-key"] ~ BridgeObject(NSURLBridge)
+      object.i2 <- json["result"]["object"]["i2-key"] ~ BridgeObject(NSURLBridge)
+      object.i3 <- json["result"]["object"]["i3-key"] ~ BridgeObject(NSURLBridge)
     }
   }
   
@@ -745,7 +769,7 @@ class RosettaClassTests: XCTestCase {
   
   func testComplexKeyPathDecoder() {
     let jsonData = complexKeyPathJSON()
-    let object: KeyPathObject? = Rosetta().decode(jsonData)
+    let object = try? Rosetta().decode(jsonData) as KeyPathObject
     
     XCTAssertTrue(object != nil, "object should exist")
     
@@ -781,9 +805,9 @@ class RosettaClassTests: XCTestCase {
   
   func testComplexKeyPathEncoder() {
     let jsonData = complexKeyPathJSON()
-    let decoded: KeyPathObject? = Rosetta().decode(jsonData)
+    let decoded = try? Rosetta().decode(jsonData) as KeyPathObject
     XCTAssertTrue(decoded != nil, "decoded should not be nil")
-    let encoded: NSData? = Rosetta().encode(decoded!)
+    let encoded = try? Rosetta().encode(decoded!) as NSData
     XCTAssertTrue(encoded != nil, "encoded should not be nil")
     XCTAssertTrue(
       jsonFrom(jsonData).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
@@ -793,7 +817,7 @@ class RosettaClassTests: XCTestCase {
   
   func testFailingComplexKeyPathDecoder() {
     let dictionary = complexJSON()
-    let object: KeyPathObject? = Rosetta().decode(dictionary)
+    let object = try? Rosetta().decode(dictionary) as KeyPathObject
     
     
     
@@ -802,7 +826,7 @@ class RosettaClassTests: XCTestCase {
   
   func testFailingComplexKeyPathDecoder2() {
     let dictionary = complexKeyPathJSON()
-    let object: ObjectClass? = Rosetta().decode(dictionary)
+    let object = try? Rosetta().decode(dictionary) as ObjectClass
     
     XCTAssertTrue(object == nil, "object should not exist")
   }
@@ -815,8 +839,8 @@ class RosettaClassTests: XCTestCase {
       }
     }
     
-    var object = ObjectClass()
-    Rosetta().decode(dataFrom(["a1": "a1"]), to: &object, usingMap: { (object: ObjectClass, json) -> () in
+    let object = ObjectClass()
+    _ = try? Rosetta().decode(dataFrom(["a1": "a1"]), to: object, usingMap: { (object: ObjectClass, json) -> () in
       object.a1 <- json["a1"]
     })
     
@@ -826,7 +850,7 @@ class RosettaClassTests: XCTestCase {
   
   func testImplicitBridgeWithValidator() {
     var obj: TestType12?
-    obj = Rosetta().decode(
+    obj = try? Rosetta().decode(
       dataFrom(
         ["a1": ["value": 5],
           "a2": ["value": 5],
@@ -851,7 +875,7 @@ class RosettaClassTests: XCTestCase {
     XCTAssertTrue(obj!.b1!.value != nil, "obj.b1.value should not be nil")
     XCTAssertTrue(obj!.b1!.value! == 5, "obj.b1.value should == 5")
     
-    obj = Rosetta().decode(
+    obj = try? Rosetta().decode(
       dataFrom(
         ["a1": ["value": 4],
           "a2": ["value": 5],
@@ -861,7 +885,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(obj == nil, "obj should not be nil")
     
-    obj = Rosetta().decode(
+    obj = try? Rosetta().decode(
       dataFrom(
         ["a1": ["value": 5],
           "a2": ["value": 4],
@@ -871,7 +895,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(obj == nil, "obj should not be nil")
     
-    obj = Rosetta().decode(
+    obj = try? Rosetta().decode(
       dataFrom(
         ["a1": ["value": 5],
           "a2": ["value": 5],
@@ -881,7 +905,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(obj == nil, "obj should not be nil")
     
-    obj = Rosetta().decode(
+    obj = try? Rosetta().decode(
       dataFrom(
         ["a1": ["value": 5],
           "a2": ["value": 5],
@@ -909,7 +933,7 @@ class RosettaClassTests: XCTestCase {
     obj!.a2 = TestType11(value: 5)
     obj!.a3 = TestType11(value: 5)
     obj!.b1 = TestType11(value: 5)
-    var data = Rosetta().encode(obj!) as NSData?
+    var data = try? Rosetta().encode(obj!) as NSData
     XCTAssertTrue(data != nil, "data should not be nil")
     XCTAssertTrue(jsonFrom(data!).isEqualToDictionary(
       ["a1": ["value": 5],
@@ -922,7 +946,7 @@ class RosettaClassTests: XCTestCase {
     obj!.a2 = TestType11(value: 5)
     obj!.a3 = TestType11(value: 5)
     obj!.b1 = TestType11(value: 5)
-    data = Rosetta().encode(obj!) as NSData?
+    data = try? Rosetta().encode(obj!) as NSData
     XCTAssertTrue(data == nil, "data should be nil")
     
     obj = TestType12()
@@ -930,7 +954,7 @@ class RosettaClassTests: XCTestCase {
     obj!.a2 = TestType11(value: 4)
     obj!.a3 = TestType11(value: 5)
     obj!.b1 = TestType11(value: 5)
-    data = Rosetta().encode(obj!) as NSData?
+    data = try? Rosetta().encode(obj!) as NSData
     XCTAssertTrue(data == nil, "data should be nil")
     
     obj = TestType12()
@@ -938,7 +962,7 @@ class RosettaClassTests: XCTestCase {
     obj!.a2 = TestType11(value: 5)
     obj!.a3 = TestType11(value: 4)
     obj!.b1 = TestType11(value: 5)
-    data = Rosetta().encode(obj!) as NSData?
+    data = try? Rosetta().encode(obj!) as NSData
     XCTAssertTrue(data == nil, "data should be nil")
     
     obj = TestType12()
@@ -946,7 +970,7 @@ class RosettaClassTests: XCTestCase {
     obj!.a2 = TestType11(value: 5)
     obj!.a3 = TestType11(value: 5)
     obj!.b1 = TestType11(value: 4)
-    data = Rosetta().encode(obj!) as NSData?
+    data = try? Rosetta().encode(obj!) as NSData
     XCTAssertTrue(data != nil, "data should not be nil")
     XCTAssertTrue(jsonFrom(data!).isEqualToDictionary(
       ["a1": ["value": 5],
@@ -967,36 +991,33 @@ class RosettaClassTests: XCTestCase {
       }
     }
     
-    var classTypeObject = ClassType()
-    var classTypeResult: ClassType?
+    let classTypeObject = ClassType()
     
-    Rosetta().decode(data, to: &classTypeObject) { (o: ClassType, j) -> () in
+    _ = try? Rosetta().decode(data, to: classTypeObject) { (o: ClassType, j) -> () in
       
     }
-    classTypeResult = Rosetta().decode(data) { (o: ClassType, j) -> () in
+    _ = try? Rosetta().decode(data) { (o: ClassType, j) -> () in
       
     }
-    Rosetta().decode(string, to: &classTypeObject) { (o: ClassType, j) -> () in
+    _ = try? Rosetta().decode(string, to: classTypeObject) { (o: ClassType, j) -> () in
       
     }
-    classTypeResult = Rosetta().decode(string) { (o: ClassType, j) -> () in
+    _ = try? Rosetta().decode(string) { (o: ClassType, j) -> () in
       
     }
-    
-    var dataResult: NSData?
-    var stringResult: String?
-    dataResult = Rosetta().encode(classTypeObject) { (o: ClassType, j) -> () in
+
+    _ = try? Rosetta().encode(classTypeObject) { (o: ClassType, j) -> () in
       
-    }
-    stringResult = Rosetta().encode(classTypeObject) { (o: ClassType, json) -> () in
+    } as NSData
+    _ = try? Rosetta().encode(classTypeObject) { (o: ClassType, json) -> () in
       
-    }
+    } as String
   }
   
   //MARK: validators
   
   func testValidation() {
-    var s1: TestType14? = Rosetta().decode(
+    var s1: TestType14? = try? Rosetta().decode(
       dataFrom(
         ["a1": "a1",
           "a2": "a2",
@@ -1012,7 +1033,7 @@ class RosettaClassTests: XCTestCase {
     XCTAssertEqual(s1!.a2, "a2")
     XCTAssertEqual(s1!.a3!, "a3")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a",
           "a2": "a2",
@@ -1021,7 +1042,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a1",
           "a2": "a",
@@ -1030,7 +1051,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a1",
           "a2": "a2",
@@ -1045,7 +1066,7 @@ class RosettaClassTests: XCTestCase {
     XCTAssertEqual(s1!.a1, "a1")
     XCTAssertEqual(s1!.a2, "a2")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a",
           "a2": "a",
@@ -1054,7 +1075,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a",
           "a2": "a2",
@@ -1063,7 +1084,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a1",
           "a2": "a",
@@ -1072,7 +1093,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a",
           "a2": "a",
@@ -1083,7 +1104,7 @@ class RosettaClassTests: XCTestCase {
   }
   
   func testValidationWithCustomBridge() {
-    var s1: TestType15? = Rosetta().decode(
+    var s1: TestType15? = try? Rosetta().decode(
       dataFrom(
         ["a1": "http://www.google.com",
           "a2": "http://www.google.com",
@@ -1099,7 +1120,7 @@ class RosettaClassTests: XCTestCase {
     XCTAssertEqual(s1!.a2.absoluteString, "http://www.google.com")
     XCTAssertEqual(s1!.a3!.absoluteString, "http://www.google.com")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a",
           "a2": "http://www.google.com",
@@ -1108,7 +1129,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "http://www.google.com",
           "a2": "a",
@@ -1117,7 +1138,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "http://www.google.com",
           "a2": "http://www.google.com",
@@ -1132,7 +1153,7 @@ class RosettaClassTests: XCTestCase {
     XCTAssertEqual(s1!.a1.absoluteString, "http://www.google.com")
     XCTAssertEqual(s1!.a2.absoluteString, "http://www.google.com")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a",
           "a2": "a",
@@ -1141,7 +1162,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a",
           "a2": "http://www.google.com",
@@ -1150,7 +1171,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "http://www.google.com",
           "a2": "a",
@@ -1159,7 +1180,7 @@ class RosettaClassTests: XCTestCase {
     )
     XCTAssertTrue(s1 == nil, "structure object should not exist")
     
-    s1 = Rosetta().decode(
+    s1 = try? Rosetta().decode(
       dataFrom(
         ["a1": "a",
           "a2": "a",
@@ -1184,7 +1205,7 @@ class RosettaClassTests: XCTestCase {
           ["name": "Craig"]
       ]]
     )
-    var group: TestType17? = Rosetta().decode(data)
+    var group: TestType17? = try? Rosetta().decode(data)
     XCTAssertTrue(group != nil, "group should exist")
     XCTAssertTrue(group!.users2 != nil, "group.users2 should exist")
     XCTAssertTrue(group!.users3 != nil, "group.users3 should exist")
@@ -1199,7 +1220,7 @@ class RosettaClassTests: XCTestCase {
       users2: [TestType16(name: "Tim")],
       users3: [TestType16(name: "Steve"), TestType16(name: "Eddy"), TestType16(name: "Craig")]
     )
-    let encoded: NSData? = Rosetta().encode(group!)
+    let encoded: NSData? = try? Rosetta().encode(group!)
     XCTAssertTrue(encoded != nil, "encoded data should exist")
     XCTAssertTrue(
       jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
@@ -1222,7 +1243,7 @@ class RosettaClassTests: XCTestCase {
           "California guy": ["name": "Craig"]
       ]]
     )
-    var group: TestType19? = Rosetta().decode(data)
+    var group: TestType19? = try? Rosetta().decode(data)
     XCTAssertTrue(group != nil, "group should exist")
     XCTAssertTrue(group!.users2 != nil, "group.users2 should exist")
     XCTAssertTrue(group!.users3 != nil, "group.users3 should exist")
@@ -1237,7 +1258,7 @@ class RosettaClassTests: XCTestCase {
       users2: ["CEO": TestType18(name: "Tim")],
       users3: ["Founder": TestType18(name: "Steve"), "Ferrari guy": TestType18(name: "Eddy"), "California guy": TestType18(name: "Craig")]
     )
-    let encoded: NSData? = Rosetta().encode(group!)
+    let encoded: NSData? = try? Rosetta().encode(group!)
     XCTAssertTrue(encoded != nil, "encoded data should exist")
     XCTAssertTrue(
       jsonFrom(data).isEqualToDictionary(jsonFrom(encoded!) as! [NSObject : AnyObject]),
@@ -1251,7 +1272,7 @@ class RosettaClassTests: XCTestCase {
 		let data = dataFrom(
 			["value1", "value2", "value3", "value4"]
 		)
-		let object: ObjectClass? = Rosetta().decode(data)
+		let object: ObjectClass? = try? Rosetta().decode(data)
 		XCTAssertTrue(object == nil, "decoded object should not exist")
 	}
 }
