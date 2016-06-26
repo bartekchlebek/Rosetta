@@ -1,5 +1,5 @@
 framework module Rosetta {
-  umbrella header "Pods-osx-Rosetta-umbrella.h"
+  umbrella header "Rosetta-iOS-umbrella.h"
 
   export *
   module * { export * }
