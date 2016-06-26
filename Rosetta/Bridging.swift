@@ -14,7 +14,7 @@ public class Bridge<DecodedType, JSONType: AnyObject> {
 }
 
 public func BridgeString<T>(
-	decoder decoder: Bridge<T, NSString>.Decoder,
+	decoder: Bridge<T, NSString>.Decoder,
 	encoder: Bridge<T, NSString>.Encoder
 	) -> Bridge<T, NSString> {
 
@@ -22,7 +22,7 @@ public func BridgeString<T>(
 }
 
 public func BridgeBoolean<T>(
-	decoder decoder: Bridge<T, NSNumber>.Decoder,
+	decoder: Bridge<T, NSNumber>.Decoder,
 	encoder: Bridge<T, NSNumber>.Encoder
 	) -> Bridge<T, NSNumber> {
 
@@ -30,7 +30,7 @@ public func BridgeBoolean<T>(
 }
 
 public func BridgeNumber<T>(
-	decoder decoder: Bridge<T, NSNumber>.Decoder,
+	decoder: Bridge<T, NSNumber>.Decoder,
 	encoder: Bridge<T, NSNumber>.Encoder
 	) -> Bridge<T, NSNumber> {
 
@@ -38,7 +38,7 @@ public func BridgeNumber<T>(
 }
 
 public func UnsafeBridgeObject<T>(
-	decoder decoder: Bridge<T, NSDictionary>.Decoder,
+	decoder: Bridge<T, NSDictionary>.Decoder,
 	encoder: Bridge<T, NSDictionary>.Encoder
 	) -> Bridge<T, NSDictionary> {
 
@@ -46,14 +46,14 @@ public func UnsafeBridgeObject<T>(
 }
 
 public func UnsafeBridgeArray<T>(
-	decoder decoder: Bridge<T, NSArray>.Decoder,
+	decoder: Bridge<T, NSArray>.Decoder,
 	encoder: Bridge<T, NSArray>.Encoder
 	) -> Bridge<T, NSArray> {
 
 		return Bridge<T, NSArray>(decoder: decoder, encoder: encoder)
 }
 
-public func BridgeObject<T, U>(valueBridge: Bridge<T, U>) -> Bridge<[String: T], NSDictionary> {
+public func BridgeObject<T, U>(_ valueBridge: Bridge<T, U>) -> Bridge<[String: T], NSDictionary> {
 	return UnsafeBridgeObject(
 		decoder: {dictionary in
 			if let dictionary = dictionary as? [String: U] {
@@ -86,7 +86,7 @@ public func BridgeObject<T, U>(valueBridge: Bridge<T, U>) -> Bridge<[String: T],
 	)
 }
 
-public func BridgeArray<T, U>(itemBridge: Bridge<T, U>) -> Bridge<[T], NSArray> {
+public func BridgeArray<T, U>(_ itemBridge: Bridge<T, U>) -> Bridge<[T], NSArray> {
 	return UnsafeBridgeArray(
 		decoder: {array in
 			if let array = array as? [U] {

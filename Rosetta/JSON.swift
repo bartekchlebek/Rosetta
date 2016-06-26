@@ -1,58 +1,58 @@
 import Foundation
 
 private enum Source {
-	case Data(NSData)
-	case String(Swift.String)
-	case Array([AnyObject])
-	case Dictionary([Swift.String: AnyObject])
+	case data(Foundation.Data)
+	case string(Swift.String)
+	case array([AnyObject])
+	case dictionary([Swift.String: AnyObject])
 }
 
 final class JSON: CustomStringConvertible {
 	private let source: Source
 
-	lazy var data: NSData? = {
+	lazy var data: Data? = {
 		switch self.source {
-		case .Data(let data): return data
-		case .String(let string): return string.toData()
-		case .Array(let array): return try? NSJSONSerialization.dataWithJSONObject(array, options: [])
-		case .Dictionary(let dictionary): return try? NSJSONSerialization.dataWithJSONObject(dictionary, options: [])
+		case .data(let data): return data
+		case .string(let string): return string.toData()
+		case .array(let array): return try? JSONSerialization.data(withJSONObject: array, options: [])
+		case .dictionary(let dictionary): return try? JSONSerialization.data(withJSONObject: dictionary, options: [])
 		}
 	}()
 
 	lazy var string: String? = {
 		switch self.source {
-		case .Data(let data): return data.toString()
-		case .String(let string): return string
-		case .Array(let array): return self.data?.toString()
-		case .Dictionary(let dictionary): return self.data?.toString()
+		case .data(let data): return data.toString()
+		case .string(let string): return string
+		case .array(let array): return self.data?.toString()
+		case .dictionary(let dictionary): return self.data?.toString()
 		}
 	}()
 
 	lazy var dictionary: [String: AnyObject]? = {
 		switch self.source {
-		case .Data(let data):
-			guard let object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else { return nil }
+		case .data(let data):
+			guard let object = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
 			return object as? [String: AnyObject]
-		case .String(let string):
+		case .string(let string):
 			guard let data = self.data else { return nil }
-			guard let object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else { return nil }
+			guard let object = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
 			return object as? [String: AnyObject]
-		case .Array(let array): return nil
-		case .Dictionary(let dictionary): return dictionary
+		case .array(let array): return nil
+		case .dictionary(let dictionary): return dictionary
 		}
 	}()
 
 	lazy var array: [AnyObject]? = {
 		switch self.source {
-		case .Data(let data):
-			guard let object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else { return nil }
+		case .data(let data):
+			guard let object = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
 			return object as? [AnyObject]
-		case .String(let string):
+		case .string(let string):
 			guard let data = self.data else { return nil }
-			guard let object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) else { return nil }
+			guard let object = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
 			return object as? [AnyObject]
-		case .Array(let array): return array
-		case .Dictionary(let dictionary): return nil
+		case .array(let array): return array
+		case .dictionary(let dictionary): return nil
 		}
 	}()
 
@@ -60,25 +60,25 @@ final class JSON: CustomStringConvertible {
 		return ""
 	}
 
-	init(data: NSData) {
-		self.source = .Data(data)
+	init(data: Data) {
+		self.source = .data(data)
 	}
 
 	init(string: String) {
-		self.source = .String(string)
+		self.source = .string(string)
 	}
 
 	init(dictionary: [String: AnyObject]) {
-		self.source = .Dictionary(dictionary)
+		self.source = .dictionary(dictionary)
 	}
 
 	init(array: [AnyObject]) {
-		self.source = .Array(array)
+		self.source = .array(array)
 	}
 }
 
 extension JSON {
-	func toData() throws -> NSData {
+	func toData() throws -> Data {
 		if let data = self.data {
 			return data
 		}

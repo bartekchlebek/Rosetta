@@ -1,6 +1,6 @@
 import Foundation
 
-func valueForKeyPath(keyPath: [String], inDictionary dictionary: [String: AnyObject]) -> AnyObject? {
+func valueForKeyPath(_ keyPath: [String], inDictionary dictionary: [String: AnyObject]) -> AnyObject? {
 	if keyPath.count == 0 {
 		return dictionary
 	}
@@ -19,13 +19,13 @@ func valueForKeyPath(keyPath: [String], inDictionary dictionary: [String: AnyObj
 }
 
 func dictionaryBySettingValue(
-	value: AnyObject,
+	_ value: AnyObject,
 	forKeyPath keyPath: [String],
 	inDictionary dictionary: [String: AnyObject]
 	) -> [String: AnyObject] {
 
 		if keyPath.count == 0 {
-			NSException(name: NSInternalInconsistencyException, reason: "ketPath must not be empty", userInfo: nil).raise()
+			NSException(name: NSExceptionName.internalInconsistencyException, reason: "ketPath must not be empty", userInfo: nil).raise()
 			abort()
 		}
 		else if keyPath.count == 1 {
@@ -37,7 +37,7 @@ func dictionaryBySettingValue(
 			var dictionary = dictionary
 			let firstKey = keyPath[0]
 			var keyPath = keyPath
-			keyPath.removeAtIndex(0)
+			keyPath.remove(at: 0)
 			if let subdict = dictionary[firstKey] as? [String: AnyObject] {
 				dictionary[firstKey] = dictionaryBySettingValue(value, forKeyPath: keyPath, inDictionary: subdict)
 			}
@@ -48,6 +48,6 @@ func dictionaryBySettingValue(
 		}
 }
 
-func setValue(value: AnyObject, atKeyPath keyPath: [String], inout inDictionary dictionary: [String: AnyObject]) {
+func setValue(_ value: AnyObject, atKeyPath keyPath: [String], inDictionary dictionary: inout [String: AnyObject]) {
 	dictionary = dictionaryBySettingValue(value, forKeyPath: keyPath, inDictionary: dictionary)
 }

@@ -34,42 +34,42 @@ public let StringBridge: Bridge<String, NSString> = BridgeString(
 
 public let Int8Bridge: Bridge<Int8, NSNumber> = BridgeNumber(
 	decoder: { numberInRange($0, min: Int64(Int8.min), max: Int64(Int8.max)).map{Int8($0)} },
-	encoder: { NSNumber(char: $0) }
+	encoder: { NSNumber(value: $0) }
 )
 
 public let Int16Bridge: Bridge<Int16, NSNumber> = BridgeNumber(
 	decoder: { numberInRange($0, min: Int64(Int16.min), max: Int64(Int16.max)).map{Int16($0)} },
-	encoder: { NSNumber(short: $0) }
+	encoder: { NSNumber(value: $0) }
 )
 
 public let Int32Bridge: Bridge<Int32, NSNumber> = BridgeNumber(
 	decoder: { numberInRange($0, min: Int64(Int32.min), max: Int64(Int32.max)).map{Int32($0)} },
-	encoder: { NSNumber(int: $0) }
+	encoder: { NSNumber(value: $0) }
 )
 
 public let Int64Bridge: Bridge<Int64, NSNumber> = BridgeNumber(
 	decoder: { numberInRange($0, min: Int64.min, max: Int64.max) },
-	encoder: { NSNumber(longLong: $0) }
+	encoder: { NSNumber(value: $0) }
 )
 
 public let UInt8Bridge: Bridge<UInt8, NSNumber> = BridgeNumber(
 	decoder: { numberInRange($0, min: UInt64(UInt8.min), max: UInt64(UInt8.max)).map{UInt8($0)} },
-	encoder: { NSNumber(unsignedChar: $0) }
+	encoder: { NSNumber(value: $0) }
 )
 
 public let UInt16Bridge: Bridge<UInt16, NSNumber> = BridgeNumber(
 	decoder: { numberInRange($0, min: UInt64(UInt16.min), max: UInt64(UInt16.max)).map{UInt16($0)} },
-	encoder: { NSNumber(unsignedShort: $0) }
+	encoder: { NSNumber(value: $0) }
 )
 
 public let UInt32Bridge: Bridge<UInt32, NSNumber> = BridgeNumber(
 	decoder: { numberInRange($0, min: UInt64(UInt32.min), max: UInt64(UInt32.max)).map{UInt32($0)} },
-	encoder: { NSNumber(unsignedInt: $0) }
+	encoder: { NSNumber(value: $0) }
 )
 
 public let UInt64Bridge: Bridge<UInt64, NSNumber> = BridgeNumber(
 	decoder: { numberInRange($0, min: UInt64.min, max: UInt64.max) },
-	encoder: { NSNumber(unsignedLongLong: $0) }
+	encoder: { NSNumber(value: $0) }
 )
 
 public let NSStringBridge: Bridge<NSString, NSString> = BridgeString(decoder: {$0}, encoder: {$0})
@@ -115,19 +115,19 @@ public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> Bridge<T, N
 
 //MARK: Bridges for common conversions
 
-public let NSURLBridge: Bridge<NSURL, NSString> = BridgeString(
-	decoder: {NSURL(string: $0 as String)},
+public let NSURLBridge: Bridge<URL, NSString> = BridgeString(
+	decoder: {URL(string: $0 as String)},
 	encoder: {$0.absoluteString}
 )
 
 //MARK: Helpers
 
-func numberInRange(number: NSNumber, min: Int64, max: Int64) -> Int64? {
-	let value = number.longLongValue
+func numberInRange(_ number: NSNumber, min: Int64, max: Int64) -> Int64? {
+	let value = number.int64Value
 	return (value >= min) && (value <= max) ? value : nil
 }
 
-func numberInRange(number: NSNumber, min: UInt64, max: UInt64) -> UInt64? {
-	let value = number.unsignedLongLongValue
+func numberInRange(_ number: NSNumber, min: UInt64, max: UInt64) -> UInt64? {
+	let value = number.uint64Value
 	return (value >= min) && (value <= max) ? value : nil
 }

@@ -1,20 +1,20 @@
 import Foundation
 
 public enum Log {
-	case StringToData(string: String)
-	case DataToJSON(data: NSData, error: NSError?)
-	case Mapping(severity: Severity, type: MapType, keyPath: [String])
+	case stringToData(string: String)
+	case dataToJSON(data: Data, error: NSError?)
+	case mapping(severity: Severity, type: MapType, keyPath: [String])
 
 	public enum Severity {
-		case Warning
-		case Error
+		case warning
+		case error
 	}
 
 	public enum MapType {
-		case WrongType
-		case ValueMissing
-		case ValidationFailed
-		case BridgingFailed
+		case wrongType
+		case valueMissing
+		case validationFailed
+		case bridgingFailed
 	}
 }
 
@@ -22,15 +22,15 @@ extension Log: CustomStringConvertible {
 	public var description: String {
 		var string = ""
 		switch self {
-		case let .StringToData(info):
+		case let .stringToData(info):
 			string += "String to NSData conversion failed"
 			string += "\n"
 			string += "String:\(info)"
-		case let .DataToJSON(info):
+		case let .dataToJSON(info):
 			string += "NSJSONSerialization failed"
 			string += "\n"
 			string += "Data:\(info.data)"
-			if let dataString = NSString(data: info.data, encoding: NSUTF8StringEncoding) {
+			if let dataString = NSString(data: info.data, encoding: String.Encoding.utf8.rawValue) {
 				string += "\n"
 				string += "String:\(dataString)"
 			}
@@ -38,39 +38,39 @@ extension Log: CustomStringConvertible {
 				string += "\n"
 				string += "Error:\(error)"
 			}
-		case let .Mapping(info):
+		case let .mapping(info):
 			switch info.severity {
-			case .Error:
+			case .error:
 				string += "Error:"
-			case .Warning:
+			case .warning:
 				string += "Warning:"
 			}
 			switch info.type {
-			case .BridgingFailed:
+			case .bridgingFailed:
 				string += " Bridging Failed"
-			case .ValidationFailed:
+			case .validationFailed:
 				string += " Validation Failed"
-			case .ValueMissing:
+			case .valueMissing:
 				string += " Value Missing"
-			case .WrongType:
+			case .wrongType:
 				string += " Wrong Type"
 			}
 			string += " for key-path: "
-			string += info.keyPath.joinWithSeparator(".")
+			string += info.keyPath.joined(separator: ".")
 		}
 		return string
 	}
 }
 
-func LogsContainError(logs: [Log]) -> Bool {
+func LogsContainError(_ logs: [Log]) -> Bool {
 	for log in logs {
 		switch log {
-		case .StringToData:
+		case .stringToData:
 			return true
-		case .DataToJSON:
+		case .dataToJSON:
 			return true
-		case let .Mapping(info):
-			if info.severity == .Error {
+		case let .mapping(info):
+			if info.severity == .error {
 				return true
 			}
 		}
@@ -79,7 +79,7 @@ func LogsContainError(logs: [Log]) -> Bool {
 }
 
 public enum LogLevel {
-	case None
-	case Errors
-	case Verbose
+	case none
+	case errors
+	case verbose
 }

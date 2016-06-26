@@ -5,11 +5,11 @@ public protocol Creatable {
 }
 
 public protocol Mappable {
-	static func map(inout object: Self, json: Rosetta)
+	static func map(_ object: inout Self, json: Rosetta)
 }
 
 public protocol MappableClass: class {
-	static func map(object: Self, json: Rosetta)
+	static func map(_ object: Self, json: Rosetta)
 }
 
 public protocol JSONConvertible : Creatable, Mappable {

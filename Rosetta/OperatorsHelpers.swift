@@ -3,57 +3,57 @@ import Foundation
 //MARK: Decoding
 
 func decode<T, U, V>(
-	value value: U?,
+	value: U?,
 	rosetta: Rosetta,
 	bridge: Bridge<T, V>,
-	validator: (T -> Bool)?,
+	validator: ((T) -> Bool)?,
 	optional: Bool) -> T? {
 
-		func addLogWithType(type: Log.MapType) {
-			let severity: Log.Severity = optional ? .Warning : .Error
-			rosetta.logs.append(.Mapping(severity: severity, type: type, keyPath: rosetta.keyPath))
+		func addLogWithType(_ type: Log.MapType) {
+			let severity: Log.Severity = optional ? .warning : .error
+			rosetta.logs.append(.mapping(severity: severity, type: type, keyPath: rosetta.keyPath))
 		}
 
 		guard let value = value else {
 			if !optional {
-				addLogWithType(.ValueMissing)
+				addLogWithType(.valueMissing)
 			}
-			rosetta.keyPath.removeAll(keepCapacity: false)
+			rosetta.keyPath.removeAll(keepingCapacity: false)
 			return nil
 		}
 
 		guard let castedValue = value as? V else {
 			if !optional {
-				addLogWithType(.WrongType)
+				addLogWithType(.wrongType)
 			}
-			rosetta.keyPath.removeAll(keepCapacity: false)
+			rosetta.keyPath.removeAll(keepingCapacity: false)
 			return nil
 		}
 
 		guard let decodedValue = bridge.decoder(castedValue) else {
 			if !optional {
-				addLogWithType(.BridgingFailed)
+				addLogWithType(.bridgingFailed)
 			}
-			rosetta.keyPath.removeAll(keepCapacity: false)
+			rosetta.keyPath.removeAll(keepingCapacity: false)
 			return nil
 		}
 
 		if validator?(decodedValue) == false {
-			addLogWithType(.ValidationFailed)
-			rosetta.keyPath.removeAll(keepCapacity: false)
+			addLogWithType(.validationFailed)
+			rosetta.keyPath.removeAll(keepingCapacity: false)
 			return nil
 		}
 
-		rosetta.keyPath.removeAll(keepCapacity: false)
+		rosetta.keyPath.removeAll(keepingCapacity: false)
 		return decodedValue
 }
 
 func decodeTo<T, U, V>(
-	inout property: T,
+	_ property: inout T,
 	value: U?,
 	rosetta: Rosetta,
 	bridge: Bridge<T, V>,
-	validator: (T -> Bool)?,
+	validator: ((T) -> Bool)?,
 	optional: Bool) {
 
 		let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
@@ -63,11 +63,11 @@ func decodeTo<T, U, V>(
 }
 
 func decodeTo<T, U, V>(
-	inout property: T!,
+	_ property: inout T!,
 	value: U?,
 	rosetta: Rosetta,
 	bridge: Bridge<T, V>,
-	validator: (T -> Bool)?,
+	validator: ((T) -> Bool)?,
 	optional: Bool) {
 
 		let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
@@ -77,11 +77,11 @@ func decodeTo<T, U, V>(
 }
 
 func decodeTo<T, U, V>(
-	inout property: T?,
+	_ property: inout T?,
 	value: U?,
 	rosetta: Rosetta,
 	bridge: Bridge<T, V>,
-	validator: (T -> Bool)?,
+	validator: ((T) -> Bool)?,
 	optional: Bool) {
 
 		let decoded = decode(value: value, rosetta: rosetta, bridge: bridge, validator: validator, optional: optional)
@@ -93,28 +93,28 @@ func decodeTo<T, U, V>(
 //MARK: Encoding
 
 func encodeFrom<T, U>(
-	property: T?,
+	_ property: T?,
 	rosetta: Rosetta,
 	bridge: Bridge<T, U>,
-	validator: (T -> Bool)?,
+	validator: ((T) -> Bool)?,
 	optional: Bool) {
 
-		let severity: Log.Severity = optional ? .Warning : .Error
+		let severity: Log.Severity = optional ? .warning : .error
 		if let property = property {
 			if validator?(property) ?? true {
 				if let encodedValue = bridge.encoder(property) {
 					setValue(encodedValue, atKeyPath: rosetta.keyPath, inDictionary: &rosetta.dictionary!)
 				}
 				else {
-					rosetta.logs.append(Log.Mapping(severity: severity, type: .BridgingFailed, keyPath: rosetta.keyPath))
+					rosetta.logs.append(Log.mapping(severity: severity, type: .bridgingFailed, keyPath: rosetta.keyPath))
 				}
 			}
 			else {
-				rosetta.logs.append(Log.Mapping(severity: severity, type: .ValidationFailed, keyPath: rosetta.keyPath))
+				rosetta.logs.append(Log.mapping(severity: severity, type: .validationFailed, keyPath: rosetta.keyPath))
 			}
 		}
 		else {
-			rosetta.logs.append(Log.Mapping(severity: severity, type: .ValueMissing, keyPath: rosetta.keyPath))
+			rosetta.logs.append(Log.mapping(severity: severity, type: .valueMissing, keyPath: rosetta.keyPath))
 		}
-		rosetta.keyPath.removeAll(keepCapacity: false)
+		rosetta.keyPath.removeAll(keepingCapacity: false)
 }
