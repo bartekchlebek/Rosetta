@@ -10,7 +10,7 @@ infix operator <~ {
 precedence 130
 }
 
-public func <-<T, U>(left: inout T, right: (Rosetta, Bridge<T, U>, ((T) -> Bool)?)) {
+public func <-<T, U>(left: inout T, right: (Rosetta, _Bridge<T, U>, ((T) -> Bool)?)) {
 	switch right.0.currentMode! {
 	case .encode:
 		encodeFrom(left, rosetta: right.0, bridge: right.1, validator: right.2, optional: false);
@@ -19,7 +19,7 @@ public func <-<T, U>(left: inout T, right: (Rosetta, Bridge<T, U>, ((T) -> Bool)
 	}
 }
 
-public func <-<T, U>(left: inout T!, right: (Rosetta, Bridge<T, U>, ((T) -> Bool)?)) {
+public func <-<T, U>(left: inout T!, right: (Rosetta, _Bridge<T, U>, ((T) -> Bool)?)) {
 	switch right.0.currentMode! {
 	case .encode:
 		encodeFrom(left, rosetta: right.0, bridge: right.1, validator: right.2, optional: false);
@@ -28,7 +28,7 @@ public func <-<T, U>(left: inout T!, right: (Rosetta, Bridge<T, U>, ((T) -> Bool
 	}
 }
 
-public func <-<T, U>(left: inout T?, right: (Rosetta, Bridge<T, U>, ((T) -> Bool)?)) {
+public func <-<T, U>(left: inout T?, right: (Rosetta, _Bridge<T, U>, ((T) -> Bool)?)) {
 	switch right.0.currentMode! {
 	case .encode:
 		encodeFrom(left, rosetta: right.0, bridge: right.1, validator: right.2, optional: false);
@@ -37,7 +37,7 @@ public func <-<T, U>(left: inout T?, right: (Rosetta, Bridge<T, U>, ((T) -> Bool
 	}
 }
 
-public func <~<T, U>(left: inout T?, right: (Rosetta, Bridge<T, U>, ((T) -> Bool)?)) {
+public func <~<T, U>(left: inout T?, right: (Rosetta, _Bridge<T, U>, ((T) -> Bool)?)) {
 	switch right.0.currentMode! {
 	case .encode:
 		encodeFrom(left, rosetta: right.0, bridge: right.1, validator: right.2, optional: true);
@@ -48,19 +48,19 @@ public func <~<T, U>(left: inout T?, right: (Rosetta, Bridge<T, U>, ((T) -> Bool
 
 //MARK: Implicitly omitted validation
 
-public func <-<T, U>(left: inout T, right: (Rosetta, Bridge<T, U>)) {
+public func <-<T, U>(left: inout T, right: (Rosetta, _Bridge<T, U>)) {
 	left <- (right.0, right.1, nil)
 }
 
-public func <-<T, U>(left: inout T!, right: (Rosetta, Bridge<T, U>)) {
+public func <-<T, U>(left: inout T!, right: (Rosetta, _Bridge<T, U>)) {
 	left <- (right.0, right.1, nil)
 }
 
-public func <-<T, U>(left: inout T?, right: (Rosetta, Bridge<T, U>)) {
+public func <-<T, U>(left: inout T?, right: (Rosetta, _Bridge<T, U>)) {
 	left <- (right.0, right.1, nil)
 }
 
-public func <~<T, U>(left: inout T?, right: (Rosetta, Bridge<T, U>)) {
+public func <~<T, U>(left: inout T?, right: (Rosetta, _Bridge<T, U>)) {
 	left <~ (right.0, right.1, nil)
 }
 
@@ -286,7 +286,7 @@ infix operator ~{
 precedence 140
 }
 
-public func ~<T, U>(left: Rosetta, right: Bridge<T, U>) -> (Rosetta, Bridge<T, U>) {
+public func ~<T, U>(left: Rosetta, right: _Bridge<T, U>) -> (Rosetta, _Bridge<T, U>) {
 	return (left, right)
 }
 
@@ -296,7 +296,7 @@ infix operator §{
 precedence 135
 }
 
-public func §<T, U>(lhs: (Rosetta, Bridge<T, U>), rhs: ((T) -> Bool)?) -> (Rosetta, Bridge<T, U>, ((T) -> Bool)?) {
+public func §<T, U>(lhs: (Rosetta, _Bridge<T, U>), rhs: ((T) -> Bool)?) -> (Rosetta, _Bridge<T, U>, ((T) -> Bool)?) {
 	return (lhs.0, lhs.1, rhs)
 }
 

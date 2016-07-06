@@ -6,9 +6,23 @@ private struct FakeProxy<T> { }
 
 //MARK: Array encoding
 extension Rosetta {
-	private func encode<T, U>(_ obj: [T], usingElementBridge elementBridge: Bridge<T, U>, validator: (([T]) -> Bool)?) throws -> JSON {
+	private func encode<T, U>(_ obj: [T], usingElementBridge elementBridge: _Bridge<T, U>, validator: (([T]) -> Bool)?) throws -> JSON {
 		let proxy = FakeProxy<T>()
 		var objects: [T] = obj
+		let json = try encode(proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
+			objects <- $1["array"] ~ BridgeArray(elementBridge) § validator
+			}
+		)
+		var dictionary = try json.toDictionary()
+		guard let array = dictionary["array"] as? [AnyObject] else {
+			throw genericError
+		}
+		return JSON(array: array)
+	}
+
+	private func encode<T, U>(_ obj: [T?], usingElementBridge elementBridge: _Bridge<T, U>, validator: (([T?]) -> Bool)?) throws -> JSON {
+		let proxy = FakeProxy<T>()
+		var objects: [T?] = obj
 		let json = try encode(proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
 			objects <- $1["array"] ~ BridgeArray(elementBridge) § validator
 			}
@@ -24,7 +38,15 @@ extension Rosetta {
 		return try encode(obj, usingElementBridge: T.bridge(), validator: validator)
 	}
 
+	func encode<T: Bridgeable>(_ obj: [T?], validator: (([T?]) -> Bool)? = nil) throws -> JSON {
+		return try encode(obj, usingElementBridge: T.bridge(), validator: validator)
+	}
+
 	public func encode<T: Bridgeable>(_ obj: [T], validator: (([T]) -> Bool)? = nil) throws -> String {
+		return try encode(obj, validator: validator).toString()
+	}
+
+	public func encode<T: Bridgeable>(_ obj: [T?], validator: (([T?]) -> Bool)? = nil) throws -> String {
 		return try encode(obj, validator: validator).toString()
 	}
 
@@ -32,7 +54,15 @@ extension Rosetta {
 		return try encode(obj, validator: validator).toData() as Data
 	}
 
+	public func encode<T: Bridgeable>(_ obj: [T?], validator: (([T?]) -> Bool)? = nil) throws -> Data {
+		return try encode(obj, validator: validator).toData() as Data
+	}
+
 	func encode<T: JSONConvertible>(_ obj: [T]) throws -> JSON {
+		return try encode(obj, usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
+	func encode<T: JSONConvertible>(_ obj: [T?]) throws -> JSON {
 		return try encode(obj, usingElementBridge: JSONConvertibleBridge(), validator: nil)
 	}
 
@@ -40,7 +70,15 @@ extension Rosetta {
 		return try encode(obj).toData() as Data
 	}
 
+	public func encode<T: JSONConvertible>(_ obj: [T?]) throws -> Data {
+		return try encode(obj).toData() as Data
+	}
+
 	public func encode<T: JSONConvertible>(_ obj: [T]) throws -> String {
+		return try encode(obj).toString()
+	}
+
+	public func encode<T: JSONConvertible>(_ obj: [T?]) throws -> String {
 		return try encode(obj).toString()
 	}
 
@@ -48,18 +86,30 @@ extension Rosetta {
 		return try encode(obj, usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
 	}
 
+	func encode<T: JSONConvertibleClass>(_ obj: [T?]) throws -> JSON {
+		return try encode(obj, usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
+	}
+
 	public func encode<T: JSONConvertibleClass>(_ obj: [T]) throws -> Data {
+		return try encode(obj).toData() as Data
+	}
+
+	public func encode<T: JSONConvertibleClass>(_ obj: [T?]) throws -> Data {
 		return try encode(obj).toData() as Data
 	}
 
 	public func encode<T: JSONConvertibleClass>(_ obj: [T]) throws -> String {
 		return try encode(obj).toString()
 	}
+
+	public func encode<T: JSONConvertibleClass>(_ obj: [T?]) throws -> String {
+		return try encode(obj).toString()
+	}
 }
 
 //MARK: Array decoding
 extension Rosetta {
-	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>, validator: (([T]) -> Bool)?) throws -> [T] {
+	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>, validator: (([T]) -> Bool)?) throws -> [T] {
 		let jsonString = try json.toString()
 		let json = JSON(string: "{\"array\":" + jsonString + "}")
 		var proxy = FakeProxy<T>()
@@ -72,15 +122,56 @@ extension Rosetta {
 		return unwrappedObjects
 	}
 
-	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>) throws -> [T] {
+	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>, validator: (([T?]) -> Bool)?) throws -> [T?] {
+		let jsonString = try json.toString()
+		let json = JSON(string: "{\"array\":" + jsonString + "}")
+		var proxy = FakeProxy<T>()
+		var objects: [T?]? = nil
+		try decode(json, to: &proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
+			objects <- $1["array"] ~ BridgeArray(elementBridge) § validator
+			}
+		)
+		guard let unwrappedObjects = objects else { throw genericError }
+		return unwrappedObjects
+	}
+
+	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T] {
 		return try decode(json, usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: Bridge<T, U>) throws -> [T] {
+	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T?] {
+		return try decode(json, usingElementBridge: elementBridge, validator: nil)
+	}
+
+	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T] {
+		return try decode(JSON(string: json), usingElementBridge: elementBridge, validator: nil)
+	}
+
+	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T?] {
+		return try decode(JSON(string: json), usingElementBridge: elementBridge, validator: nil)
+	}
+
+	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T] {
 		return try decode(JSON(data: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
+	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T?] {
+		return try decode(JSON(data: json), usingElementBridge: elementBridge, validator: nil)
+	}
+
+	public func decode<T: Bridgeable>(_ json: String, validator: (([T]) -> Bool)? = nil) throws -> [T] {
+		return try decode(JSON(string: json), usingElementBridge: T.bridge(), validator: validator)
+	}
+
+	public func decode<T: Bridgeable>(_ json: String, validator: (([T?]) -> Bool)? = nil) throws -> [T?] {
+		return try decode(JSON(string: json), usingElementBridge: T.bridge(), validator: validator)
+	}
+
 	public func decode<T: Bridgeable>(_ json: Data, validator: (([T]) -> Bool)? = nil) throws -> [T] {
+		return try decode(JSON(data: json), usingElementBridge: T.bridge(), validator: validator)
+	}
+
+	public func decode<T: Bridgeable>(_ json: Data, validator: (([T?]) -> Bool)? = nil) throws -> [T?] {
 		return try decode(JSON(data: json), usingElementBridge: T.bridge(), validator: validator)
 	}
 
@@ -88,18 +179,46 @@ extension Rosetta {
 		return try decode(json, usingElementBridge: JSONConvertibleBridge(), validator: nil)
 	}
 
+	func decode<T: JSONConvertible>(_ json: JSON) throws -> [T?] {
+		return try decode(json, usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
+	public func decode<T: JSONConvertible>(_ json: String) throws -> [T] {
+		return try decode(JSON(string: json), usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
+	public func decode<T: JSONConvertible>(_ json: String) throws -> [T?] {
+		return try decode(JSON(string: json), usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
 	public func decode<T: JSONConvertible>(_ json: Data) throws -> [T] {
 		return try decode(JSON(data: json), usingElementBridge: JSONConvertibleBridge(), validator: nil)
 	}
 
+	public func decode<T: JSONConvertible>(_ json: Data) throws -> [T?] {
+		return try decode(JSON(data: json), usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
+	public func decode<T: JSONConvertibleClass>(_ json: String) throws -> [T] {
+		return try decode(JSON(string: json), usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
+	}
+
+	public func decode<T: JSONConvertibleClass>(_ json: String) throws -> [T?] {
+		return try decode(JSON(string: json), usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
+	}
+
 	public func decode<T: JSONConvertibleClass>(_ json: Data) throws -> [T] {
+		return try decode(JSON(data: json), usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
+	}
+
+	public func decode<T: JSONConvertibleClass>(_ json: Data) throws -> [T?] {
 		return try decode(JSON(data: json), usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
 	}
 }
 
 //MARK: Dictionary decoding
 extension Rosetta {
-	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>, validator: (([String: T]) -> Bool)?) throws -> [String: T] {
+	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>, validator: (([String: T]) -> Bool)?) throws -> [String: T] {
 		let jsonString = try json.toString()
 		let json = JSON(string: "{\"dictionary\":" + jsonString + "}")
 		var proxy = FakeProxy<T>()
@@ -112,15 +231,43 @@ extension Rosetta {
 		return unwrappedObjects
 	}
 
-	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T] {
+	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>, validator: (([String: T?]) -> Bool)?) throws -> [String: T?] {
+		let jsonString = try json.toString()
+		let str = "{\"dictionary\":" + jsonString + "}"
+		let x = try! JSONSerialization.jsonObject(with: str.data(using: .utf8)!, options: [])
+		print(x)
+		let json = JSON(string: "{\"dictionary\":" + jsonString + "}")
+		var proxy = FakeProxy<T>()
+		var objects: [String: T?]? = nil
+		try decode(json, to: &proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
+			objects <- $1["dictionary"] ~ BridgeObject(elementBridge) § validator
+			}
+		)
+		guard let unwrappedObjects = objects else { throw genericError }
+		return unwrappedObjects
+	}
+
+	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T] {
 		return try decode(json, usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T] {
+	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T?] {
+		return try decode(json, usingElementBridge: elementBridge, validator: nil)
+	}
+
+	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T] {
 		return try decode(JSON(string: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T] {
+	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T?] {
+		return try decode(JSON(string: json), usingElementBridge: elementBridge, validator: nil)
+	}
+
+	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T] {
+		return try decode(JSON(data: json), usingElementBridge: elementBridge, validator: nil)
+	}
+
+	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T?] {
 		return try decode(JSON(data: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
@@ -128,7 +275,15 @@ extension Rosetta {
 		return try decode(json, usingElementBridge: T.bridge(), validator: validator)
 	}
 
+	func decode<T: Bridgeable>(_ json: JSON, validator: (([String: T?]) -> Bool)? = nil) throws -> [String: T?] {
+		return try decode(json, usingElementBridge: T.bridge(), validator: validator)
+	}
+
 	public func decode<T: Bridgeable>(_ json: String, validator: (([String: T]) -> Bool)? = nil) throws -> [String: T] {
+		return try decode(JSON(string: json), usingElementBridge: T.bridge(), validator: validator)
+	}
+
+	public func decode<T: Bridgeable>(_ json: String, validator: (([String: T?]) -> Bool)? = nil) throws -> [String: T?] {
 		return try decode(JSON(string: json), usingElementBridge: T.bridge(), validator: validator)
 	}
 
@@ -136,7 +291,15 @@ extension Rosetta {
 		return try decode(JSON(data: json), usingElementBridge: T.bridge(), validator: validator)
 	}
 
+	public func decode<T: Bridgeable>(_ json: Data, validator: (([String: T?]) -> Bool)? = nil) throws -> [String: T?] {
+		return try decode(JSON(data: json), usingElementBridge: T.bridge(), validator: validator)
+	}
+
 	func decode<T: JSONConvertible>(_ json: JSON) throws -> [String: T] {
+		return try decode(json, usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
+	func decode<T: JSONConvertible>(_ json: JSON) throws -> [String: T?] {
 		return try decode(json, usingElementBridge: JSONConvertibleBridge(), validator: nil)
 	}
 
@@ -144,7 +307,15 @@ extension Rosetta {
 		return try decode(JSON(string: json), usingElementBridge: JSONConvertibleBridge(), validator: nil)
 	}
 
+	public func decode<T: JSONConvertible>(_ json: String) throws -> [String: T?] {
+		return try decode(JSON(string: json), usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
 	public func decode<T: JSONConvertible>(_ json: Data) throws -> [String: T] {
+		return try decode(JSON(data: json), usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
+	public func decode<T: JSONConvertible>(_ json: Data) throws -> [String: T?] {
 		return try decode(JSON(data: json), usingElementBridge: JSONConvertibleBridge(), validator: nil)
 	}
 
@@ -152,20 +323,46 @@ extension Rosetta {
 		return try decode(json, usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
 	}
 
+	func decode<T: JSONConvertibleClass>(_ json: JSON) throws -> [String: T?] {
+		return try decode(json, usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
+	}
+
 	public func decode<T: JSONConvertibleClass>(_ json: String) throws -> [String: T] {
+		return try decode(JSON(string: json), usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
+	}
+
+	public func decode<T: JSONConvertibleClass>(_ json: String) throws -> [String: T?] {
 		return try decode(JSON(string: json), usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
 	}
 
 	public func decode<T: JSONConvertibleClass>(_ json: Data) throws -> [String: T] {
 		return try decode(JSON(data: json), usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
 	}
+
+	public func decode<T: JSONConvertibleClass>(_ json: Data) throws -> [String: T?] {
+		return try decode(JSON(data: json), usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
+	}
 }
 
 //MARK: Dictionary encoding
 extension Rosetta {
-	private func encode<T, U>(_ obj: [String: T], usingElementBridge elementBridge: Bridge<T, U>, validator: (([String: T]) -> Bool)?) throws -> JSON {
+	private func encode<T, U>(_ obj: [String: T], usingElementBridge elementBridge: _Bridge<T, U>, validator: (([String: T]) -> Bool)?) throws -> JSON {
 		let proxy = FakeProxy<T>()
 		var objects: [String: T] = obj
+		let json = try encode(proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
+			objects <- $1["dictionary"] ~ BridgeObject(elementBridge) § validator
+			}
+		)
+		var dictionary = try json.toDictionary()
+		guard let jsonDictionary = dictionary["dictionary"] as? [String: AnyObject] else {
+			throw genericError
+		}
+		return JSON(dictionary: jsonDictionary)
+	}
+
+	private func encode<T, U>(_ obj: [String: T?], usingElementBridge elementBridge: _Bridge<T, U>, validator: (([String: T?]) -> Bool)?) throws -> JSON {
+		let proxy = FakeProxy<T>()
+		var objects: [String: T?] = obj
 		let json = try encode(proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
 			objects <- $1["dictionary"] ~ BridgeObject(elementBridge) § validator
 			}
@@ -181,7 +378,15 @@ extension Rosetta {
 		return try encode(obj, usingElementBridge: T.bridge(), validator: validator)
 	}
 
+	func encode<T: Bridgeable>(_ obj: [String: T?], validator: (([String: T?]) -> Bool)? = nil) throws -> JSON {
+		return try encode(obj, usingElementBridge: T.bridge(), validator: validator)
+	}
+
 	public func encode<T: Bridgeable>(_ obj: [String: T], validator: (([String: T]) -> Bool)? = nil) throws -> String {
+		return try encode(obj, validator: validator).toString()
+	}
+
+	public func encode<T: Bridgeable>(_ obj: [String: T?], validator: (([String: T?]) -> Bool)? = nil) throws -> String {
 		return try encode(obj, validator: validator).toString()
 	}
 
@@ -189,7 +394,15 @@ extension Rosetta {
 		return try encode(obj, validator: validator).toData() as Data
 	}
 
+	public func encode<T: Bridgeable>(_ obj: [String: T?], validator: (([String: T?]) -> Bool)? = nil) throws -> Data {
+		return try encode(obj, validator: validator).toData() as Data
+	}
+
 	func encode<T: JSONConvertible>(_ obj: [String: T]) throws -> JSON {
+		return try encode(obj, usingElementBridge: JSONConvertibleBridge(), validator: nil)
+	}
+
+	func encode<T: JSONConvertible>(_ obj: [String: T?]) throws -> JSON {
 		return try encode(obj, usingElementBridge: JSONConvertibleBridge(), validator: nil)
 	}
 
@@ -197,7 +410,15 @@ extension Rosetta {
 		return try encode(obj).toData() as Data
 	}
 
+	public func encode<T: JSONConvertible>(_ obj: [String: T?]) throws -> Data {
+		return try encode(obj).toData() as Data
+	}
+
 	public func encode<T: JSONConvertible>(_ obj: [String: T]) throws -> String {
+		return try encode(obj).toString()
+	}
+
+	public func encode<T: JSONConvertible>(_ obj: [String: T?]) throws -> String {
 		return try encode(obj).toString()
 	}
 
@@ -205,11 +426,23 @@ extension Rosetta {
 		return try encode(obj, usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
 	}
 
+	func encode<T: JSONConvertibleClass>(_ obj: [String: T?]) throws -> JSON {
+		return try encode(obj, usingElementBridge: JSONConvertibleClassBridge(), validator: nil)
+	}
+
 	public func encode<T: JSONConvertibleClass>(_ obj: [String: T]) throws -> Data {
 		return try encode(obj).toData() as Data
 	}
 
+	public func encode<T: JSONConvertibleClass>(_ obj: [String: T?]) throws -> Data {
+		return try encode(obj).toData() as Data
+	}
+
 	public func encode<T: JSONConvertibleClass>(_ obj: [String: T]) throws -> String {
+		return try encode(obj).toString()
+	}
+
+	public func encode<T: JSONConvertibleClass>(_ obj: [String: T?]) throws -> String {
 		return try encode(obj).toString()
 	}
 }

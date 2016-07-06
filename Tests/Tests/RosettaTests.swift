@@ -449,18 +449,18 @@ struct User3: JSONConvertible {
 
     }
 
-    static func map(_ object: inout User3, json: Rosetta) {
-        object.ID       <- json["uniqueID"] // Map required properties with <-
-        object.name     <~ json["name"] // Map optional properties with <~
-        object.age      <~ json["age"] § {$0 > 0} // Add validation closure after § operator (age > 0)
-        // Types not conforming to Bridgeable protocol (like NSURL here) need to have bridging code after ~ operator
-        object.website  <~ json["website_url"] ~ BridgeString(
-            decoder: {URL(string: $0 as String)}, // convert NSString from json to NSURL
-            encoder: {$0.absoluteString} // convert NSURL from Person to NSString for JSON
-        )
-        object.friends  <~ json["friends"] // Automaticaly mapped arrays
-        object.family   <~ json["family"] // Automaticaly mapped dictionaries
-    }
+	static func map(_ object: inout User3, json: Rosetta) {
+		object.ID       <- json["uniqueID"] // Map required properties with <-
+		object.name     <~ json["name"] // Map optional properties with <~
+		object.age      <~ json["age"] § {$0 > 0} // Add validation closure after § operator (age > 0)
+		// Types not conforming to Bridgeable protocol (like NSURL here) need to have bridging code after ~ operator
+		object.website  <~ json["website_url"] ~ _BridgeString<URL>(
+			decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
+			encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
+		)
+		object.friends  <~ json["friends"] // Automaticaly mapped arrays
+		object.family   <~ json["family"] // Automaticaly mapped dictionaries
+	}
 }
 
 struct CustomConvertibleType: JSONConvertible {
@@ -478,12 +478,12 @@ struct CustomConvertibleType: JSONConvertible {
 enum CustomBridgeableType: Int, Bridgeable {
     case one = 1, two, three, four
 
-    static func bridge() -> Bridge<CustomBridgeableType, NSNumber> {
-        return BridgeNumber(
-            decoder: {CustomBridgeableType(rawValue: $0.intValue)},
-            encoder: {$0.rawValue}
-        )
-    }
+	static func bridge() -> _Bridge<CustomBridgeableType, NSNumber> {
+		return _BridgeNumber<CustomBridgeableType>(
+			decoder: { CustomBridgeableType(rawValue: $0.intValue).map { .success($0) } ?? .unexpectedValue },
+			encoder: { .success($0.rawValue) }
+		)
+	}
 }
 
 struct YourCustomType: JSONConvertible {
@@ -519,16 +519,16 @@ struct YourCustomType: JSONConvertible {
         object.value1 <~ json["value1"]
         object.value2 <~ json["value2"]
         object.value2 <~ json["value3"]
-        object.value4 <~ json["value4"] ~ BridgeString(
-            decoder: {URL(string: $0 as String)},
-            encoder: {$0.absoluteString}
-        )
+			object.value4 <~ json["value4"] ~ _BridgeString<URL>(
+				decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
+				encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
+			)
 
         // Bridging placed in a constant just to reuse
-        let urlBridge = BridgeString(
-            decoder: {URL(string: $0 as String)},
-            encoder: {$0.absoluteString}
-        )
+			let urlBridge = _BridgeString<URL>(
+				decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
+				encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
+			)
 
         object.requiredValue1 <- json["required1"]
         object.requiredValue2 <- json["required2"]
@@ -1387,5 +1387,45 @@ class RosettaTests: XCTestCase {
 		let encoded = try? Rosetta().encode(array) as Data
 		XCTAssertTrue(encoded != nil, "decoded object should exist")
 		XCTAssertTrue(encoded.map { $0 == data } ?? false)
+	}
+
+	//MARK:nulls
+
+	func testDecodingDictionaryWithNulls() {
+		let jsonString = "{\"a\":\"A\",\"b\":null}"
+		_ = try! Rosetta().decode(jsonString) as [String: String?]
+	}
+
+	func testDecodingArrayWithNulls() {
+		let jsonString = "[\"a\",null,\"b\"]"
+		_ = try! Rosetta().decode(jsonString) as [String?]
+	}
+
+	func testDecodingDictionaryWithNullsAndWrongValues() {
+		do {
+			let jsonString = "{\"a\":\"A\",\"b\":null,\"c\":3}"
+			_ = try Rosetta().decode(jsonString) as [String: String?]
+			XCTFail("Rosetta().decode() should have thrown")
+		}
+		catch {}
+	}
+
+	func testDecodingArrayWithNullsAndWrongValues() {
+		do {
+			let jsonString = "[\"a\",null,3]"
+			_ = try Rosetta().decode(jsonString) as [String?]
+			XCTFail("Rosetta().decode() should have thrown")
+		}
+		catch {}
+	}
+
+	func testEncodingDictionaryWithNulls() {
+		let jsonData = try! Rosetta().encode(["a": "A", "b": nil]) as Data
+		XCTAssertTrue(jsonFrom(jsonData).isEqual(["a": "A", "b": NSNull()]), "wrong encoding result")
+	}
+
+	func testEncodingArrayWithNulls() {
+		let jsonString = try! Rosetta().encode(["a", nil, "b"]) as String
+		XCTAssertEqual(jsonString, "[\"a\",null,\"b\"]")
 	}
 }
