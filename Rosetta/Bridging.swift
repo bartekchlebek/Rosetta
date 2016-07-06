@@ -81,7 +81,7 @@ public func BridgeObject<T, U>(_ valueBridge: Bridge<T, U>) -> Bridge<[String: T
 				let bridgeResult = valueBridge.decode(jsonValue: value)
 
 				switch bridgeResult {
-				case .null: buffer[stringKey] = .none
+				case .null: buffer.updateValue(.none, forKey: stringKey)
 				case .unexpectedValue: return .unexpectedValue
 				case .success(let value): buffer[stringKey] = value
 				}

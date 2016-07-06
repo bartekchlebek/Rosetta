@@ -1393,12 +1393,19 @@ class RosettaTests: XCTestCase {
 
 	func testDecodingDictionaryWithNulls() {
 		let jsonString = "{\"a\":\"A\",\"b\":null}"
-		_ = try! Rosetta().decode(jsonString) as [String: String?]
+		let result = try! Rosetta().decode(jsonString) as [String: String?]
+		XCTAssertTrue(result.keys.count == 2)
+		XCTAssertTrue(result["a"]! == "A")
+		XCTAssertTrue(result["b"]! == nil)
 	}
 
 	func testDecodingArrayWithNulls() {
 		let jsonString = "[\"a\",null,\"b\"]"
-		_ = try! Rosetta().decode(jsonString) as [String?]
+		let result = try! Rosetta().decode(jsonString) as [String?]
+		XCTAssertTrue(result.count == 3)
+		XCTAssertTrue(result[0] == "a")
+		XCTAssertTrue(result[1] == nil)
+		XCTAssertTrue(result[2] == "b")
 	}
 
 	func testDecodingDictionaryWithNullsAndWrongValues() {
