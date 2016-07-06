@@ -454,7 +454,7 @@ struct User3: JSONConvertible {
 		object.name     <~ json["name"] // Map optional properties with <~
 		object.age      <~ json["age"] § {$0 > 0} // Add validation closure after § operator (age > 0)
 		// Types not conforming to Bridgeable protocol (like NSURL here) need to have bridging code after ~ operator
-		object.website  <~ json["website_url"] ~ _BridgeString<URL>(
+		object.website  <~ json["website_url"] ~ BridgeString<URL>(
 			decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
 			encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
 		)
@@ -478,8 +478,8 @@ struct CustomConvertibleType: JSONConvertible {
 enum CustomBridgeableType: Int, Bridgeable {
     case one = 1, two, three, four
 
-	static func bridge() -> _Bridge<CustomBridgeableType, NSNumber> {
-		return _BridgeNumber<CustomBridgeableType>(
+	static func bridge() -> Bridge<CustomBridgeableType, NSNumber> {
+		return BridgeNumber<CustomBridgeableType>(
 			decoder: { CustomBridgeableType(rawValue: $0.intValue).map { .success($0) } ?? .unexpectedValue },
 			encoder: { .success($0.rawValue) }
 		)
@@ -519,13 +519,13 @@ struct YourCustomType: JSONConvertible {
         object.value1 <~ json["value1"]
         object.value2 <~ json["value2"]
         object.value2 <~ json["value3"]
-			object.value4 <~ json["value4"] ~ _BridgeString<URL>(
+			object.value4 <~ json["value4"] ~ BridgeString<URL>(
 				decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
 				encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
 			)
 
         // Bridging placed in a constant just to reuse
-			let urlBridge = _BridgeString<URL>(
+			let urlBridge = BridgeString<URL>(
 				decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
 				encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
 			)

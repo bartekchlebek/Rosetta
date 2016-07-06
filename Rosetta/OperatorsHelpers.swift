@@ -5,7 +5,7 @@ import Foundation
 func decode<T, U, V>(
 	value: U?,
 	rosetta: Rosetta,
-	bridge: _Bridge<T, V>,
+	bridge: Bridge<T, V>,
 	validator: ((T) -> Bool)?,
 	optional: Bool) -> T? {
 
@@ -52,7 +52,7 @@ func decodeTo<T, U, V>(
 	_ property: inout T,
 	value: U?,
 	rosetta: Rosetta,
-	bridge: _Bridge<T, V>,
+	bridge: Bridge<T, V>,
 	validator: ((T) -> Bool)?,
 	optional: Bool) {
 
@@ -66,7 +66,7 @@ func decodeTo<T, U, V>(
 	_ property: inout T!,
 	value: U?,
 	rosetta: Rosetta,
-	bridge: _Bridge<T, V>,
+	bridge: Bridge<T, V>,
 	validator: ((T) -> Bool)?,
 	optional: Bool) {
 
@@ -80,7 +80,7 @@ func decodeTo<T, U, V>(
 	_ property: inout T?,
 	value: U?,
 	rosetta: Rosetta,
-	bridge: _Bridge<T, V>,
+	bridge: Bridge<T, V>,
 	validator: ((T) -> Bool)?,
 	optional: Bool) {
 
@@ -95,7 +95,7 @@ func decodeTo<T, U, V>(
 func encodeFrom<T, U>(
 	_ property: T?,
 	rosetta: Rosetta,
-	bridge: _Bridge<T, U>,
+	bridge: Bridge<T, U>,
 	validator: ((T) -> Bool)?,
 	optional: Bool) {
 

@@ -6,7 +6,7 @@ private struct FakeProxy<T> { }
 
 //MARK: Array encoding
 extension Rosetta {
-	private func encode<T, U>(_ obj: [T], usingElementBridge elementBridge: _Bridge<T, U>, validator: (([T]) -> Bool)?) throws -> JSON {
+	private func encode<T, U>(_ obj: [T], usingElementBridge elementBridge: Bridge<T, U>, validator: (([T]) -> Bool)?) throws -> JSON {
 		let proxy = FakeProxy<T>()
 		var objects: [T] = obj
 		let json = try encode(proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
@@ -20,7 +20,7 @@ extension Rosetta {
 		return JSON(array: array)
 	}
 
-	private func encode<T, U>(_ obj: [T?], usingElementBridge elementBridge: _Bridge<T, U>, validator: (([T?]) -> Bool)?) throws -> JSON {
+	private func encode<T, U>(_ obj: [T?], usingElementBridge elementBridge: Bridge<T, U>, validator: (([T?]) -> Bool)?) throws -> JSON {
 		let proxy = FakeProxy<T>()
 		var objects: [T?] = obj
 		let json = try encode(proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
@@ -109,7 +109,7 @@ extension Rosetta {
 
 //MARK: Array decoding
 extension Rosetta {
-	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>, validator: (([T]) -> Bool)?) throws -> [T] {
+	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>, validator: (([T]) -> Bool)?) throws -> [T] {
 		let jsonString = try json.toString()
 		let json = JSON(string: "{\"array\":" + jsonString + "}")
 		var proxy = FakeProxy<T>()
@@ -122,7 +122,7 @@ extension Rosetta {
 		return unwrappedObjects
 	}
 
-	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>, validator: (([T?]) -> Bool)?) throws -> [T?] {
+	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>, validator: (([T?]) -> Bool)?) throws -> [T?] {
 		let jsonString = try json.toString()
 		let json = JSON(string: "{\"array\":" + jsonString + "}")
 		var proxy = FakeProxy<T>()
@@ -135,27 +135,27 @@ extension Rosetta {
 		return unwrappedObjects
 	}
 
-	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T] {
+	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>) throws -> [T] {
 		return try decode(json, usingElementBridge: elementBridge, validator: nil)
 	}
 
-	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T?] {
+	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>) throws -> [T?] {
 		return try decode(json, usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T] {
+	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: Bridge<T, U>) throws -> [T] {
 		return try decode(JSON(string: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T?] {
+	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: Bridge<T, U>) throws -> [T?] {
 		return try decode(JSON(string: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T] {
+	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: Bridge<T, U>) throws -> [T] {
 		return try decode(JSON(data: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [T?] {
+	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: Bridge<T, U>) throws -> [T?] {
 		return try decode(JSON(data: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
@@ -218,7 +218,7 @@ extension Rosetta {
 
 //MARK: Dictionary decoding
 extension Rosetta {
-	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>, validator: (([String: T]) -> Bool)?) throws -> [String: T] {
+	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>, validator: (([String: T]) -> Bool)?) throws -> [String: T] {
 		let jsonString = try json.toString()
 		let json = JSON(string: "{\"dictionary\":" + jsonString + "}")
 		var proxy = FakeProxy<T>()
@@ -231,7 +231,7 @@ extension Rosetta {
 		return unwrappedObjects
 	}
 
-	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>, validator: (([String: T?]) -> Bool)?) throws -> [String: T?] {
+	private func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>, validator: (([String: T?]) -> Bool)?) throws -> [String: T?] {
 		let jsonString = try json.toString()
 		let str = "{\"dictionary\":" + jsonString + "}"
 		let x = try! JSONSerialization.jsonObject(with: str.data(using: .utf8)!, options: [])
@@ -247,27 +247,27 @@ extension Rosetta {
 		return unwrappedObjects
 	}
 
-	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T] {
+	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T] {
 		return try decode(json, usingElementBridge: elementBridge, validator: nil)
 	}
 
-	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T?] {
+	func decode<T, U>(_ json: JSON, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T?] {
 		return try decode(json, usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T] {
+	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T] {
 		return try decode(JSON(string: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T?] {
+	public func decode<T, U>(_ json: String, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T?] {
 		return try decode(JSON(string: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T] {
+	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T] {
 		return try decode(JSON(data: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
-	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: _Bridge<T, U>) throws -> [String: T?] {
+	public func decode<T, U>(_ json: Data, usingElementBridge elementBridge: Bridge<T, U>) throws -> [String: T?] {
 		return try decode(JSON(data: json), usingElementBridge: elementBridge, validator: nil)
 	}
 
@@ -346,7 +346,7 @@ extension Rosetta {
 
 //MARK: Dictionary encoding
 extension Rosetta {
-	private func encode<T, U>(_ obj: [String: T], usingElementBridge elementBridge: _Bridge<T, U>, validator: (([String: T]) -> Bool)?) throws -> JSON {
+	private func encode<T, U>(_ obj: [String: T], usingElementBridge elementBridge: Bridge<T, U>, validator: (([String: T]) -> Bool)?) throws -> JSON {
 		let proxy = FakeProxy<T>()
 		var objects: [String: T] = obj
 		let json = try encode(proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {
@@ -360,7 +360,7 @@ extension Rosetta {
 		return JSON(dictionary: jsonDictionary)
 	}
 
-	private func encode<T, U>(_ obj: [String: T?], usingElementBridge elementBridge: _Bridge<T, U>, validator: (([String: T?]) -> Bool)?) throws -> JSON {
+	private func encode<T, U>(_ obj: [String: T?], usingElementBridge elementBridge: Bridge<T, U>, validator: (([String: T?]) -> Bool)?) throws -> JSON {
 		let proxy = FakeProxy<T>()
 		var objects: [String: T?] = obj
 		let json = try encode(proxy, usingMap: Map<FakeProxy<T>>.valueTypeMap {

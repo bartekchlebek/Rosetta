@@ -112,88 +112,88 @@ extension UInt64 {
 	}
 }
 
-public let BoolBridge: _Bridge<Bool, NSNumber> = _BridgeNumber<Bool>(
+public let BoolBridge: Bridge<Bool, NSNumber> = BridgeNumber<Bool>(
 	decoder: { .success($0 as Bool)},
 	encoder: { .success($0) }
 )
 
-public let IntBridge: _Bridge<Int, NSNumber> = _BridgeNumber<Int>(
+public let IntBridge: Bridge<Int, NSNumber> = BridgeNumber<Int>(
 	decoder: { Int(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success($0) }
 )
 
-public let UIntBridge: _Bridge<UInt, NSNumber> = _BridgeNumber<UInt>(
+public let UIntBridge: Bridge<UInt, NSNumber> = BridgeNumber<UInt>(
 	decoder: { UInt(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success($0) }
 )
 
-public let FloatBridge: _Bridge<Float, NSNumber> = _BridgeNumber<Float>(
+public let FloatBridge: Bridge<Float, NSNumber> = BridgeNumber<Float>(
 	decoder: { .success($0 as Float) },
 	encoder: { .success($0) }
 )
 
-public let DoubleBridge: _Bridge<Double, NSNumber> = _BridgeNumber<Double>(
+public let DoubleBridge: Bridge<Double, NSNumber> = BridgeNumber<Double>(
 	decoder: { .success($0 as Double) },
 	encoder: { .success($0) }
 )
 
-public let StringBridge: _Bridge<String, NSString> = _BridgeString<String>(
+public let StringBridge: Bridge<String, NSString> = BridgeString<String>(
 	decoder: { .success($0 as String) },
 	encoder: { .success($0) }
 )
 
-public let Int8Bridge: _Bridge<Int8, NSNumber> = _BridgeNumber<Int8>(
+public let Int8Bridge: Bridge<Int8, NSNumber> = BridgeNumber<Int8>(
 	decoder: { Int8(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success(NSNumber(value: $0)) }
 )
 
-public let Int16Bridge: _Bridge<Int16, NSNumber> = _BridgeNumber<Int16>(
+public let Int16Bridge: Bridge<Int16, NSNumber> = BridgeNumber<Int16>(
 	decoder: { Int16(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success(NSNumber(value: $0)) }
 )
 
-public let Int32Bridge: _Bridge<Int32, NSNumber> = _BridgeNumber<Int32>(
+public let Int32Bridge: Bridge<Int32, NSNumber> = BridgeNumber<Int32>(
 	decoder: { Int32(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success(NSNumber(value: $0)) }
 )
 
-public let Int64Bridge: _Bridge<Int64, NSNumber> = _BridgeNumber<Int64>(
+public let Int64Bridge: Bridge<Int64, NSNumber> = BridgeNumber<Int64>(
 	decoder: { Int64(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success(NSNumber(value: $0)) }
 )
 
-public let UInt8Bridge: _Bridge<UInt8, NSNumber> = _BridgeNumber<UInt8>(
+public let UInt8Bridge: Bridge<UInt8, NSNumber> = BridgeNumber<UInt8>(
 	decoder: { UInt8(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success(NSNumber(value: $0)) }
 )
 
-public let UInt16Bridge: _Bridge<UInt16, NSNumber> = _BridgeNumber<UInt16>(
+public let UInt16Bridge: Bridge<UInt16, NSNumber> = BridgeNumber<UInt16>(
 	decoder: { UInt16(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success(NSNumber(value: $0)) }
 )
 
-public let UInt32Bridge: _Bridge<UInt32, NSNumber> = _BridgeNumber<UInt32>(
+public let UInt32Bridge: Bridge<UInt32, NSNumber> = BridgeNumber<UInt32>(
 	decoder: { UInt32(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success(NSNumber(value: $0)) }
 )
 
-public let UInt64Bridge: _Bridge<UInt64, NSNumber> = _BridgeNumber<UInt64>(
+public let UInt64Bridge: Bridge<UInt64, NSNumber> = BridgeNumber<UInt64>(
 	decoder: { UInt64(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
 	encoder: { .success(NSNumber(value: $0)) }
 )
 
-public let NSStringBridge: _Bridge<NSString, NSString> = _BridgeString<NSString>(decoder: { .success($0) }, encoder: { .success($0) })
+public let NSStringBridge: Bridge<NSString, NSString> = BridgeString<NSString>(decoder: { .success($0) }, encoder: { .success($0) })
 
-public let NSMutableStringBridge: _Bridge<NSMutableString, NSString> = _BridgeString<NSMutableString>(
+public let NSMutableStringBridge: Bridge<NSMutableString, NSString> = BridgeString<NSMutableString>(
 	decoder: { .success(NSMutableString(string: $0 as String)) },
 	encoder: { .success($0) }
 )
 
-public let NSNumberBridge: _Bridge<NSNumber, NSNumber> = _BridgeNumber<NSNumber>(decoder: { .success($0) }, encoder: { .success($0) })
+public let NSNumberBridge: Bridge<NSNumber, NSNumber> = BridgeNumber<NSNumber>(decoder: { .success($0) }, encoder: { .success($0) })
 
 //MARK: Bridge between a JSONConvertible and an object JSON type
 
-public func JSONConvertibleBridge<T: JSONConvertible>() -> _Bridge<T, NSDictionary> {
+public func JSONConvertibleBridge<T: JSONConvertible>() -> Bridge<T, NSDictionary> {
 	return _UnsafeBridgeDictionary<T>(
 		decoder: {
 			guard let dictionary = $0 as? [String: AnyObject] else { return .unexpectedValue }
@@ -211,7 +211,7 @@ public func JSONConvertibleBridge<T: JSONConvertible>() -> _Bridge<T, NSDictiona
 
 //MARK: Bridge between a JSONConvertibleClass and an object JSON type
 
-public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> _Bridge<T, NSDictionary> {
+public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> Bridge<T, NSDictionary> {
 	return _UnsafeBridgeDictionary<T>(
 		decoder: {
 			guard let dictionary = $0 as? [String: AnyObject] else { return .unexpectedValue }
@@ -228,7 +228,7 @@ public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> _Bridge<T, 
 
 //MARK: Bridges for common conversions
 
-public let NSURLBridge: _Bridge<URL, NSString> = _BridgeString<URL>(
+public let NSURLBridge: Bridge<URL, NSString> = BridgeString<URL>(
 	decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue },
 	encoder: { $0.absoluteString.map { .success($0) } ?? .error }
 )
