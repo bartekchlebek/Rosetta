@@ -230,7 +230,7 @@ public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> Bridge<T, N
 
 public let NSURLBridge: Bridge<URL, NSString> = BridgeString<URL>(
 	decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue },
-	encoder: { $0.absoluteString.map { .success($0) } ?? .error }
+	encoder: { .success($0.absoluteString) }
 )
 
 //MARK: Helpers

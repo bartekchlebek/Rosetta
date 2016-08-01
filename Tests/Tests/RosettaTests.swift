@@ -456,7 +456,7 @@ struct User3: JSONConvertible {
 		// Types not conforming to Bridgeable protocol (like NSURL here) need to have bridging code after ~ operator
 		object.website  <~ json["website_url"] ~ BridgeString<URL>(
 			decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
-			encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
+			encoder: { .success($0.absoluteString) } // convert NSURL from Person to NSString for JSON
 		)
 		object.friends  <~ json["friends"] // Automaticaly mapped arrays
 		object.family   <~ json["family"] // Automaticaly mapped dictionaries
@@ -521,13 +521,13 @@ struct YourCustomType: JSONConvertible {
         object.value2 <~ json["value3"]
 			object.value4 <~ json["value4"] ~ BridgeString<URL>(
 				decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
-				encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
+				encoder: { .success($0.absoluteString) } // convert NSURL from Person to NSString for JSON
 			)
 
         // Bridging placed in a constant just to reuse
 			let urlBridge = BridgeString<URL>(
 				decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
-				encoder: { $0.absoluteString.map { .success($0) } ?? .error } // convert NSURL from Person to NSString for JSON
+				encoder: { .success($0.absoluteString) } // convert NSURL from Person to NSString for JSON
 			)
 
         object.requiredValue1 <- json["required1"]
@@ -553,7 +553,7 @@ struct YourCustomType: JSONConvertible {
 
 func complexJSON() -> Data {
   let bundle = Bundle(for: RosettaTests.classForCoder())
-  let url = bundle.urlForResource("complex JSON", withExtension: "json")
+  let url = bundle.url(forResource: "complex JSON", withExtension: "json")
   return (try! Data(contentsOf: url!))
 }
 
@@ -862,7 +862,7 @@ class RosettaTests: XCTestCase {
   
   func complexKeyPathJSON() -> Data {
     let bundle = Bundle(for: RosettaTests.classForCoder())
-    let url = bundle.urlForResource("complex keyPath JSON", withExtension: "json")
+    let url = bundle.url(forResource: "complex keyPath JSON", withExtension: "json")
     return (try! Data(contentsOf: url!))
   }
   

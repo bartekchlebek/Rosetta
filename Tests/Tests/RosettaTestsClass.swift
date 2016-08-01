@@ -763,7 +763,7 @@ class RosettaClassTests: XCTestCase {
   
   func complexKeyPathJSON() -> Data {
     let bundle = Bundle(for: RosettaClassTests.classForCoder())
-    let url = bundle.urlForResource("complex keyPath JSON", withExtension: "json")
+    let url = bundle.url(forResource: "complex keyPath JSON", withExtension: "json")
     return (try! Data(contentsOf: url!))
   }
   
