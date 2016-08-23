@@ -459,13 +459,13 @@ class RosettaClassTests: XCTestCase {
   }
   
   func testSimpleDecoder() {
-    let object = try? Rosetta().decode(dataFrom(["name": "Bob"])) as TestType1
+		let object = try? Rosetta().decode(dataFrom(["name": "Bob"] as [String: NSString])) as TestType1
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
   
   func testSimpleDecoderWithUnwrappedOptional() {
-    let object = try? Rosetta().decode(dataFrom(["name": "Bob"])) as TestType2
+    let object = try? Rosetta().decode(dataFrom(["name": "Bob"] as [String: NSString])) as TestType2
     XCTAssertTrue(object != nil, "object should exist")
     XCTAssertEqual(object!.name, "Bob")
   }
@@ -525,13 +525,13 @@ class RosettaClassTests: XCTestCase {
   }
   
   func testFailingDecoder() {
-    let object = try? Rosetta().decode(dataFrom(["name": 11])) as TestType4
+    let object = try? Rosetta().decode(dataFrom(["name": 11] as [String: NSNumber])) as TestType4
     XCTAssertTrue(object == nil, "object should not exist")
   }
   
   func testFailingDecoderWithError() {
     
-    let object = try? Rosetta().decode(dataFrom(["name": 11])) as TestType5
+    let object = try? Rosetta().decode(dataFrom(["name": 11] as [String: NSNumber])) as TestType5
     XCTAssertTrue(object == nil, "object should not exist")
   }
   

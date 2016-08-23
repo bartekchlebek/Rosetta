@@ -113,33 +113,33 @@ extension UInt64 {
 }
 
 public let BoolBridge: Bridge<Bool, NSNumber> = BridgeNumber<Bool>(
-	decoder: { .success($0 as Bool)},
-	encoder: { .success($0) }
+	decoder: { .success($0.boolValue)},
+	encoder: { .success(NSNumber(value: $0)) }
 )
 
 public let IntBridge: Bridge<Int, NSNumber> = BridgeNumber<Int>(
 	decoder: { Int(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
-	encoder: { .success($0) }
+	encoder: { .success(NSNumber(value: $0)) }
 )
 
 public let UIntBridge: Bridge<UInt, NSNumber> = BridgeNumber<UInt>(
 	decoder: { UInt(nsnumber: $0).map { .success($0) } ?? .unexpectedValue },
-	encoder: { .success($0) }
+	encoder: { .success(NSNumber(value: $0)) }
 )
 
 public let FloatBridge: Bridge<Float, NSNumber> = BridgeNumber<Float>(
-	decoder: { .success($0 as Float) },
-	encoder: { .success($0) }
+	decoder: { .success($0.floatValue) },
+	encoder: { .success(NSNumber(value: $0)) }
 )
 
 public let DoubleBridge: Bridge<Double, NSNumber> = BridgeNumber<Double>(
-	decoder: { .success($0 as Double) },
-	encoder: { .success($0) }
+	decoder: { .success($0.doubleValue) },
+	encoder: { .success(NSNumber(value: $0)) }
 )
 
 public let StringBridge: Bridge<String, NSString> = BridgeString<String>(
 	decoder: { .success($0 as String) },
-	encoder: { .success($0) }
+	encoder: { .success($0 as NSString) }
 )
 
 public let Int8Bridge: Bridge<Int8, NSNumber> = BridgeNumber<Int8>(
@@ -204,7 +204,7 @@ public func JSONConvertibleBridge<T: JSONConvertible>() -> Bridge<T, NSDictionar
 		encoder: {
 			guard let json: JSON = try? Rosetta().encode($0) else { return .error }
 			guard let dictionary = json.dictionary else { return .error }
-			return .success(dictionary)
+			return .success(NSDictionary(dictionary: dictionary))
 		}
 	)
 }
@@ -221,7 +221,7 @@ public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> Bridge<T, N
 		encoder: {
 			guard let json: JSON = try? Rosetta().encode($0) else { return .error }
 			guard let dictionary = json.dictionary else { return .error }
-			return .success(dictionary)
+			return .success(NSDictionary(dictionary: dictionary))
 		}
 	)
 }
@@ -230,7 +230,7 @@ public func JSONConvertibleClassBridge<T: JSONConvertibleClass>() -> Bridge<T, N
 
 public let NSURLBridge: Bridge<URL, NSString> = BridgeString<URL>(
 	decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue },
-	encoder: { .success($0.absoluteString) }
+	encoder: { .success($0.absoluteString as NSString) }
 )
 
 //MARK: Helpers

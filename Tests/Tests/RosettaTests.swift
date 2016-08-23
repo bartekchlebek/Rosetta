@@ -14,6 +14,14 @@ func dataFrom(_ json: [String]) -> Data {
 	return try! JSONSerialization.data(withJSONObject: json, options: [])
 }
 
+func dataFrom(_ json: NSDictionary) -> Data {
+	return try! JSONSerialization.data(withJSONObject: json, options: [])
+}
+
+func dataFrom(_ json: NSArray) -> Data {
+	return try! JSONSerialization.data(withJSONObject: json, options: [])
+}
+
 func ==(lhs: SubObject, rhs: SubObject) -> Bool {
   return lhs.a1 == rhs.a1
 }
@@ -456,7 +464,7 @@ struct User3: JSONConvertible {
 		// Types not conforming to Bridgeable protocol (like NSURL here) need to have bridging code after ~ operator
 		object.website  <~ json["website_url"] ~ BridgeString<URL>(
 			decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
-			encoder: { .success($0.absoluteString) } // convert NSURL from Person to NSString for JSON
+			encoder: { .success($0.absoluteString as NSString) } // convert NSURL from Person to NSString for JSON
 		)
 		object.friends  <~ json["friends"] // Automaticaly mapped arrays
 		object.family   <~ json["family"] // Automaticaly mapped dictionaries
@@ -481,7 +489,7 @@ enum CustomBridgeableType: Int, Bridgeable {
 	static func bridge() -> Bridge<CustomBridgeableType, NSNumber> {
 		return BridgeNumber<CustomBridgeableType>(
 			decoder: { CustomBridgeableType(rawValue: $0.intValue).map { .success($0) } ?? .unexpectedValue },
-			encoder: { .success($0.rawValue) }
+			encoder: { .success($0.rawValue as NSNumber) }
 		)
 	}
 }
@@ -521,13 +529,13 @@ struct YourCustomType: JSONConvertible {
         object.value2 <~ json["value3"]
 			object.value4 <~ json["value4"] ~ BridgeString<URL>(
 				decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
-				encoder: { .success($0.absoluteString) } // convert NSURL from Person to NSString for JSON
+				encoder: { .success($0.absoluteString as NSString) } // convert NSURL from Person to NSString for JSON
 			)
 
         // Bridging placed in a constant just to reuse
 			let urlBridge = BridgeString<URL>(
 				decoder: { URL(string: $0 as String).map { .success($0) } ?? .unexpectedValue }, // convert NSString from json to NSURL
-				encoder: { .success($0.absoluteString) } // convert NSURL from Person to NSString for JSON
+				encoder: { .success($0.absoluteString as NSString) } // convert NSURL from Person to NSString for JSON
 			)
 
         object.requiredValue1 <- json["required1"]
@@ -536,7 +544,7 @@ struct YourCustomType: JSONConvertible {
 
         object.validatedValue1 <~ json["validated1"] § {$0.hasPrefix("requiredPrefix")}
         object.validatedValue2 <~ json["validated2"] § {$0 == .one || $0 == .three}
-        object.validatedValue3 <~ json["validated3"] § {$0.someValue > 10.0}
+        object.validatedValue3 <~ json["validated3"] § {$0.someValue! > 10.0}
         object.validatedValue4 <~ json["validated4"] ~ urlBridge § {$0.scheme == "https"}
 
         object.array1 <~ json["array1"]

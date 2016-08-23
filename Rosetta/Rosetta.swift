@@ -92,11 +92,11 @@ public final class Rosetta {
 			break
 		case .errors:
 			if success == false {
-				logHandler(logString: logFormatter(json: nil, logs: logs))
+				logHandler(logFormatter(nil, logs))
 			}
 		case .verbose:
 			if logs.count > 0 {
-				logHandler(logString: logFormatter(json: nil, logs: logs))
+				logHandler(logFormatter(nil, logs))
 			}
 		}
 

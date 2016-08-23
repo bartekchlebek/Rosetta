@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias LogFormatter = (json: CustomStringConvertible?, logs: [Log]) -> String
+public typealias LogFormatter = (_ json: CustomStringConvertible?, _ logs: [Log]) -> String
 let defaultLogFormatter: LogFormatter = { json, logs in
 	var string = "Rosetta"
 	string += "JSON : \(json)"

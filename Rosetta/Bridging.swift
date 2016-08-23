@@ -12,13 +12,13 @@ public enum EncodeResult<T> {
 }
 
 public class Bridge<T, U: NSObject> {
-	public typealias Decoder = (U) -> DecodeResult<T>
-	public typealias Encoder = (T) -> EncodeResult<U>
+	public typealias Decoder = @escaping (U) -> DecodeResult<T>
+	public typealias Encoder = @escaping (T) -> EncodeResult<U>
 
-	private let decoder: Decoder
-	private let encoder: Encoder
+	fileprivate let decoder: Decoder
+	fileprivate let encoder: Encoder
 
-	private init(decoder: Decoder, encoder: Encoder) {
+	fileprivate init(decoder: Decoder, encoder: Encoder) {
 		self.decoder = decoder
 		self.encoder = encoder
 	}
@@ -39,31 +39,36 @@ public class Bridge<T, U: NSObject> {
 }
 
 public final class BridgeString<T>: Bridge<T, NSString> {
-	public override init(decoder: (NSString) -> DecodeResult<T>, encoder: (T) -> EncodeResult<NSString>) {
+	public override init(decoder: @escaping (NSString) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSString>) {
 		super.init(decoder: decoder, encoder: encoder)
 	}
 }
 
 public final class BridgeBoolean<T>: Bridge<T, NSNumber> {
-	public override init(decoder: (NSNumber) -> DecodeResult<T>, encoder: (T) -> EncodeResult<NSNumber>) {
+	public override init(decoder: @escaping (NSNumber) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSNumber>) {
 		super.init(decoder: decoder, encoder: encoder)
 	}
 }
 
 public final class BridgeNumber<T>: Bridge<T, NSNumber> {
-	public override init(decoder: (NSNumber) -> DecodeResult<T>, encoder: (T) -> EncodeResult<NSNumber>) {
+	public override init(decoder: @escaping (NSNumber) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSNumber>) {
 		super.init(decoder: decoder, encoder: encoder)
 	}
 }
 
 public final class _UnsafeBridgeDictionary<T>: Bridge<T, NSDictionary> {
-	public override init(decoder: (NSDictionary) -> DecodeResult<T>, encoder: (T) -> EncodeResult<NSDictionary>) {
+	public override init(decoder: @escaping (NSDictionary) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSDictionary>) {
 		super.init(decoder: decoder, encoder: encoder)
 	}
 }
 //public class _UnsafeBridgeDictionary<T, [String: AnyObject]>: Bridge<T, [String: AnyObject]> { }
 public final class _UnsafeBridgeArray<T>: Bridge<T, NSArray> {
-	public override init(decoder: (NSArray) -> DecodeResult<T>, encoder: (T) -> EncodeResult<NSArray>) {
+	public override init(decoder: @escaping (NSArray) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSArray>) {
 		super.init(decoder: decoder, encoder: encoder)
 	}
 }
@@ -105,7 +110,7 @@ public func BridgeObject<T, U>(_ valueBridge: Bridge<T, U>) -> Bridge<[String: T
 				case .success(let value): buffer[key] = value
 				}
 			}
-			return .success(buffer)
+			return .success(NSDictionary(dictionary: buffer))
 		}
 	)
 }
@@ -142,7 +147,7 @@ public func BridgeObject<T, U>(_ valueBridge: Bridge<T, U>) -> Bridge<[String: T
 				case .success(let value): buffer[key] = value
 				}
 			}
-			return .success(buffer)
+			return .success(NSDictionary(dictionary: buffer))
 		}
 	)
 }
@@ -181,7 +186,7 @@ public func BridgeArray<T, U>(_ itemBridge: Bridge<T, U>) -> Bridge<[T?], NSArra
 				}
 			}
 
-			return .success(buffer)
+			return .success(NSArray(array: buffer))
 		}
 	)
 }
@@ -215,7 +220,7 @@ public func BridgeArray<T, U>(_ itemBridge: Bridge<T, U>) -> Bridge<[T], NSArray
 				}
 			}
 
-			return .success(buffer)
+			return .success(NSArray(array: buffer))
 		}
 	)
 }

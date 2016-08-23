@@ -2,7 +2,7 @@ import Foundation
 
 func valueForKeyPath(_ keyPath: [String], inDictionary dictionary: [String: AnyObject]) -> AnyObject? {
 	if keyPath.count == 0 {
-		return dictionary
+		return dictionary as AnyObject
 	}
 	else {
 		var branch = dictionary
@@ -39,10 +39,10 @@ func dictionaryBySettingValue(
 			var keyPath = keyPath
 			keyPath.remove(at: 0)
 			if let subdict = dictionary[firstKey] as? [String: AnyObject] {
-				dictionary[firstKey] = dictionaryBySettingValue(value, forKeyPath: keyPath, inDictionary: subdict)
+				dictionary[firstKey] = dictionaryBySettingValue(value, forKeyPath: keyPath, inDictionary: subdict) as AnyObject
 			}
 			else {
-				dictionary[firstKey] = dictionaryBySettingValue(value, forKeyPath: keyPath, inDictionary: [:])
+				dictionary[firstKey] = dictionaryBySettingValue(value, forKeyPath: keyPath, inDictionary: [:]) as AnyObject
 			}
 			return dictionary
 		}

@@ -449,29 +449,29 @@ extension Rosetta {
 
 //MARK: Value types decoding
 extension Rosetta {
-	func decode<T>(_ json: JSON, to object: inout T, usingMap map: (inout T, Rosetta) -> ()) throws {
+	func decode<T>(_ json: JSON, to object: inout T, usingMap map: @escaping (inout T, Rosetta) -> ()) throws {
 		return try decode(json, to: &object, usingMap: .valueTypeMap(map))
 	}
 
-	public func decode<T>(_ json: Data, to object: inout T, usingMap map: (inout T, Rosetta) -> ()) throws {
+	public func decode<T>(_ json: Data, to object: inout T, usingMap map: @escaping (inout T, Rosetta) -> ()) throws {
 		return try decode(JSON(data: json), to: &object, usingMap: map)
 	}
 
-	public func decode<T>(_ json: String, to object: inout T, usingMap map: (inout T, Rosetta) -> ()) throws {
+	public func decode<T>(_ json: String, to object: inout T, usingMap map: @escaping (inout T, Rosetta) -> ()) throws {
 		return try decode(JSON(string: json), to: &object, usingMap: map)
 	}
 
-	func decode<T: Creatable>(_ json: JSON, usingMap map: (inout T, Rosetta) -> ()) throws -> T {
+	func decode<T: Creatable>(_ json: JSON, usingMap map: @escaping (inout T, Rosetta) -> ()) throws -> T {
 		var object = T()
 		try decode(json, to: &object, usingMap: .valueTypeMap(map))
 		return object
 	}
 
-	public func decode<T: Creatable>(_ json: Data, usingMap map: (inout T, Rosetta) -> ()) throws -> T {
+	public func decode<T: Creatable>(_ json: Data, usingMap map: @escaping (inout T, Rosetta) -> ()) throws -> T {
 		return try decode(JSON(data: json), usingMap: map)
 	}
 
-	public func decode<T: Creatable>(_ json: String, usingMap map: (inout T, Rosetta) -> ()) throws -> T {
+	public func decode<T: Creatable>(_ json: String, usingMap map: @escaping (inout T, Rosetta) -> ()) throws -> T {
 		return try decode(JSON(string: json), usingMap: map)
 	}
 
@@ -504,11 +504,11 @@ extension Rosetta {
 
 //MARK: Value types encoding
 extension Rosetta {
-	func encode<T>(_ obj: T, usingMap map: (inout T, Rosetta) -> ()) throws -> JSON {
+	func encode<T>(_ obj: T, usingMap map: @escaping (inout T, Rosetta) -> ()) throws -> JSON {
 		return try encode(obj, usingMap: .valueTypeMap(map))
 	}
 
-	public func encode<T>(_ obj: T, usingMap map: (inout T, Rosetta) -> ()) throws -> Data {
+	public func encode<T>(_ obj: T, usingMap map: @escaping (inout T, Rosetta) -> ()) throws -> Data {
 		let json: JSON = try encode(obj, usingMap: map)
 		guard let data = json.data else {
 			throw genericError // TODO: Add json parsing error
@@ -516,7 +516,7 @@ extension Rosetta {
 		return data as Data
 	}
 
-	public func encode<T>(_ obj: T, usingMap map: (inout T, Rosetta) -> ()) throws -> String {
+	public func encode<T>(_ obj: T, usingMap map: @escaping (inout T, Rosetta) -> ()) throws -> String {
 		let json: JSON = try encode(obj, usingMap: map)
 		guard let string = json.string else {
 			throw genericError // TODO: Add json parsing error
@@ -547,29 +547,29 @@ extension Rosetta {
 
 //MARK: Class types decoding
 extension Rosetta {
-	func decode<T>(_ json: JSON, to object: inout T, usingMap map: (T, Rosetta) -> ()) throws {
+	func decode<T>(_ json: JSON, to object: inout T, usingMap map: @escaping (T, Rosetta) -> ()) throws {
 		return try decode(json, to: &object, usingMap: .classTypeMap(map))
 	}
 
-	public func decode<T>(_ json: Data, to object: inout T, usingMap map: (T, Rosetta) -> ()) throws {
+	public func decode<T>(_ json: Data, to object: inout T, usingMap map: @escaping (T, Rosetta) -> ()) throws {
 		return try decode(JSON(data: json), to: &object, usingMap: map)
 	}
 
-	public func decode<T>(_ json: String, to object: inout T, usingMap map: (T, Rosetta) -> ()) throws {
+	public func decode<T>(_ json: String, to object: inout T, usingMap map: @escaping (T, Rosetta) -> ()) throws {
 		return try decode(JSON(string: json), to: &object, usingMap: map)
 	}
 
-	func decode<T: Creatable>(_ json: JSON, usingMap map: (T, Rosetta) -> ()) throws -> T {
+	func decode<T: Creatable>(_ json: JSON, usingMap map: @escaping (T, Rosetta) -> ()) throws -> T {
 		var object = T()
 		try decode(json, to: &object, usingMap: map)
 		return object
 	}
 
-	public func decode<T: Creatable>(_ json: Data, usingMap map: (T, Rosetta) -> ()) throws -> T {
+	public func decode<T: Creatable>(_ json: Data, usingMap map: @escaping (T, Rosetta) -> ()) throws -> T {
 		return try decode(JSON(data: json), usingMap: map)
 	}
 
-	public func decode<T: Creatable>(_ json: String, usingMap map: (T, Rosetta) -> ()) throws -> T {
+	public func decode<T: Creatable>(_ json: String, usingMap map: @escaping (T, Rosetta) -> ()) throws -> T {
 		return try decode(JSON(string: json), usingMap: map)
 	}
 
@@ -602,11 +602,11 @@ extension Rosetta {
 
 //MARK: Class types encoding
 extension Rosetta {
-	func encode<T>(_ obj: T, usingMap map: (T, Rosetta) -> ()) throws -> JSON {
+	func encode<T>(_ obj: T, usingMap map: @escaping (T, Rosetta) -> ()) throws -> JSON {
 		return try self.encode(obj, usingMap: .classTypeMap(map))
 	}
 
-	public func encode<T>(_ obj: T, usingMap map: (T, Rosetta) -> ()) throws -> Data {
+	public func encode<T>(_ obj: T, usingMap map: @escaping (T, Rosetta) -> ()) throws -> Data {
 		let json: JSON = try self.encode(obj, usingMap: map)
 		guard let data = json.data else {
 			throw genericError // TODO: Add json parsing error
@@ -614,7 +614,7 @@ extension Rosetta {
 		return data as Data
 	}
 
-	public func encode<T>(_ obj: T, usingMap map: (T, Rosetta) -> ()) throws -> String {
+	public func encode<T>(_ obj: T, usingMap map: @escaping (T, Rosetta) -> ()) throws -> String {
 		let json: JSON = try self.encode(obj, usingMap: map)
 		guard let string = json.string else {
 			throw genericError // TODO: Add json parsing error

@@ -2,13 +2,29 @@ import Foundation
 
 //MARK: Main operators
 
-infix operator <- {
-precedence 130
+precedencegroup AssignmentPrecedense {
+	associativity: left
 }
 
-infix operator <~ {
-precedence 130
+precedencegroup BridgingPrecedence {
+	associativity: left
+	higherThan: AssignmentPrecedense
 }
+
+precedencegroup ValidationPrecedense {
+	associativity: left
+	higherThan: BridgingPrecedence
+}
+
+infix operator <- : AssignmentPrecedense
+
+infix operator <~ : AssignmentPrecedense
+
+infix operator § : BridgingPrecedence
+
+infix operator ~ : BridgingPrecedence
+
+//MARK:-
 
 public func <-<T, U>(left: inout T, right: (Rosetta, Bridge<T, U>, ((T) -> Bool)?)) {
 	switch right.0.currentMode! {
@@ -282,19 +298,11 @@ public func <~<T: JSONConvertibleClass>(left: inout T?, right: Rosetta) {
 
 //MARK: Bridging operator
 
-infix operator ~{
-precedence 140
-}
-
 public func ~<T, U>(left: Rosetta, right: Bridge<T, U>) -> (Rosetta, Bridge<T, U>) {
 	return (left, right)
 }
 
 //MARK: Validation operator
-
-infix operator §{
-precedence 135
-}
 
 public func §<T, U>(lhs: (Rosetta, Bridge<T, U>), rhs: ((T) -> Bool)?) -> (Rosetta, Bridge<T, U>, ((T) -> Bool)?) {
 	return (lhs.0, lhs.1, rhs)
