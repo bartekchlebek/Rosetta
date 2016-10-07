@@ -1,120 +1,226 @@
 import Foundation
 
-public class Bridge<DecodedType, JSONType: AnyObject> {
-	public typealias Decoder = (JSONType) -> (DecodedType?)
-	public typealias Encoder = (DecodedType) -> (JSONType?)
+public enum DecodeResult<T> {
+	case success(T)
+	case unexpectedValue
+	case null
+}
 
-	let decoder: Decoder
-	let encoder: Encoder
+public enum EncodeResult<T> {
+	case success(T)
+	case error
+}
 
-	private init(decoder: Decoder, encoder: Encoder) {
+public class Bridge<T, U: NSObject> {
+	public typealias Decoder = (U) -> DecodeResult<T>
+	public typealias Encoder = (T) -> EncodeResult<U>
+
+	fileprivate let decoder: Decoder
+	fileprivate let encoder: Encoder
+
+	fileprivate init(decoder: @escaping Decoder, encoder: @escaping Encoder) {
 		self.decoder = decoder
 		self.encoder = encoder
 	}
+
+	public func decode(jsonValue: Any) -> DecodeResult<T> {
+		if jsonValue is NSNull { return .null }
+		guard let castedJSONValue = jsonValue as? U else { return .unexpectedValue	}
+		return self.decode(jsonValue: castedJSONValue)
+	}
+
+	public func decode(jsonValue: U) -> DecodeResult<T> {
+		return self.decoder(jsonValue)
+	}
+
+	public func encode(value: T) -> EncodeResult<U> {
+		return self.encoder(value)
+	}
 }
 
-public func BridgeString<T>(
-	decoder decoder: Bridge<T, NSString>.Decoder,
-	encoder: Bridge<T, NSString>.Encoder
-	) -> Bridge<T, NSString> {
-
-		return Bridge<T, NSString>(decoder: decoder, encoder: encoder)
+public final class BridgeString<T>: Bridge<T, NSString> {
+	public override init(decoder: @escaping (NSString) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSString>) {
+		super.init(decoder: decoder, encoder: encoder)
+	}
 }
 
-public func BridgeBoolean<T>(
-	decoder decoder: Bridge<T, NSNumber>.Decoder,
-	encoder: Bridge<T, NSNumber>.Encoder
-	) -> Bridge<T, NSNumber> {
-
-		return Bridge<T, NSNumber>(decoder: decoder, encoder: encoder)
+public final class BridgeBoolean<T>: Bridge<T, NSNumber> {
+	public override init(decoder: @escaping (NSNumber) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSNumber>) {
+		super.init(decoder: decoder, encoder: encoder)
+	}
 }
 
-public func BridgeNumber<T>(
-	decoder decoder: Bridge<T, NSNumber>.Decoder,
-	encoder: Bridge<T, NSNumber>.Encoder
-	) -> Bridge<T, NSNumber> {
-
-		return Bridge<T, NSNumber>(decoder: decoder, encoder: encoder)
+public final class BridgeNumber<T>: Bridge<T, NSNumber> {
+	public override init(decoder: @escaping (NSNumber) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSNumber>) {
+		super.init(decoder: decoder, encoder: encoder)
+	}
 }
 
-public func UnsafeBridgeObject<T>(
-	decoder decoder: Bridge<T, NSDictionary>.Decoder,
-	encoder: Bridge<T, NSDictionary>.Encoder
-	) -> Bridge<T, NSDictionary> {
-
-		return Bridge<T, NSDictionary>(decoder: decoder, encoder: encoder)
+public final class _UnsafeBridgeDictionary<T>: Bridge<T, NSDictionary> {
+	public override init(decoder: @escaping (NSDictionary) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSDictionary>) {
+		super.init(decoder: decoder, encoder: encoder)
+	}
 }
-
-public func UnsafeBridgeArray<T>(
-	decoder decoder: Bridge<T, NSArray>.Decoder,
-	encoder: Bridge<T, NSArray>.Encoder
-	) -> Bridge<T, NSArray> {
-
-		return Bridge<T, NSArray>(decoder: decoder, encoder: encoder)
+//public class _UnsafeBridgeDictionary<T, [String: AnyObject]>: Bridge<T, [String: AnyObject]> { }
+public final class _UnsafeBridgeArray<T>: Bridge<T, NSArray> {
+	public override init(decoder: @escaping (NSArray) -> DecodeResult<T>,
+	                     encoder: @escaping (T) -> EncodeResult<NSArray>) {
+		super.init(decoder: decoder, encoder: encoder)
+	}
 }
+//public class _UnsafeBridgeArray<T, [AnyObject]>: Bridge<T, [AnyObject]> { }
 
-public func BridgeObject<T, U>(valueBridge: Bridge<T, U>) -> Bridge<[String: T], NSDictionary> {
-	return UnsafeBridgeObject(
-		decoder: {dictionary in
-			if let dictionary = dictionary as? [String: U] {
-				var buffer = [String: T]()
-				for (key, jsonValue) in dictionary {
-					let decodedValue = valueBridge.decoder(jsonValue)
-					if let decodedValue = decodedValue {
-						buffer[key] = decodedValue
-					}
-					else {
-						return nil
-					}
-				}
-				return buffer
-			}
-			return nil
-		},
-		encoder: {dictionary in
-			var buffer = [String: AnyObject]()
+public func BridgeObject<T, U>(_ valueBridge: Bridge<T, U>) -> Bridge<[String: T?], NSDictionary> {
+	return _UnsafeBridgeDictionary<[String: T?]>(
+		decoder: { (dictionary) -> DecodeResult<[String : T?]> in
+
+			var buffer: [String: T?] = [:]
+
 			for (key, value) in dictionary {
-				if let x = valueBridge.encoder(value) {
-					buffer[key] = x
-				}
-				else {
-					return nil
+
+				guard let stringKey = key as? String else { return .unexpectedValue }
+				let bridgeResult = valueBridge.decode(jsonValue: value)
+
+				switch bridgeResult {
+				case .null: buffer.updateValue(.none, forKey: stringKey)
+				case .unexpectedValue: return .unexpectedValue
+				case .success(let value): buffer[stringKey] = value
 				}
 			}
-			return buffer
+
+			return .success(buffer)
+		},
+		encoder: { (dictionary) -> EncodeResult<NSDictionary> in
+
+			var buffer = [String: AnyObject]()
+
+			for (key, value) in dictionary {
+				guard let value = value else {
+					buffer[key] = NSNull()
+					continue
+				}
+
+				let bridgeResult = valueBridge.encoder(value)
+				switch bridgeResult {
+				case .error: return .error
+				case .success(let value): buffer[key] = value
+				}
+			}
+			return .success(NSDictionary(dictionary: buffer))
 		}
 	)
 }
 
-public func BridgeArray<T, U>(itemBridge: Bridge<T, U>) -> Bridge<[T], NSArray> {
-	return UnsafeBridgeArray(
-		decoder: {array in
-			if let array = array as? [U] {
-				var buffer = [T]()
-				for jsonValue in array {
-					let decodedValue = itemBridge.decoder(jsonValue)
-					if let decodedValue = decodedValue {
-						buffer.append(decodedValue)
-					}
-					else {
-						return nil
-					}
+public func BridgeObject<T, U>(_ valueBridge: Bridge<T, U>) -> Bridge<[String: T], NSDictionary> {
+	return _UnsafeBridgeDictionary<[String: T]>(
+		decoder: { (dictionary) -> DecodeResult<[String : T]> in
+
+			var buffer: [String: T] = [:]
+
+			for (key, value) in dictionary {
+
+				guard let stringKey = key as? String else { return .unexpectedValue }
+				let bridgeResult = valueBridge.decode(jsonValue: value)
+
+				switch bridgeResult {
+				case .null: return .unexpectedValue
+				case .unexpectedValue: return .unexpectedValue
+				case .success(let value): buffer[stringKey] = value
 				}
-				return buffer
 			}
-			return nil
+
+			return .success(buffer)
 		},
-		encoder: {array in
-			var buffer = [AnyObject]()
-			for value in array {
-				if let x = itemBridge.encoder(value) {
-					buffer.append(x)
-				}
-				else {
-					return nil
+		encoder: { (dictionary) -> EncodeResult<NSDictionary> in
+
+			var buffer = [String: AnyObject]()
+
+			for (key, value) in dictionary {
+
+				let bridgeResult = valueBridge.encoder(value)
+				switch bridgeResult {
+				case .error: return .error
+				case .success(let value): buffer[key] = value
 				}
 			}
-			return buffer
+			return .success(NSDictionary(dictionary: buffer))
+		}
+	)
+}
+
+public func BridgeArray<T, U>(_ itemBridge: Bridge<T, U>) -> Bridge<[T?], NSArray> {
+	return _UnsafeBridgeArray<[T?]>(
+		decoder: { (array) -> DecodeResult<[T?]> in
+
+			var buffer: [T?] = []
+
+			for element in array {
+				let bridgeResult = itemBridge.decode(jsonValue: element)
+				switch bridgeResult {
+				case .null: buffer.append(.none)
+				case .unexpectedValue: return .unexpectedValue
+				case .success(let value): buffer.append(value)
+				}
+			}
+
+			return .success(buffer)
+		},
+		encoder: { (array) -> EncodeResult<NSArray> in
+
+			var buffer: [AnyObject] = []
+
+			for element in array {
+				guard let element = element else {
+					buffer.append(NSNull())
+					continue
+				}
+
+				let bridgeResult = itemBridge.encode(value: element)
+				switch bridgeResult {
+				case .error: return .error
+				case .success(let value): buffer.append(value)
+				}
+			}
+
+			return .success(NSArray(array: buffer))
+		}
+	)
+}
+
+public func BridgeArray<T, U>(_ itemBridge: Bridge<T, U>) -> Bridge<[T], NSArray> {
+	return _UnsafeBridgeArray<[T]>(
+		decoder: { (array) -> DecodeResult<[T]> in
+
+			var buffer: [T] = []
+
+			for element in array {
+				let bridgeResult = itemBridge.decode(jsonValue: element)
+				switch bridgeResult {
+				case .null: return .unexpectedValue
+				case .unexpectedValue: return .unexpectedValue
+				case .success(let value): buffer.append(value)
+				}
+			}
+
+			return .success(buffer)
+		},
+		encoder: { (array) -> EncodeResult<NSArray> in
+
+			var buffer: [U] = []
+
+			for element in array {
+				let bridgeResult = itemBridge.encode(value: element)
+				switch bridgeResult {
+				case .error: return .error
+				case .success(let value): buffer.append(value)
+				}
+			}
+
+			return .success(NSArray(array: buffer))
 		}
 	)
 }

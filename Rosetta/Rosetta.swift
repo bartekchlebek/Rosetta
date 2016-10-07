@@ -1,13 +1,13 @@
 import Foundation
 
 enum Mode {
-	case Decode
-	case Encode
+	case decode
+	case encode
 }
 
 enum Map<T> {
-	case ValueTypeMap((inout T, Rosetta) -> ())
-	case ClassTypeMap((T, Rosetta) -> ())
+	case valueTypeMap((inout T, Rosetta) -> ())
+	case classTypeMap((T, Rosetta) -> ())
 }
 
 public final class Rosetta {
@@ -18,12 +18,12 @@ public final class Rosetta {
 	var currentValue: AnyObject! { return valueForKeyPath(keyPath, inDictionary: dictionary) }
 	var currentMode: Mode!
 
-	public var logLevel: LogLevel = .Errors
+	public var logLevel: LogLevel = .errors
 	public var logFormatter = defaultLogFormatter
 	public var logHandler = defaultLogHandler
 
-	public func setLogFormatter(formatter: LogFormatter) { logFormatter = formatter }
-	public func setLogHandler(handler: LogHandler) { logHandler = handler }
+	public func setLogFormatter(_ formatter: @escaping LogFormatter) { logFormatter = formatter }
+	public func setLogHandler(_ handler: @escaping LogHandler) { logHandler = handler }
 
 	public init() {
 
@@ -36,16 +36,16 @@ public final class Rosetta {
 		}
 	}
 
-	func decode<T>(input: JSON, inout to object: T, usingMap map: Map<T>) throws {
+	func decode<T>(_ input: JSON, to object: inout T, usingMap map: Map<T>) throws {
 
 		let jsonDictionary = try input.toDictionary()
 
 		// perform test run (check if any mapping fail, to leave the object unchanged)
-		currentMode = .Decode
+		currentMode = .decode
 		dictionary = jsonDictionary
 
 		switch map {
-		case .ClassTypeMap(let map):
+		case .classTypeMap(let map):
 			self.testRun = true
 			map(object, self)
 
@@ -55,7 +55,7 @@ public final class Rosetta {
 
 			self.testRun = false
 			map(object, self)
-		case .ValueTypeMap(let map):
+		case .valueTypeMap(let map):
 			var tmpObject = object
 
 			map(&tmpObject, self)
@@ -69,17 +69,17 @@ public final class Rosetta {
 		self.cleanup()
 	}
 
-	func encode<T>(object: T, usingMap map: Map<T>) throws -> JSON {
+	func encode<T>(_ object: T, usingMap map: Map<T>) throws -> JSON {
 		// prepare rosetta
-		currentMode = .Encode
+		currentMode = .encode
 		dictionary = [:]
 
 		// parse
 		var mutableObject = object
 		switch map {
-		case let .ValueTypeMap(map):
+		case let .valueTypeMap(map):
 			map(&mutableObject, self)
-		case let .ClassTypeMap(map):
+		case let .classTypeMap(map):
 			map(mutableObject, self)
 		}
 
@@ -88,15 +88,15 @@ public final class Rosetta {
 
 		let success = !LogsContainError(logs)
 		switch logLevel {
-		case .None:
+		case .none:
 			break
-		case .Errors:
+		case .errors:
 			if success == false {
-				logHandler(logString: logFormatter(json: nil, logs: logs))
+				logHandler(logFormatter(nil, logs))
 			}
-		case .Verbose:
+		case .verbose:
 			if logs.count > 0 {
-				logHandler(logString: logFormatter(json: nil, logs: logs))
+				logHandler(logFormatter(nil, logs))
 			}
 		}
 
@@ -106,7 +106,7 @@ public final class Rosetta {
 			throw genericError
 		}
 		
-		return JSON(dictionary: result)
+		return JSON(dictionary: result!)
 	}
 
 	//MARK: Helpers
@@ -114,6 +114,6 @@ public final class Rosetta {
 	private func cleanup() {
 		currentMode = nil
 		dictionary = nil
-		logs.removeAll(keepCapacity: false)
+		logs.removeAll(keepingCapacity: false)
 	}
 }

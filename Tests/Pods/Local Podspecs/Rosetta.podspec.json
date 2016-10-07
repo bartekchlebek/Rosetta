@@ -1,6 +1,6 @@
 {
   "name": "Rosetta",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "summary": "Swift JSON mapper",
   "homepage": "https://github.com/bartekchlebek/Rosetta",
   "license": {
@@ -12,7 +12,7 @@
   "social_media_url": "http://twitter.com/bartekchlebek",
   "source": {
     "git": "https://github.com/bartekchlebek/Rosetta.git",
-    "tag": "0.0.3"
+    "tag": "0.0.5"
   },
   "source_files": "Rosetta/*.swift",
   "requires_arc": true,
