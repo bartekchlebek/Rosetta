@@ -12,13 +12,13 @@ public enum EncodeResult<T> {
 }
 
 public class Bridge<T, U: NSObject> {
-	public typealias Decoder = @escaping (U) -> DecodeResult<T>
-	public typealias Encoder = @escaping (T) -> EncodeResult<U>
+	public typealias Decoder = (U) -> DecodeResult<T>
+	public typealias Encoder = (T) -> EncodeResult<U>
 
 	fileprivate let decoder: Decoder
 	fileprivate let encoder: Encoder
 
-	fileprivate init(decoder: Decoder, encoder: Encoder) {
+	fileprivate init(decoder: @escaping Decoder, encoder: @escaping Encoder) {
 		self.decoder = decoder
 		self.encoder = encoder
 	}

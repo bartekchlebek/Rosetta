@@ -22,8 +22,8 @@ public final class Rosetta {
 	public var logFormatter = defaultLogFormatter
 	public var logHandler = defaultLogHandler
 
-	public func setLogFormatter(_ formatter: LogFormatter) { logFormatter = formatter }
-	public func setLogHandler(_ handler: LogHandler) { logHandler = handler }
+	public func setLogFormatter(_ formatter: @escaping LogFormatter) { logFormatter = formatter }
+	public func setLogHandler(_ handler: @escaping LogHandler) { logHandler = handler }
 
 	public init() {
 
