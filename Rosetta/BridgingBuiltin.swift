@@ -193,16 +193,17 @@ public let NSNumberBridge: Bridge<NSNumber, NSNumber> = BridgeNumber<NSNumber>(d
 
 //MARK: Bridge between a JSONConvertible and an object JSON type
 
-public func JSONConvertibleBridge<T: JSONConvertible>() -> Bridge<T, NSDictionary> {
+public func JSONConvertibleBridge<T: JSONConvertible>(usingMap map: @escaping (inout T, Rosetta) -> Void = T.map)
+ -> Bridge<T, NSDictionary> {
 	return _UnsafeBridgeDictionary<T>(
 		decoder: {
 			guard let dictionary = $0 as? [String: AnyObject] else { return .unexpectedValue }
 			let json = JSON(dictionary: dictionary)
-			guard let result = try? Rosetta().decode(json) as T else { return .unexpectedValue }
+			guard let result = try? Rosetta().decode(json, usingMap: map) as T else { return .unexpectedValue }
 			return .success(result)
 		},
 		encoder: {
-			guard let json: JSON = try? Rosetta().encode($0) else { return .error }
+			guard let json: JSON = try? Rosetta().encode($0, usingMap: map) else { return .error }
 			guard let dictionary = json.dictionary else { return .error }
 			return .success(NSDictionary(dictionary: dictionary))
 		}
